@@ -24,4 +24,15 @@ import WorkDayPomo from "./components/WorkDayPomo.vue";
 import WeekDayPomo from "./components/WeekDayPomo.vue";
 import WorkoutTimes from "./components/Workout.vue";
 import SleepHour from "./components/SleepHour.vue";
+import { getWeekReportApi } from "/@/api/weekReport";
+import { onMounted } from "vue";
+
+async function loadWeekReport() {
+  const data = await getWeekReportApi(2022);
+  console.log("data: ", data);
+}
+
+onMounted(() => {
+  loadWeekReport();
+});
 </script>
