@@ -11,7 +11,7 @@ enum Api {
  * @description 根据年份查询周报告数据
  */
 export const getWeekReportApi = (year: number) => {
-  return defHttp.get<WeekReportList>(
+  return defHttp.get<Array<WeekReportList>>(
     { url: `${Api.GET_WEEK_REPORT}/${year}` },
     { errorMessageMode: "none" }
   );

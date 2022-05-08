@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header>
-      <span>工作日番茄钟学习时长</span>
+      <span>周末番茄钟学习时长</span>
     </template>
     <div ref="chartRef" :style="{ width, height }"></div>
   </el-card>
@@ -11,7 +11,6 @@
 import { ref, Ref, onMounted } from "vue";
 import { useECharts } from "/@/hooks/web/useECharts";
 import { basicProps } from "./props";
-import { watch } from "fs";
 
 const props = defineProps({
   ...basicProps,
@@ -19,18 +18,7 @@ const props = defineProps({
 
 const chartRef = ref<Nullable<HTMLDivElement>>(null);
 
-const { setOptions, resize } = useECharts(chartRef as Ref<HTMLDivElement>);
-
-// TODO 响应式更新数据表待实现
-// watch(
-//   () => props.xData[0],
-//   (newValue, oldValue) => {
-//     if (newValue !== oldValue) {
-//       resize();
-//     }
-//   },
-//   { immediate: true }
-// );
+const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
 
 onMounted(() => {
   setOptions({
@@ -84,7 +72,6 @@ onMounted(() => {
     },
     series: [
       {
-        smooth: false,
         data: props.yData,
         type: "line",
         label: {
