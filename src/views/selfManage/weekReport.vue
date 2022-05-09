@@ -16,10 +16,7 @@
     </el-card>
     <el-row class="mb-6" :gutter="10">
       <el-col :span="12">
-        <work-day-pomo
-          v-model:x-data="xData"
-          v-model:y-data="yData.workDayPomoData"
-        />
+        <work-day-pomo :x-data="xData" :y-data="yData.workDayPomoData" />
       </el-col>
       <el-col :span="12">
         <rest-day-pomo :x-data="xData" :y-data="yData.restDayPomoData" />
