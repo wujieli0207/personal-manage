@@ -8,9 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, onMounted } from "vue";
+import { ref, Ref, onMounted, watch } from "vue";
 import { useECharts } from "/@/hooks/web/useECharts";
 import { basicProps } from "./props";
+import { isUndefined } from "lodash-es";
 
 const props = defineProps({
   ...basicProps,
@@ -20,7 +21,24 @@ const chartRef = ref<Nullable<HTMLDivElement>>(null);
 
 const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
 
+watch(
+  () => props.xData,
+  (newValue, oldValue) => {
+    if (newValue !== oldValue && !isUndefined(oldValue)) {
+      LoadChartOptions();
+    }
+  },
+  { immediate: true }
+);
+
 onMounted(() => {
+  LoadChartOptions();
+});
+
+/**
+ * @description 图表参数配置
+ */
+function LoadChartOptions() {
   setOptions({
     tooltip: {
       trigger: "axis",
@@ -78,5 +96,5 @@ onMounted(() => {
       },
     ],
   });
-});
+}
 </script>

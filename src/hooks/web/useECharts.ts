@@ -52,7 +52,7 @@ export function useECharts(elRef: Ref<HTMLDivElement>) {
    */
   function getInstance(): Nullable<echarts.ECharts> {
     if (!chartInstance) {
-      initCharts;
+      initCharts();
     }
     return chartInstance;
   }
@@ -78,10 +78,10 @@ export function useECharts(elRef: Ref<HTMLDivElement>) {
 
           if (!chartInstance) return;
         }
-        clear && chartInstance?.clear();
+        clear && chartInstance.clear();
 
-        chartInstance?.setOption(unref(getOptions));
-      }, 30);
+        chartInstance?.setOption(unref(getOptions), true);
+      }, 1000);
     });
   }
 

@@ -16,7 +16,10 @@
     </el-card>
     <el-row class="mb-6" :gutter="10">
       <el-col :span="12">
-        <work-day-pomo :x-data="xData" :y-data="yData.workDayPomoData" />
+        <work-day-pomo
+          v-model:x-data="xData"
+          v-model:y-data="yData.workDayPomoData"
+        />
       </el-col>
       <el-col :span="12">
         <rest-day-pomo :x-data="xData" :y-data="yData.restDayPomoData" />
@@ -64,6 +67,15 @@ const yData: WeekReportYData = reactive({
 });
 
 async function loadWeekReport() {
+  // 重新加载前数据清空
+  if (xData.value.length !== 0) {
+    xData.value = [];
+    yData.workDayPomoData = [];
+    yData.restDayPomoData = [];
+    yData.workoutTimesData = [];
+    yData.sleepHourData = [];
+  }
+
   const result = await getWeekReportApi(reportYear.value);
 
   result

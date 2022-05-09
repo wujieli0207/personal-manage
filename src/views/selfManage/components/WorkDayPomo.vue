@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, onMounted } from "vue";
+import { ref, Ref, onMounted, watch } from "vue";
 import { useECharts } from "/@/hooks/web/useECharts";
 import { basicProps } from "./props";
-import { watch } from "fs";
+import { isUndefined } from "lodash-es";
 
 const props = defineProps({
   ...basicProps,
@@ -19,20 +19,28 @@ const props = defineProps({
 
 const chartRef = ref<Nullable<HTMLDivElement>>(null);
 
-const { setOptions, resize } = useECharts(chartRef as Ref<HTMLDivElement>);
+const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
 
-// TODO 响应式更新数据表待实现
-// watch(
-//   () => props.xData[0],
-//   (newValue, oldValue) => {
-//     if (newValue !== oldValue) {
-//       resize();
-//     }
-//   },
-//   { immediate: true }
-// );
+watch(
+  () => props.xData,
+  (newValue, oldValue) => {
+    if (newValue !== oldValue && !isUndefined(oldValue)) {
+      LoadChartOptions();
+    }
+  },
+  { immediate: true }
+);
 
 onMounted(() => {
+  LoadChartOptions();
+});
+
+/**
+ * @description 图表参数配置
+ */
+function LoadChartOptions() {
+  console.log(props.xData);
+  console.log(props.yData);
   setOptions({
     tooltip: {
       trigger: "axis",
@@ -93,5 +101,5 @@ onMounted(() => {
       },
     ],
   });
-});
+}
 </script>
