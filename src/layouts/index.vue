@@ -1,13 +1,21 @@
 <template>
   <el-container>
+    <el-aside>
+      <wujie-siderbar />
+    </el-aside>
     <el-container>
+      <el-header>
+        <wujie-header />
+      </el-header>
       <el-main>
-        <wujie-content />
+        <wujie-page />
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script lang="ts" setup>
-import WujieContent from "./page/index.vue";
+import WujiePage from "./page/index.vue";
+import WujieHeader from "./header/index.vue";
+import WujieSiderbar from "./siderbar/index.vue";
 </script>

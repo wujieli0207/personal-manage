@@ -5,7 +5,7 @@ const article: RouteRecordRaw = {
   path: "/selfManage",
   name: "AelfManage",
   component: LAYOUT,
-  // redirect:""
+  // redirect: "",
   meta: {
     title: "个人管理",
   },
