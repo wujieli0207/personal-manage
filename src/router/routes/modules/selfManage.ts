@@ -3,7 +3,7 @@ import { LAYOUT } from "/@/router/constant";
 
 const article: RouteRecordRaw = {
   path: "/selfManage",
-  name: "AelfManage",
+  name: "SelfManage",
   component: LAYOUT,
   // redirect: "",
   meta: {
@@ -11,11 +11,19 @@ const article: RouteRecordRaw = {
   },
   children: [
     {
-      path: "/weekReport",
-      name: "WeekPeport",
-      component: () => import("/@/views/selfManage/weekReport.vue"),
+      path: "/weekReportView",
+      name: "WeekReportView",
+      component: () => import("/@/views/selfManage/WeekReportView/index.vue"),
       meta: {
-        title: "文章管理",
+        title: "每周统计数据视图",
+      },
+    },
+    {
+      path: "/weekReportManage",
+      name: "WeekReportManage",
+      component: () => import("/@/views/selfManage/WeekReportManage/index.vue"),
+      meta: {
+        title: "每周统计数据管理",
       },
     },
   ],

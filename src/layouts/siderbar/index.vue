@@ -19,11 +19,11 @@
         <el-icon><picture-filled /></el-icon>
         <span>个人管理</span>
       </template>
-      <el-menu-item index="/weekReport">
+      <el-menu-item index="/weekReportView">
         <template #title> 每周统计数据查看 </template>
       </el-menu-item>
-      <el-menu-item index="">
-        <template #title> 每周统计数据维护 </template>
+      <el-menu-item index="/weekReportManage">
+        <template #title> 每周统计数据管理 </template>
       </el-menu-item>
     </el-sub-menu>
   </el-menu>

@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside>
+    <el-aside :class="getCollapsed ? 'el-menu--collapse' : ''">
       <wujie-siderbar />
     </el-aside>
     <el-container>
@@ -18,4 +18,8 @@
 import WujiePage from "./page/index.vue";
 import WujieHeader from "./header/index.vue";
 import WujieSiderbar from "./siderbar/index.vue";
+
+import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
+
+const { getCollapsed } = useMenuSetting();
 </script>
