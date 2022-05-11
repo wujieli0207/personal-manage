@@ -1,3 +1,9 @@
+export interface GetWeekReportParams {
+  year: number;
+  pageSize: number;
+  currentPage: number;
+}
+
 export interface WeekReportList {
   id: number;
   title: string;

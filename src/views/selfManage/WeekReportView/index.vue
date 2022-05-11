@@ -73,9 +73,13 @@ async function loadWeekReport() {
     yData.sleepHourData = [];
   }
 
-  const result = await getWeekReportApi(reportYear.value);
+  const result = await getWeekReportApi({
+    year: reportYear.value,
+    pageSize: 1000,
+    currentPage: 1,
+  });
 
-  result
+  result.list
     .sort((a, b) => a.id - b.id)
     .forEach((item) => {
       // x 轴数据

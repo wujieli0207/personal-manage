@@ -28,3 +28,8 @@ export interface Result<T = any> {
   message: string;
   result: T;
 }
+
+export interface ResultRo<T> {
+  list: Array<T>;
+  count: number;
+}

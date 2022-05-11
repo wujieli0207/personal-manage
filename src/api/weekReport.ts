@@ -1,5 +1,5 @@
-import { WeekReportList } from "./model/weekReportModel";
-import { ErrorMessageMode } from "/#/axios";
+import { GetWeekReportParams, WeekReportList } from "./model/weekReportModel";
+import { ResultRo } from "/#/axios";
 import { defHttp } from "/@/utils/http/axios";
 
 enum Api {
@@ -10,9 +10,9 @@ enum Api {
  *
  * @description 根据年份查询周报告数据
  */
-export const getWeekReportApi = (year: number) => {
-  return defHttp.get<Array<WeekReportList>>(
-    { url: `${Api.GET_WEEK_REPORT}/${year}` },
+export const getWeekReportApi = (params: GetWeekReportParams) => {
+  return defHttp.post<ResultRo<WeekReportList>>(
+    { url: Api.GET_WEEK_REPORT, params },
     { errorMessageMode: "none" }
   );
 };

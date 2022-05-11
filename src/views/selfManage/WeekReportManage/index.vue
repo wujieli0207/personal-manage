@@ -5,9 +5,9 @@
       :columns="columns"
       :show-paging="true"
       :pagination="{
-        currentPage: 1,
-        pageSize: 10,
-        total: tableData.length,
+        currentPage: tablePagination.currentPage,
+        pageSize: tablePagination.pageSize,
+        total: tablePagination.total,
       }"
       @pagingChange="handlePagingChange"
     >
@@ -35,15 +35,29 @@
 import { BasicTable } from "/@/components/Table";
 import type { PagingChangingOption } from "/@/components/Pagination/src/types";
 import { ColumnProps } from "/@/components/Table/src/types/columns";
-import { WeekReportList } from "/@/api/model/weekReportModel";
-import { onMounted, Ref, ref } from "vue";
+import {
+  GetWeekReportParams,
+  WeekReportList,
+} from "/@/api/model/weekReportModel";
+import { onMounted, reactive, Ref, ref } from "vue";
 import { getWeekReportApi } from "/@/api/weekReport";
 
 onMounted(() => {
-  loadWeekReport();
+  loadWeekReport({
+    year: currentYear.value,
+    currentPage: tablePagination.currentPage,
+    pageSize: tablePagination.pageSize,
+  });
 });
 
+const currentYear = ref(2022);
+
 const tableData: Ref<Array<WeekReportList>> = ref([]);
+const tablePagination = reactive({
+  currentPage: 1,
+  pageSize: 10,
+  total: 0,
+});
 
 const columns: Array<ColumnProps> = [
   {
@@ -96,10 +110,10 @@ const columns: Array<ColumnProps> = [
  *
  * @description 加载表格数据
  */
-async function loadWeekReport() {
-  const result = await getWeekReportApi(2022);
-  console.log("result: ", result);
-  tableData.value = result;
+async function loadWeekReport(params: GetWeekReportParams) {
+  const result = await getWeekReportApi(params);
+  tableData.value = result.list;
+  tablePagination.total = result.count;
 }
 /**
  *
@@ -114,6 +128,16 @@ function handleClick(type: string, scope: unknown) {
  * @description 处理翻页操作
  */
 function handlePagingChange(option: PagingChangingOption) {
-  console.log("option: ", option);
+  if (option.type === "pageSize") {
+    tablePagination.pageSize = option.val;
+  }
+  if (option.type === "currentPage") {
+    tablePagination.currentPage = option.val;
+  }
+  loadWeekReport({
+    year: currentYear.value,
+    currentPage: tablePagination.currentPage,
+    pageSize: tablePagination.pageSize,
+  });
 }
 </script>
