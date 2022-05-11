@@ -19,32 +19,37 @@
           >编辑</el-button
         >
         <el-divider direction="vertical" />
-        <el-button
-          type="text"
-          size="small"
-          class="text-red-500"
-          @click="handleClick('delete', scope.data)"
-          >删除</el-button
+        <el-popconfirm
+          title="是否确认删除?"
+          @confirm="handleClick('delete', scope.data)"
         >
+          <template #reference>
+            <el-button type="text" size="small" class="text-red-500"
+              >删除</el-button
+            >
+          </template>
+        </el-popconfirm>
       </template>
     </basic-table>
   </el-card>
 </template>
 
 <script lang="ts" setup>
+import { onMounted, reactive, Ref, ref } from "vue";
+import "element-plus/es/components/message/style/css";
+import { ElMessage } from "element-plus";
 import { BasicTable } from "/@/components/Table";
 import type { PagingChangingOption } from "/@/components/Pagination/src/types";
 import { ColumnProps } from "/@/components/Table/src/types/columns";
-import { GetWeekReportParams, WeekReport } from "/@/api/model/weekReportModel";
-import { onMounted, reactive, Ref, ref } from "vue";
-import { getWeekReportByYearApi } from "/@/api/weekReport";
+import { WeekReport } from "/@/api/model/weekReportModel";
+import {
+  getWeekReportByYearApi,
+  getWeekReportByIdApi,
+  removeWeekReportApi,
+} from "/@/api/weekReport";
 
 onMounted(() => {
-  loadWeekReport({
-    year: currentYear.value,
-    currentPage: tablePagination.currentPage,
-    pageSize: tablePagination.pageSize,
-  });
+  loadWeekReport();
 });
 
 const currentYear = ref(2022);
@@ -107,8 +112,12 @@ const columns: Array<ColumnProps> = [
  *
  * @description 加载表格数据
  */
-async function loadWeekReport(params: GetWeekReportParams) {
-  const result = await getWeekReportByYearApi(params);
+async function loadWeekReport() {
+  const result = await getWeekReportByYearApi({
+    year: currentYear.value,
+    currentPage: tablePagination.currentPage,
+    pageSize: tablePagination.pageSize,
+  });
   tableData.value = result.list;
   tablePagination.total = result.count;
 }
@@ -116,12 +125,20 @@ async function loadWeekReport(params: GetWeekReportParams) {
  *
  * @description 处理点击事件操作
  */
-function handleClick(type: string, scope: unknown) {
+async function handleClick(type: string, scope: WeekReport) {
   if (type === "edit") {
-    console.log(scope);
+    const result = await getWeekReportByIdApi(scope.id);
+    console.log("result: ", result);
   }
   if (type === "delete") {
-    console.log(scope);
+    const result = await removeWeekReportApi(scope.id);
+    if (result.id === scope.id) {
+      ElMessage({
+        message: "删除成功！",
+        type: "success",
+      });
+      loadWeekReport();
+    }
   }
 }
 
@@ -135,10 +152,6 @@ function handlePagingChange(option: PagingChangingOption) {
   if (option.type === "currentPage") {
     tablePagination.currentPage = option.val;
   }
-  loadWeekReport({
-    year: currentYear.value,
-    currentPage: tablePagination.currentPage,
-    pageSize: tablePagination.pageSize,
-  });
+  loadWeekReport();
 }
 </script>
