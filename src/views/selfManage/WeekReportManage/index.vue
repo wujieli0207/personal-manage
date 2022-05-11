@@ -35,12 +35,9 @@
 import { BasicTable } from "/@/components/Table";
 import type { PagingChangingOption } from "/@/components/Pagination/src/types";
 import { ColumnProps } from "/@/components/Table/src/types/columns";
-import {
-  GetWeekReportParams,
-  WeekReportList,
-} from "/@/api/model/weekReportModel";
+import { GetWeekReportParams, WeekReport } from "/@/api/model/weekReportModel";
 import { onMounted, reactive, Ref, ref } from "vue";
-import { getWeekReportApi } from "/@/api/weekReport";
+import { getWeekReportByYearApi } from "/@/api/weekReport";
 
 onMounted(() => {
   loadWeekReport({
@@ -52,7 +49,7 @@ onMounted(() => {
 
 const currentYear = ref(2022);
 
-const tableData: Ref<Array<WeekReportList>> = ref([]);
+const tableData: Ref<Array<WeekReport>> = ref([]);
 const tablePagination = reactive({
   currentPage: 1,
   pageSize: 10,
@@ -111,7 +108,7 @@ const columns: Array<ColumnProps> = [
  * @description 加载表格数据
  */
 async function loadWeekReport(params: GetWeekReportParams) {
-  const result = await getWeekReportApi(params);
+  const result = await getWeekReportByYearApi(params);
   tableData.value = result.list;
   tablePagination.total = result.count;
 }
@@ -120,8 +117,12 @@ async function loadWeekReport(params: GetWeekReportParams) {
  * @description 处理点击事件操作
  */
 function handleClick(type: string, scope: unknown) {
-  console.log("type: ", type);
-  console.log("scope: ", scope);
+  if (type === "edit") {
+    console.log(scope);
+  }
+  if (type === "delete") {
+    console.log(scope);
+  }
 }
 
 /**

@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, reactive, Ref, ref } from "vue";
-import { getWeekReportApi } from "/@/api/weekReport";
+import { getWeekReportByYearApi } from "/@/api/weekReport";
 import WorkDayPomo from "./components/WorkDayPomo.vue";
 import RestDayPomo from "./components/RestDayPomo.vue";
 import WorkoutTimes from "./components/Workout.vue";
@@ -73,7 +73,7 @@ async function loadWeekReport() {
     yData.sleepHourData = [];
   }
 
-  const result = await getWeekReportApi({
+  const result = await getWeekReportByYearApi({
     year: reportYear.value,
     pageSize: 1000,
     currentPage: 1,

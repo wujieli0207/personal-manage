@@ -4,7 +4,7 @@ export interface GetWeekReportParams {
   currentPage: number;
 }
 
-export interface WeekReportList {
+export interface WeekReport {
   id: number;
   title: string;
   workDayPomo: number;
