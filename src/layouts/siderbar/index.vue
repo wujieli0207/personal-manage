@@ -1,8 +1,6 @@
 <template>
-  <!-- TODO tailwind leading-12 无效 -->
   <div
-    class="h-12 text-xl font-semibold text-center text-white bg-slate-900"
-    style="line-height: 3rem"
+    class="h-12 text-xl font-semibold text-white bg-slate-900 flex justify-center items-center"
   >
     <div v-if="!getCollapsed">{{ title }}</div>
   </div>
