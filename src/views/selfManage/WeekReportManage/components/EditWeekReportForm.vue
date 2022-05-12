@@ -74,20 +74,28 @@
 
 <script lang="ts" setup>
 import { omit } from "lodash-es";
-import { PropType } from "vue";
+import { onMounted, PropType, Ref, ref } from "vue";
 import "element-plus/es/components/message/style/css";
 import { ElMessage } from "element-plus";
 import { WeekReport } from "/@/api/model/weekReportModel";
-import { updateWeekReportApi } from "/@/api/weekReport";
+import { editWeekReportApi, createWeekReportApi } from "/@/api/weekReport";
+import { EditType } from "/@/enums/appEnum";
 
 const props = defineProps({
   formData: {
     type: Object as PropType<WeekReport>,
     default: () => {},
+    required: true,
+  },
+  editType: {
+    type: String as PropType<EditType>,
+    default: EditType.CREATE,
+    required: true,
   },
   isDialogShow: {
     type: Boolean,
     default: false,
+    required: true,
   },
   dialogTitle: {
     type: String,
@@ -101,15 +109,20 @@ const emit = defineEmits(["update:isDialogShow"]);
  * @description 提交保存
  */
 async function handleSubmit() {
-  const id = props.formData.id;
-  const result = await updateWeekReportApi(id, omit(props.formData, "id"));
+  if (props.editType === EditType.CREATE) {
+    console.log("formData: ", props.formData);
+  }
+  if (props.editType === EditType.UPDATE) {
+    const id = props.formData.id;
+    const result = await editWeekReportApi(id, omit(props.formData, "id"));
 
-  if (id === result.id) {
-    handleClose();
-    ElMessage({
-      message: "修改成功！",
-      type: "success",
-    });
+    if (id === result.id) {
+      handleClose();
+      ElMessage({
+        message: "修改成功！",
+        type: "success",
+      });
+    }
   }
 }
 

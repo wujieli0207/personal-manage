@@ -1,6 +1,6 @@
 import {
   GetWeekReportParams,
-  UpdateWeekReport,
+  EditWeekReport,
   WeekReport,
 } from "./model/weekReportModel";
 import { ResultRo } from "/#/axios";
@@ -8,6 +8,7 @@ import { defHttp } from "/@/utils/http/axios";
 
 enum Api {
   GET_WEEK_REPORT = "/api/week-report/getWeekReport",
+  CREATE_WEEK_REPORT = "/api/week-report/create",
   UPDATE_WEEK_REPORT = "/api/week-report/update",
   REMOVE_WEEK_REPORT = "/api/week-report/remove",
 }
@@ -38,7 +39,18 @@ export const getWeekReportByIdApi = (id: number) => {
  *
  * @description 根据年份查询周报告数据
  */
-export const updateWeekReportApi = (id: number, params: UpdateWeekReport) => {
+export const createWeekReportApi = (id: number, params: EditWeekReport) => {
+  return defHttp.post<WeekReport>(
+    { url: `${Api.UPDATE_WEEK_REPORT}/${id}`, params },
+    { errorMessageMode: "none" }
+  );
+};
+
+/**
+ *
+ * @description 根据年份查询周报告数据
+ */
+export const editWeekReportApi = (id: number, params: EditWeekReport) => {
   return defHttp.post<WeekReport>(
     { url: `${Api.UPDATE_WEEK_REPORT}/${id}`, params },
     { errorMessageMode: "none" }

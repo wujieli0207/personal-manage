@@ -2,3 +2,10 @@ export enum SessionTimeoutProcessingEnum {
   PROUTE_JUMP,
   PAGE_COVERAGE,
 }
+
+// 数据操作类型
+export enum EditType {
+  CREATE = "create", // 新增
+  UPDATE = "update", // 修改
+  DELETE = "delete", // 删除
+}

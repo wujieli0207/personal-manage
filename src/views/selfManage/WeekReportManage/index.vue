@@ -1,4 +1,30 @@
 <template>
+  <!-- 查询条件 -->
+  <el-card class="mb-4">
+    <el-form :inline="true">
+      <el-form-item class="mb-0" label="查询年份: ">
+        <el-select v-model="currentYear">
+          <el-option
+            v-for="year in yearRange"
+            :key="year"
+            :label="`${year}年`"
+            :value="year"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item class="mb-0">
+        <el-button type="primary" @click="loadWeekReport">查询</el-button>
+      </el-form-item>
+      <el-form-item class="mb-0">
+        <el-button type="primary" @click="handleClick(EditType.CREATE)"
+          >新增</el-button
+        >
+      </el-form-item>
+    </el-form>
+  </el-card>
+
+  <!-- 基础表格 -->
   <el-card>
     <basic-table
       :data="tableData"
@@ -15,13 +41,13 @@
         <el-button
           type="text"
           size="small"
-          @click="handleClick('edit', scope.data)"
+          @click="handleClick(EditType.UPDATE, scope.data)"
           >编辑</el-button
         >
         <el-divider direction="vertical" />
         <el-popconfirm
           title="是否确认删除?"
-          @confirm="handleClick('delete', scope.data)"
+          @confirm="handleClick(EditType.DELETE, scope.data)"
         >
           <template #reference>
             <el-button type="text" size="small" class="text-red-500"
@@ -33,16 +59,16 @@
     </basic-table>
 
     <edit-week-report-form
-      :form-data="EditWeekReportData"
+      :form-data="editWeekReportData"
+      :edit-type="editType"
       v-model:is-dialog-show="isDialogShow"
       dialog-title="编辑每周统计数据"
-      v-model:is-submit-success="submitResult"
     />
   </el-card>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, Ref, ref, watch } from "vue";
+import { computed, onMounted, reactive, Ref, ref, watch } from "vue";
 import { ElMessage } from "element-plus";
 import "element-plus/es/components/message/style/css";
 import { BasicTable } from "/@/components/Table";
@@ -55,16 +81,26 @@ import {
   removeWeekReportApi,
 } from "/@/api/weekReport";
 import { PagingChangingOption } from "/@/components/Pagination/src/types";
+import { EditType } from "/@/enums/appEnum";
 
 onMounted(() => {
   loadWeekReport();
 });
 
 const isDialogShow = ref(false);
-const EditWeekReportData = ref({}) as Ref<WeekReport>;
-const submitResult = ref(null);
+const editWeekReportData = ref({}) as Ref<WeekReport>;
+const editType = ref() as Ref<EditType>;
 
-const currentYear = ref(2022);
+const currentYear = ref(new Date().getFullYear());
+const yearRange = computed(() => {
+  return [
+    currentYear.value + 2,
+    currentYear.value + 1,
+    currentYear.value,
+    currentYear.value - 1,
+    currentYear.value - 2,
+  ];
+});
 
 const tableData: Ref<Array<WeekReport>> = ref([]);
 const tablePagination = reactive({
@@ -143,15 +179,20 @@ async function loadWeekReport() {
 }
 /**
  *
- * @description 处理点击事件操作
+ * @description 处理数据操作事件
  */
-async function handleClick(type: string, scope: WeekReport) {
-  if (type === "edit") {
+async function handleClick(type: EditType, scope?: WeekReport) {
+  console.log("type: ", type);
+  if (type === EditType.CREATE) {
     isDialogShow.value = true;
-    console.log("isDialogShow.value: ", isDialogShow.value);
-    EditWeekReportData.value = await getWeekReportByIdApi(scope.id);
+    editType.value = EditType.CREATE;
   }
-  if (type === "delete") {
+  if (type === EditType.UPDATE && scope) {
+    isDialogShow.value = true;
+    editType.value = EditType.UPDATE;
+    editWeekReportData.value = await getWeekReportByIdApi(scope.id);
+  }
+  if (type === EditType.DELETE && scope) {
     const result = await removeWeekReportApi(scope.id);
     if (result.id === scope.id) {
       ElMessage({
