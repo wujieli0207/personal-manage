@@ -31,26 +31,38 @@
         </el-popconfirm>
       </template>
     </basic-table>
+
+    <edit-week-report-form
+      :form-data="EditWeekReportData"
+      v-model:is-dialog-show="isDialogShow"
+      dialog-title="编辑每周统计数据"
+      v-model:is-submit-success="submitResult"
+    />
   </el-card>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, Ref, ref } from "vue";
-import "element-plus/es/components/message/style/css";
+import { onMounted, reactive, Ref, ref, watch } from "vue";
 import { ElMessage } from "element-plus";
+import "element-plus/es/components/message/style/css";
 import { BasicTable } from "/@/components/Table";
-import type { PagingChangingOption } from "/@/components/Pagination/src/types";
-import { ColumnProps } from "/@/components/Table/src/types/columns";
+import EditWeekReportForm from "./components/EditWeekReportForm.vue";
 import { WeekReport } from "/@/api/model/weekReportModel";
+import { ColumnProps } from "/@/components/Table/src/types/columns";
 import {
-  getWeekReportByYearApi,
   getWeekReportByIdApi,
+  getWeekReportByYearApi,
   removeWeekReportApi,
 } from "/@/api/weekReport";
+import { PagingChangingOption } from "/@/components/Pagination/src/types";
 
 onMounted(() => {
   loadWeekReport();
 });
+
+const isDialogShow = ref(false);
+const EditWeekReportData = ref({}) as Ref<WeekReport>;
+const submitResult = ref(null);
 
 const currentYear = ref(2022);
 
@@ -108,6 +120,14 @@ const columns: Array<ColumnProps> = [
   },
 ];
 
+// TODO 对于提交数据后刷新表格，目前还没有特别好的的处理方案，
+// 暂时使用监听 isDialogShow 实现，但是在没有修改数据时会多一次请求数据
+watch(isDialogShow, (newValue, oldValue) => {
+  if (newValue !== oldValue && newValue === false) {
+    loadWeekReport();
+  }
+});
+
 /**
  *
  * @description 加载表格数据
@@ -127,8 +147,9 @@ async function loadWeekReport() {
  */
 async function handleClick(type: string, scope: WeekReport) {
   if (type === "edit") {
-    const result = await getWeekReportByIdApi(scope.id);
-    console.log("result: ", result);
+    isDialogShow.value = true;
+    console.log("isDialogShow.value: ", isDialogShow.value);
+    EditWeekReportData.value = await getWeekReportByIdApi(scope.id);
   }
   if (type === "delete") {
     const result = await removeWeekReportApi(scope.id);

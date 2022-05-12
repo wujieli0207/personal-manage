@@ -14,3 +14,5 @@ export interface WeekReport {
   startDate: Date;
   endDate: Date;
 }
+
+export interface UpdateWeekReport extends Omit<WeekReport, "id"> {}
