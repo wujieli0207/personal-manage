@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BasicForm: typeof import('./src/components/Form/src/BasicForm.vue')['default']
     BasicPagination: typeof import('./src/components/Pagination/src/BasicPagination.vue')['default']
     BasicTable: typeof import('./src/components/Table/src/BasicTable.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
@@ -35,6 +36,7 @@ declare module '@vue/runtime-core' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    FormItem: typeof import('./src/components/Form/src/components/FormItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
