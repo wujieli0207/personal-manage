@@ -15,11 +15,9 @@
         mode="out-in"
         appear
       >
-        <!-- TODO 开启 keep-alive -->
-        <!-- <keep-alive> -->
-        <component :is="Component" />
-        <!-- :key="route.meta.usePathKey ? route.path : undefined" -->
-        <!-- </keep-alive> -->
+        <keep-alive>
+          <component :is="Component" :key="route.fullPath" />
+        </keep-alive>
       </transition>
     </template>
   </router-view>
