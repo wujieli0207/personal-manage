@@ -37,6 +37,7 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     FormItem: typeof import('./src/components/Form/src/components/FormItem.vue')['default']
+    Layer: typeof import('./src/components/Layer/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

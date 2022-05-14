@@ -5,14 +5,14 @@ export interface GetWeekReportParams {
 }
 
 export interface WeekReport {
-  id: number;
+  id: number | string;
   title: string;
-  workDayPomo: number;
-  restDayPomo: number;
-  workoutTimes: number;
+  workDayPomo: number | string;
+  restDayPomo: number | string;
+  workoutTimes: number | string;
   averageSleepHour: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | string;
+  endDate: Date | string;
 }
 
 export interface EditWeekReport extends Omit<WeekReport, "id"> {}

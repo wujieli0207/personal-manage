@@ -1,6 +1,10 @@
 <template>
-  <el-dialog v-model="isDialogShow" :title="dialogTitle">
-    <el-form label-position="left" label-width="auto">
+  <Layer
+    v-model:isDialogShow="isDialogShow"
+    :title="dialogTitle"
+    @confirm="handleSubmit"
+  >
+    <el-form :model="formData" label-position="left" label-width="auto">
       <el-row :gutter="20">
         <el-col :span="11">
           <el-form-item label="ID">
@@ -63,20 +67,15 @@
         </el-col>
       </el-row>
     </el-form>
-
-    <!-- 底部按钮 -->
-    <div class="flex justify-evenly">
-      <el-button type="primary" @click="handleSubmit">确定</el-button>
-      <el-button type="primary" @click="handleClose">取消</el-button>
-    </div>
-  </el-dialog>
+  </Layer>
 </template>
 
 <script lang="ts" setup>
 import { omit } from "lodash-es";
-import { onMounted, PropType, Ref, ref } from "vue";
+import { PropType } from "vue";
 import "element-plus/es/components/message/style/css";
 import { ElMessage } from "element-plus";
+import Layer from "/@/components/Layer/index.vue";
 import { WeekReport } from "/@/api/model/weekReportModel";
 import { editWeekReportApi, createWeekReportApi } from "/@/api/weekReport";
 import { EditType } from "/@/enums/appEnum";
@@ -110,26 +109,27 @@ const emit = defineEmits(["update:isDialogShow"]);
  */
 async function handleSubmit() {
   if (props.editType === EditType.CREATE) {
-    console.log("formData: ", props.formData);
+    const result = await createWeekReportApi(omit(props.formData, "id"));
+
+    if (result.id) {
+      emit("update:isDialogShow", false);
+      ElMessage({
+        message: "新增成功！",
+        type: "success",
+      });
+    }
   }
   if (props.editType === EditType.UPDATE) {
     const id = props.formData.id;
     const result = await editWeekReportApi(id, omit(props.formData, "id"));
 
     if (id === result.id) {
-      handleClose();
+      emit("update:isDialogShow", false);
       ElMessage({
         message: "修改成功！",
         type: "success",
       });
     }
   }
-}
-
-/**
- * @description 取消
- */
-function handleClose() {
-  emit("update:isDialogShow", false);
 }
 </script>

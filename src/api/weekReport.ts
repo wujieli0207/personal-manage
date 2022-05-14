@@ -26,9 +26,9 @@ export const getWeekReportByYearApi = (params: GetWeekReportParams) => {
 
 /**
  *
- * @description 根据年份查询周报告数据
+ * @description 根据 ID 查询周报告数据
  */
-export const getWeekReportByIdApi = (id: number) => {
+export const getWeekReportByIdApi = (id: number | string) => {
   return defHttp.get<WeekReport>(
     { url: `${Api.GET_WEEK_REPORT}/${id}` },
     { errorMessageMode: "none" }
@@ -37,9 +37,23 @@ export const getWeekReportByIdApi = (id: number) => {
 
 /**
  *
- * @description 根据年份查询周报告数据
+ * @description 新增周报告数据
  */
-export const createWeekReportApi = (id: number, params: EditWeekReport) => {
+export const createWeekReportApi = (params: EditWeekReport) => {
+  return defHttp.post<WeekReport>(
+    { url: Api.CREATE_WEEK_REPORT, params },
+    { errorMessageMode: "none" }
+  );
+};
+
+/**
+ *
+ * @description 修改周报告数据
+ */
+export const editWeekReportApi = (
+  id: number | string,
+  params: EditWeekReport
+) => {
   return defHttp.post<WeekReport>(
     { url: `${Api.UPDATE_WEEK_REPORT}/${id}`, params },
     { errorMessageMode: "none" }
@@ -48,20 +62,9 @@ export const createWeekReportApi = (id: number, params: EditWeekReport) => {
 
 /**
  *
- * @description 根据年份查询周报告数据
+ * @description 删除周报告数据
  */
-export const editWeekReportApi = (id: number, params: EditWeekReport) => {
-  return defHttp.post<WeekReport>(
-    { url: `${Api.UPDATE_WEEK_REPORT}/${id}`, params },
-    { errorMessageMode: "none" }
-  );
-};
-
-/**
- *
- * @description 根据年份查询周报告数据
- */
-export const removeWeekReportApi = (id: number) => {
+export const removeWeekReportApi = (id: number | string) => {
   return defHttp.post<WeekReport>(
     { url: `${Api.REMOVE_WEEK_REPORT}/${id}` },
     { errorMessageMode: "none" }

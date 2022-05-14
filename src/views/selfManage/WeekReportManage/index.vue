@@ -181,20 +181,29 @@ async function loadWeekReport() {
  *
  * @description 处理数据操作事件
  */
-async function handleClick(type: EditType, scope?: WeekReport) {
-  console.log("type: ", type);
+async function handleClick(type: EditType, scopeData?: WeekReport) {
   if (type === EditType.CREATE) {
     isDialogShow.value = true;
     editType.value = EditType.CREATE;
+    editWeekReportData.value = {
+      id: "",
+      title: "",
+      workDayPomo: "",
+      restDayPomo: "",
+      workoutTimes: "",
+      averageSleepHour: "",
+      startDate: "",
+      endDate: "",
+    };
   }
-  if (type === EditType.UPDATE && scope) {
+  if (type === EditType.UPDATE && !!scopeData) {
     isDialogShow.value = true;
     editType.value = EditType.UPDATE;
-    editWeekReportData.value = await getWeekReportByIdApi(scope.id);
+    editWeekReportData.value = await getWeekReportByIdApi(scopeData.id);
   }
-  if (type === EditType.DELETE && scope) {
-    const result = await removeWeekReportApi(scope.id);
-    if (result.id === scope.id) {
+  if (type === EditType.DELETE && !!scopeData) {
+    const result = await removeWeekReportApi(scopeData.id);
+    if (result.id === scopeData.id) {
       ElMessage({
         message: "删除成功！",
         type: "success",
