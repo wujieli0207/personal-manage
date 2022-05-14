@@ -1,7 +1,7 @@
 import {
   GetUserInfoModel,
   LoginParams,
-  LoginresultModel,
+  LoginResultModel,
 } from "./model/userModel";
 import { ErrorMessageMode } from "/#/axios";
 import { defHttp } from "/@/utils/http/axios";
@@ -19,7 +19,7 @@ export const loginApi = (
   params: LoginParams,
   mode: ErrorMessageMode = "modal"
 ) => {
-  return defHttp.post<LoginresultModel>(
+  return defHttp.post<LoginResultModel>(
     { url: Api.LOGIN, params },
     { errorMessageMode: mode }
   );

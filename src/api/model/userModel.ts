@@ -12,7 +12,7 @@ export interface LoginParams {
 
 export interface GetUserInfoModel extends Omit<UserInfo, "homePath"> {}
 
-export interface LoginresultModel {
+export interface LoginResultModel {
   userId: string | number;
   token: string;
   role: RoleInfo;
