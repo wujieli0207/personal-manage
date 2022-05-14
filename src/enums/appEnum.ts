@@ -10,6 +10,7 @@ export enum EditType {
   DELETE = "delete", // 删除
 }
 
+// 路由动画切换方式
 export enum RouterTransitionEnum {
   ZOOM_FADE = "zoom-fade",
   ZOOM_OUT = "zoom-out",
@@ -17,4 +18,9 @@ export enum RouterTransitionEnum {
   FADE = "fade",
   FADE_BOTTOM = "fade-bottom",
   FADE_SCALE = "fade-scale",
+}
+
+// 登陆方式
+export enum LoginTypeEnum {
+  LOGIN, // 普通登陆
 }
