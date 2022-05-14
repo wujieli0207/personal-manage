@@ -8,4 +8,9 @@ declare global {
   declare type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
   };
+
+  declare interface ViteEnv {
+    VITE_PORT: number; // 项目端口号
+    VITE_USE_MOCK: boolean; // 是否使用 mock 数据
+  }
 }
