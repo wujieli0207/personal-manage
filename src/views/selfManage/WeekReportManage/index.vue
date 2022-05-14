@@ -1,70 +1,72 @@
 <template>
-  <!-- 查询条件 -->
-  <el-card class="mb-4">
-    <el-form :inline="true">
-      <el-form-item class="mb-0" label="查询年份: ">
-        <el-select v-model="currentYear">
-          <el-option
-            v-for="year in yearRange"
-            :key="year"
-            :label="`${year}年`"
-            :value="year"
-          />
-        </el-select>
-      </el-form-item>
+  <div>
+    <!-- 查询条件 -->
+    <el-card class="mb-4">
+      <el-form :inline="true">
+        <el-form-item class="mb-0" label="查询年份: ">
+          <el-select v-model="currentYear">
+            <el-option
+              v-for="year in yearRange"
+              :key="year"
+              :label="`${year}年`"
+              :value="year"
+            />
+          </el-select>
+        </el-form-item>
 
-      <el-form-item class="mb-0">
-        <el-button type="primary" @click="loadWeekReport">查询</el-button>
-      </el-form-item>
-      <el-form-item class="mb-0">
-        <el-button type="primary" @click="handleClick(EditType.CREATE)"
-          >新增</el-button
-        >
-      </el-form-item>
-    </el-form>
-  </el-card>
+        <el-form-item class="mb-0">
+          <el-button type="primary" @click="loadWeekReport">查询</el-button>
+        </el-form-item>
+        <el-form-item class="mb-0">
+          <el-button type="primary" @click="handleClick(EditType.CREATE)"
+            >新增</el-button
+          >
+        </el-form-item>
+      </el-form>
+    </el-card>
 
-  <!-- 基础表格 -->
-  <el-card>
-    <basic-table
-      :data="tableData"
-      :columns="columns"
-      :show-paging="true"
-      :pagination="{
-        currentPage: tablePagination.currentPage,
-        pageSize: tablePagination.pageSize,
-        total: tablePagination.total,
-      }"
-      @pagingChange="handlePagingChange"
-    >
-      <template #action="scope">
-        <el-button
-          type="text"
-          size="small"
-          @click="handleClick(EditType.UPDATE, scope.data)"
-          >编辑</el-button
-        >
-        <el-divider direction="vertical" />
-        <el-popconfirm
-          title="是否确认删除?"
-          @confirm="handleClick(EditType.DELETE, scope.data)"
-        >
-          <template #reference>
-            <el-button type="text" size="small" class="text-red-500"
-              >删除</el-button
-            >
-          </template>
-        </el-popconfirm>
-      </template>
-    </basic-table>
+    <!-- 基础表格 -->
+    <el-card>
+      <basic-table
+        :data="tableData"
+        :columns="columns"
+        :show-paging="true"
+        :pagination="{
+          currentPage: tablePagination.currentPage,
+          pageSize: tablePagination.pageSize,
+          total: tablePagination.total,
+        }"
+        @pagingChange="handlePagingChange"
+      >
+        <template #action="scope">
+          <el-button
+            type="text"
+            size="small"
+            @click="handleClick(EditType.UPDATE, scope.data)"
+            >编辑</el-button
+          >
+          <el-divider direction="vertical" />
+          <el-popconfirm
+            title="是否确认删除?"
+            @confirm="handleClick(EditType.DELETE, scope.data)"
+          >
+            <template #reference>
+              <el-button type="text" size="small" class="text-red-500"
+                >删除</el-button
+              >
+            </template>
+          </el-popconfirm>
+        </template>
+      </basic-table>
 
-    <edit-week-report-form
-      :form-data="editWeekReportData"
-      :edit-type="editType"
-      v-model:is-dialog-show="isDialogShow"
-      dialog-title="编辑每周统计数据"
-    />
-  </el-card>
+      <edit-week-report-form
+        :form-data="editWeekReportData"
+        :edit-type="editType"
+        v-model:is-dialog-show="isDialogShow"
+        dialog-title="编辑每周统计数据"
+      />
+    </el-card>
+  </div>
 </template>
 
 <script lang="ts" setup>

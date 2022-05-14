@@ -1,4 +1,7 @@
-import { SessionTimeoutProcessingEnum } from "../enums/appEnum";
+import {
+  RouterTransitionEnum,
+  SessionTimeoutProcessingEnum,
+} from "../enums/appEnum";
 import { ProjectConfig } from "/#/config";
 import { CacheTypeEnum } from "/@/enums/cacheEnum";
 
@@ -10,6 +13,13 @@ const projectSetting: ProjectConfig = {
   menuSetting: {
     collapsed: false, // 侧边栏默认不折叠
   },
+  transitionSetting: {
+    enable: true,
+    basicTransition: RouterTransitionEnum.FADE_SLIDE,
+    openPageLoading: true,
+    openNProgress: false,
+  },
+  openKeepAlive: true,
 };
 
 export default projectSetting;

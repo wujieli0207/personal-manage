@@ -1,3 +1,4 @@
+import { TransitionSetting } from "./../../../types/config.d";
 import { defineStore } from "pinia";
 import { ProjectConfig, MenuSetting } from "/#/config";
 import { PROJ_CFG_KEY } from "/@/enums/cacheEnum";
@@ -19,6 +20,9 @@ export const useAppStore = defineStore({
     },
     getMenuSetting(): MenuSetting {
       return this.getProjectConfig.menuSetting;
+    },
+    getTransitionSetting(): TransitionSetting {
+      return this.getProjectConfig.transitionSetting;
     },
   },
   actions: {

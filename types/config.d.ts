@@ -1,4 +1,7 @@
-import { SessionTimeoutProcessingEnum } from "/@/enums/appEnum";
+import {
+  RouterTransitionEnum,
+  SessionTimeoutProcessingEnum,
+} from "/@/enums/appEnum";
 import { CacheTypeEnum } from "/@/enums/cacheEnum";
 
 export interface AppointConfig {
@@ -35,4 +38,15 @@ export interface ProjectConfig {
   sessionTimeoutProcessing: SessionTimeoutProcessingEnum;
   // 菜单配置项
   menuSetting: MenuSetting;
+  // 组件切换过渡动画配置
+  transitionSetting: TransitionSetting;
+  // 是否开启 keep-alive
+  openKeepAlive: boolean;
+}
+
+export interface TransitionSetting {
+  enable: boolean; // 是否开启页面过度动画
+  basicTransition: RouterTransitionEnum;
+  openPageLoading: boolean;
+  openNProgress: boolean; // 是否开启顶部进度条
 }
