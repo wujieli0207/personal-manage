@@ -11,9 +11,12 @@ import { formatRequestDate, joinTimestamp } from "./helper";
 import { getToken } from "/@/utils/auth";
 import { useErrorLogStoreWithOut } from "/@/store/modules/errorLog";
 import { checkStatus } from "./checkStatus";
+import { useMessage } from "/@/hooks/web/useMessage";
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
+
+const { createMessage, createErrorAlert } = useMessage();
 
 const transform: AxiosTransform = {
   /**
@@ -61,14 +64,14 @@ const transform: AxiosTransform = {
         }
     }
 
-    // modal 用于重要消息提示，none 用于调用时不希望自动弹出错误提示
-    // TODO 消息提示
-    // if (options.errorMessageMode === "modal") {
-    //   createErrorModal({ title: "错误提示", content: timeoutMsg });
-    // }
-    // if (options.errorMessageMode === "message") {
-    //   createMessage.error(timeoutMsg);
-    // }
+    // alert 用于重要消息提示，需要点击确认关闭，message 是不普通消息提示
+    // none 用于调用时不希望自动弹出错误提示
+    if (options.errorMessageMode === "alert") {
+      createErrorAlert({ title: "错误提示", message: timeoutMsg });
+    }
+    if (options.errorMessageMode === "message") {
+      createMessage.error(timeoutMsg);
+    }
 
     throw new Error(timeoutMsg || "请求出错，请稍后重试");
   },
@@ -195,13 +198,12 @@ const transform: AxiosTransform = {
       }
 
       if (errMessage) {
-        // TODO 消息提示
-        // if (errorMessageMode === "modal") {
-        //   createErrorModal({ title: "错误提示", content: errMessage });
-        // }
-        // if (errorMessageMode === "message") {
-        //   createMessage.error(errMessage);
-        // }
+        if (errorMessageMode === "alert") {
+          createErrorAlert({ title: "错误提示", message: errMessage });
+        }
+        if (errorMessageMode === "message") {
+          createMessage.error(errMessage);
+        }
         return Promise.reject(error);
       }
     } catch (error) {
