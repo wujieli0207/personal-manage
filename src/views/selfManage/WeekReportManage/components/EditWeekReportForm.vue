@@ -73,11 +73,13 @@
 <script lang="ts" setup>
 import { omit } from "lodash-es";
 import { PropType } from "vue";
-import { ElMessage } from "element-plus";
 import Layer from "/@/components/Layer/index.vue";
 import { WeekReport } from "/@/api/model/weekReportModel";
 import { editWeekReportApi, createWeekReportApi } from "/@/api/weekReport";
 import { EditType } from "/@/enums/appEnum";
+import { useMessage } from "/@/hooks/web/useMessage";
+
+const { createMessage } = useMessage();
 
 const props = defineProps({
   formData: {
@@ -112,9 +114,8 @@ async function handleSubmit() {
 
     if (result.id) {
       emit("update:isDialogShow", false);
-      ElMessage({
+      createMessage.success({
         message: "新增成功！",
-        type: "success",
       });
     }
   }
@@ -124,9 +125,8 @@ async function handleSubmit() {
 
     if (id === result.id) {
       emit("update:isDialogShow", false);
-      ElMessage({
+      createMessage.success({
         message: "修改成功！",
-        type: "success",
       });
     }
   }

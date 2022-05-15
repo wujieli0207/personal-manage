@@ -71,7 +71,6 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, reactive, Ref, ref, watch } from "vue";
-import { ElMessage } from "element-plus";
 import { BasicTable } from "/@/components/Table";
 import EditWeekReportForm from "./components/EditWeekReportForm.vue";
 import { WeekReport } from "/@/api/model/weekReportModel";
@@ -83,6 +82,9 @@ import {
 } from "/@/api/weekReport";
 import { PagingChangingOption } from "/@/components/Pagination/src/types";
 import { EditType } from "/@/enums/appEnum";
+import { useMessage } from "/@/hooks/web/useMessage";
+
+const { createMessage } = useMessage();
 
 onMounted(() => {
   loadWeekReport();
@@ -205,9 +207,8 @@ async function handleClick(type: EditType, scopeData?: WeekReport) {
   if (type === EditType.DELETE && !!scopeData) {
     const result = await removeWeekReportApi(scopeData.id);
     if (result.id === scopeData.id) {
-      ElMessage({
+      createMessage.success({
         message: "删除成功！",
-        type: "success",
       });
       loadWeekReport();
     }
