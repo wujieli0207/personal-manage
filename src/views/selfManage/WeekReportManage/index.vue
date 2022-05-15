@@ -72,7 +72,6 @@
 <script lang="ts" setup>
 import { computed, onMounted, reactive, Ref, ref, watch } from "vue";
 import { ElMessage } from "element-plus";
-import "element-plus/es/components/message/style/css";
 import { BasicTable } from "/@/components/Table";
 import EditWeekReportForm from "./components/EditWeekReportForm.vue";
 import { WeekReport } from "/@/api/model/weekReportModel";

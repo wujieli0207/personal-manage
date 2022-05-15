@@ -1,7 +1,12 @@
 import vue from "@vitejs/plugin-vue";
 
 import { PluginOption } from "vite";
-import { autoImportPlugin, importElementPlusPlugin } from "./autoImport";
+import {
+  autoImportPlugin,
+  importElementPlusPlugin,
+  unpluginElementPlusPlugin,
+} from "./autoImport";
+import { configMockPlugin } from "./mock";
 
 export function createVitePlugins(
   viteEnv: ViteEnv,
@@ -13,11 +18,12 @@ export function createVitePlugins(
     vue(), // 必须
   ];
 
-  //   VITE_USE_MOCK && vite;
+  VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild));
 
   // element plus 按需导入插件
   vitePlugins.push(autoImportPlugin());
   vitePlugins.push(importElementPlusPlugin());
+  vitePlugins.push(unpluginElementPlusPlugin());
 
   return vitePlugins;
 }

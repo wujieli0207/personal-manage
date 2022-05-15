@@ -73,7 +73,6 @@
 <script lang="ts" setup>
 import { omit } from "lodash-es";
 import { PropType } from "vue";
-import "element-plus/es/components/message/style/css";
 import { ElMessage } from "element-plus";
 import Layer from "/@/components/Layer/index.vue";
 import { WeekReport } from "/@/api/model/weekReportModel";
