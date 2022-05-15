@@ -1,7 +1,7 @@
-import { RouteRecordRaw } from "vue-router";
+import { AppRouteRecordRaw } from "/@/router/types";
 import { LAYOUT } from "/@/router/constant";
 
-const article: RouteRecordRaw = {
+const article: AppRouteRecordRaw = {
   path: "/selfManage",
   name: "SelfManage",
   component: LAYOUT,

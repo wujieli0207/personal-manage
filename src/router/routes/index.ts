@@ -1,8 +1,8 @@
-import { RouteRecordRaw } from "vue-router";
+import { AppRouteRecordRaw } from "../types";
 
 const modules = import.meta.globEager("./modules/**/*.ts");
 
-const routeModuleList: RouteRecordRaw[] = [];
+const routeModuleList: AppRouteRecordRaw[] = [];
 
 Object.keys(modules).forEach((key) => {
   const mod = modules[key].default || {};
@@ -13,7 +13,7 @@ Object.keys(modules).forEach((key) => {
 // TODO 404 页面暂时没有加入
 export const asyncRoutes = [...routeModuleList];
 
-export const LoginRoute: RouteRecordRaw = {
+export const LoginRoute: AppRouteRecordRaw = {
   path: "/login",
   name: "Login",
   component: () => import("/@/views/login/index.vue"),
@@ -22,7 +22,7 @@ export const LoginRoute: RouteRecordRaw = {
   },
 };
 
-export const HomeRoute: RouteRecordRaw = {
+export const HomeRoute: AppRouteRecordRaw = {
   path: "/layout",
   name: "layout",
   component: () => import("/@/layouts/index.vue"),
