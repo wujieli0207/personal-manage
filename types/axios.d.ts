@@ -1,4 +1,4 @@
-export type ErrorMessageMode = "none" | "modal" | "message" | undefined;
+export type ErrorMessageMode = "none" | "alert" | "message" | undefined;
 
 export interface RequestOptions {
   apiUrl?: string;
