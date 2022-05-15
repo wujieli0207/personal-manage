@@ -35,9 +35,11 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { useFormValid, useFormRules } from "./hooks/useLogin";
+import { useMessage } from "/@/hooks/web/useMessage";
 import { useUserStore } from "/@/store/modules/user";
 
 const userStore = useUserStore();
+const { notification, createErrorAlert } = useMessage();
 
 const title = import.meta.env.VITE_GLOB_APP_TITLE;
 
@@ -65,9 +67,21 @@ async function handleLogin() {
       password: loginInfo.password,
       mode: "none",
     });
-    console.log("userInfo: ", userInfo);
+    if (userInfo) {
+      notification.success({
+        title: "登录成功",
+        message: `欢迎回来：${userInfo.realName}`,
+        duration: 3 * 1000,
+      });
+    }
   } catch (error) {
-    console.log("error: ", error);
+    createErrorAlert({
+      message:
+        (error as unknown as Error).message ||
+        "网络异常，请检查您的网络连接是否正确",
+    });
+  } finally {
+    loading.value = false;
   }
 }
 </script>

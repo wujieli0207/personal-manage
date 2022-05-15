@@ -17,7 +17,7 @@ enum Api {
  */
 export const loginApi = (
   params: LoginParams,
-  mode: ErrorMessageMode = "modal"
+  mode: ErrorMessageMode = "alert"
 ) => {
   return defHttp.post<LoginResultModel>(
     { url: Api.LOGIN, params },
