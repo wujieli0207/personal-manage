@@ -1,3 +1,4 @@
+import { defineComponent } from "vue";
 import type { RouteMeta, RouteRecordRaw } from "vue-router";
 import { RoleEnum } from "/@/enums/roleEnum";
 
@@ -22,6 +23,18 @@ export interface Menu {
   hideMenu?: boolean; // 是否隐藏菜单
 }
 
-export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, "meta"> {
+export type Component<T = any> =
+  | ReturnType<typeof defineComponent>
+  | (() => Promise<typeof import("*.vue")>)
+  | (() => Promise<T>);
+
+export interface AppRouteRecordRaw
+  extends Omit<RouteRecordRaw, "meta" | "children"> {
+  name: string;
   meta: RouteMeta;
+  component?: Component | string;
+  components?: Component;
+  children?: AppRouteRecordRaw[];
+  props?: Recordable;
+  fullPath?: string;
 }
