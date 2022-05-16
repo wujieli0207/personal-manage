@@ -90,7 +90,6 @@ export const useUserStore = defineStore({
       const userInfo = await this.getUserInfoAction();
 
       const sessiontTimeout = this.sessionTimeout;
-      console.log("sessiontTimeout: ", sessiontTimeout);
 
       if (sessiontTimeout) {
         this.setSessionTimeout(false);
