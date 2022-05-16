@@ -7,6 +7,11 @@ import {
 } from "../_util";
 import { LoginParams } from "/@/api/model/userModel";
 
+interface PermissionList {
+  userId: string | number;
+  permision: string[] | number[];
+}
+
 export function createFakeUserList() {
   return [
     {
@@ -27,6 +32,17 @@ export function createFakeUserList() {
     },
   ];
 }
+
+const fakePermisionList: PermissionList[] = [
+  {
+    userId: "1",
+    permision: ["1000", "3000", "5000"],
+  },
+  {
+    userId: "2",
+    permision: ["2000", "4000", "6000"],
+  },
+];
 
 export default [
   {
@@ -79,6 +95,32 @@ export default [
       }
 
       return resultSuccess(checkUser);
+    },
+  },
+  {
+    url: "/api/getPermCode",
+    timeout: 200,
+    method: "get",
+    response: (request: requestParams) => {
+      const token = getRequestToken(request);
+      if (!token) {
+        return resultError("Token 不存在");
+      }
+
+      const checkUser = createFakeUserList().find(
+        (item) => item.token === token
+      );
+      if (!checkUser) {
+        return resultError("人员信息不存在");
+      }
+
+      const codeList = fakePermisionList.find((item) => {
+        if (item.userId === checkUser.userId) {
+          return item.permision;
+        }
+      });
+
+      return resultSuccess(codeList);
     },
   },
 ] as MockMethod[];

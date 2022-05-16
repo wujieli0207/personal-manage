@@ -1,7 +1,8 @@
 import {
+  PermissionModeEnum,
   RouterTransitionEnum,
   SessionTimeoutProcessingEnum,
-} from "../enums/appEnum";
+} from "/@/enums/appEnum";
 import { ProjectConfig } from "/#/config";
 import { CacheTypeEnum } from "/@/enums/cacheEnum";
 
@@ -20,6 +21,7 @@ const projectSetting: ProjectConfig = {
     openNProgress: false,
   },
   openKeepAlive: true,
+  permissionMode: PermissionModeEnum.ROUTE_MAPPING,
 };
 
 export default projectSetting;

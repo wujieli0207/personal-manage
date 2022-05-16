@@ -9,6 +9,7 @@ import { defHttp } from "/@/utils/http/axios";
 enum Api {
   LOGIN = "/login",
   GET_USER_INFO = "/getUserInfo",
+  GET_PERM_CODE = "/getPermCode",
 }
 
 /**
@@ -34,4 +35,12 @@ export const getUserInfoApi = () => {
     { url: Api.GET_USER_INFO },
     { errorMessageMode: "none" }
   );
+};
+
+/**
+ *
+ * @description 获取用户权限 code
+ */
+export const getPermCode = () => {
+  return defHttp.get<string[]>({ url: Api.GET_PERM_CODE });
 };

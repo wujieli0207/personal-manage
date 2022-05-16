@@ -24,3 +24,10 @@ export enum RouterTransitionEnum {
 export enum LoginTypeEnum {
   LOGIN, // 普通登陆
 }
+
+// 权限模式
+export enum PermissionModeEnum {
+  ROLE = "ROLE",
+  BACK = "BACK",
+  ROUTE_MAPPING = "ROUTE_MAPPING",
+}

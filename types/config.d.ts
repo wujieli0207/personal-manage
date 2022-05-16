@@ -1,4 +1,5 @@
 import {
+  PermissionModeEnum,
   RouterTransitionEnum,
   SessionTimeoutProcessingEnum,
 } from "/@/enums/appEnum";
@@ -42,6 +43,8 @@ export interface ProjectConfig {
   transitionSetting: TransitionSetting;
   // 是否开启 keep-alive
   openKeepAlive: boolean;
+  // 权限模式
+  permissionMode: PermissionModeEnum;
 }
 
 export interface TransitionSetting {
