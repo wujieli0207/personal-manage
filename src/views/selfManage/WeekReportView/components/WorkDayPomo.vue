@@ -39,8 +39,6 @@ onMounted(() => {
  * @description 图表参数配置
  */
 function LoadChartOptions() {
-  console.log(props.xData);
-  console.log(props.yData);
   setOptions({
     tooltip: {
       trigger: "axis",
