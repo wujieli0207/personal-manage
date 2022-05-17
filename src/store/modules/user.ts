@@ -1,3 +1,4 @@
+import { usePermissionStore } from "./permission";
 import { loginApi, getUserInfoApi } from "/@/api/user";
 import { defineStore } from "pinia";
 import { ErrorMessageMode } from "/#/axios";
@@ -8,6 +9,8 @@ import { RoleEnum } from "/@/enums/roleEnum";
 import { store } from "/@/store";
 import { getAuthCache, setAuthCache } from "/@/utils/auth";
 import { router } from "/@/router";
+import { PageEnum } from "/@/enums/pageEnum";
+import { RouteRecordRaw } from "vue-router";
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -68,23 +71,21 @@ export const useUserStore = defineStore({
       this.sessionTimeout = false;
     },
     async login(
-      params: LoginParams & { _goHome?: boolean; mode?: ErrorMessageMode }
+      params: LoginParams & { goHome?: boolean; mode?: ErrorMessageMode }
     ) {
       try {
-        const { _goHome = true, mode, ...loginParams } = params;
+        const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
 
         const { token } = data;
         this.setToken(token);
 
-        return this.afterLoginAction();
+        return this.afterLoginAction(goHome);
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    async afterLoginAction(
-      _goHome?: boolean
-    ): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
       if (!this.token) return null;
 
       const userInfo = await this.getUserInfoAction();
@@ -94,10 +95,20 @@ export const useUserStore = defineStore({
       if (sessiontTimeout) {
         this.setSessionTimeout(false);
       } else {
-        // ! TODO 权限及路由待处理，目前只是默认跳转登录页面
-        router.push({
-          name: "home",
-        });
+        const permissionStore = usePermissionStore();
+        // 非动态添加路由的情况处理
+        if (!permissionStore.isDynamicAddedRoute) {
+          const routes = await permissionStore.buildRoutesAction();
+          routes.forEach((route) => {
+            router.addRoute(route as unknown as RouteRecordRaw);
+          });
+          // TODO PAGE_NOGE_FOUND_ROUTE 未处理
+          permissionStore.setDynamicAddedRoute(true);
+        }
+        goHome &&
+          (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+
+        return userInfo;
       }
 
       return userInfo;

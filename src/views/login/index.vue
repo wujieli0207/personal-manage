@@ -56,7 +56,6 @@ const { getFormRules } = useFormRules();
 
 async function handleLogin() {
   const data = await validForm();
-  console.log("data: ", data);
   if (!data) return;
 
   try {

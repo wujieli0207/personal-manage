@@ -42,7 +42,7 @@ export function filter<T>(
  *
  * @description 提取树的指定结构
  */
-export function treeMap<T>(
+export function treeMap<T = any>(
   treeData: T[],
   opt: { children?: string; conversion: Fn }
 ): T[] {
@@ -69,7 +69,7 @@ export function treeMapEach(
     return {
       ...conversionData,
       [children]: data[children].map((i: number) => {
-        treeMapEach(i, {
+        return treeMapEach(i, {
           children,
           conversion,
         });

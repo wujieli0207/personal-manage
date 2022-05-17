@@ -36,7 +36,7 @@ export const usePermissionStore = defineStore({
     getPermCodeList(): string[] | number[] {
       return this.permCodeList;
     },
-    getIsDynamicAddedRoute(): boolean {
+    getDynamicAddedRoute(): boolean {
       return this.isDynamicAddedRoute;
     },
     getLastBuildMenuTime(): number {
@@ -53,7 +53,7 @@ export const usePermissionStore = defineStore({
     setPermCodeList(codeList: string[]) {
       this.permCodeList = codeList;
     },
-    setIsDynamicAddedRoute(added: boolean) {
+    setDynamicAddedRoute(added: boolean) {
       this.isDynamicAddedRoute = added;
     },
     setLastBuildMenuTime() {
@@ -80,7 +80,7 @@ export const usePermissionStore = defineStore({
     /**
      * @description 构建动态路由
      */
-    buildRoutesAction(): Promise<RouteRecordRaw[]> {
+    async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const userStore = useUserStore();
       const appStore = useAppStore();
 
@@ -121,7 +121,8 @@ export const usePermissionStore = defineStore({
           routes = flatMultiLevelRoutes(routes);
           break;
       }
-      // TODO 未完待续
+      // TODO ERROR_LOG_ROUTE patchHomeAffix 未完成
+      return routes;
     },
   },
 });

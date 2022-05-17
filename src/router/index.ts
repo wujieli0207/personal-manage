@@ -1,10 +1,10 @@
 import { App } from "vue";
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import { basicRoutes } from "./routes/";
 
 export const router = createRouter({
   history: createWebHashHistory(),
-  routes: basicRoutes,
+  routes: basicRoutes as unknown as RouteRecordRaw[],
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
