@@ -46,7 +46,7 @@ export const usePermissionStore = defineStore({
       return this.backMenuList;
     },
     getFrontMenuList(): Menu[] {
-      return this.backMenuList;
+      return this.frontMenuList;
     },
   },
   actions: {
