@@ -65,7 +65,6 @@ export const usePermissionStore = defineStore({
     },
     setFrontMenuList(list: Menu[]) {
       this.frontMenuList = list;
-      list?.length > 0 && this.setLastBuildMenuTime();
     },
     resetState() {
       this.permCodeList = [];

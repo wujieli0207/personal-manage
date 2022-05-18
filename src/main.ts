@@ -2,14 +2,18 @@ import "/@/styles/index.less";
 import "@purge-icons/generated";
 import { createApp } from "vue";
 import App from "./App.vue";
-import { setupRouter } from "/@/router";
+import { router, setupRouter } from "/@/router";
 import { setupStore } from "/@/store";
 import { initAppConfigStore } from "/@/logics/initAppConfig";
+import { setupRouterGuard } from "./router/guard";
 
 function bootstrap() {
   const app = createApp(App);
   setupRouter(app);
   setupStore(app);
+
+  // 路由守卫
+  setupRouterGuard(router);
 
   // 初始化项目配置
   initAppConfigStore();
