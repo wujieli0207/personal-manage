@@ -38,3 +38,8 @@ export interface AppRouteRecordRaw
   props?: Recordable;
   fullPath?: string;
 }
+
+export interface MenuModule {
+  menu: Menu;
+  orderNo?: number;
+}

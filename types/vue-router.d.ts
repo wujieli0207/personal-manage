@@ -7,7 +7,7 @@ declare module "vue-router" {
     orderNo?: number; // 菜单排序，
     dynamicLevel?: number; // 动态路由可打开 Tab 页数
     realPath?: string; // 动态路由实际 path
-    ignorePath?: string; // 是否忽略权限，只在权限模式位 role 时生效
+    ignoreAuth?: string; // 是否忽略权限，只在权限模式位 role 时生效
     roles?: RoleEnum[]; // 可访问的角色，只在权限模式位 role 时生效
     ignoreKeepAlive?: boolean; // 是否忽略 keep-alive 缓存
     affix?: boolean; // 是否固定 tab

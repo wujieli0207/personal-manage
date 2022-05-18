@@ -22,7 +22,7 @@ export function createFakeUserList() {
       desc: "manager",
       password: "123456",
       token: "fakeToken1",
-      homePath: "/home",
+      homePath: "/weekReportView",
       roles: [
         {
           roleName: "Super Admin",

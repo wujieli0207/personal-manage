@@ -8,6 +8,7 @@ const article: AppRouteRecordRaw = {
   redirect: "/selfManage/weekReportView",
   meta: {
     title: "个人管理",
+    icon: "ion:bar-chart-outline",
   },
   children: [
     {

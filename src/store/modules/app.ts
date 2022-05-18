@@ -4,6 +4,7 @@ import { ProjectConfig, MenuSetting } from "/#/config";
 import { PROJ_CFG_KEY } from "/@/enums/cacheEnum";
 import { deepMerge } from "/@/utils";
 import { Persistent } from "/@/utils/cache/persistent";
+import { store } from "/@/store";
 
 interface AppStore {
   projectConfig: Nullable<ProjectConfig>;
@@ -32,3 +33,7 @@ export const useAppStore = defineStore({
     },
   },
 });
+
+export function useAppStoreWithOut() {
+  return useAppStore(store);
+}

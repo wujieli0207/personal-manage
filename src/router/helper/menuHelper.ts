@@ -77,3 +77,15 @@ export function transformRouteToMenu(
   joinParentPath(list);
   return cloneDeep(list);
 }
+
+/**
+ *
+ * @param menuModule
+ * @description 转换菜单 Module
+ */
+export function transformMenuModule(menu: Menu): Menu {
+  const menuList = [menu];
+
+  joinParentPath(menuList);
+  return menuList[0];
+}
