@@ -70,7 +70,7 @@ async function handleLogin() {
       notification.success({
         title: "登录成功",
         message: `欢迎回来：${userInfo.realName}`,
-        duration: 3 * 1000,
+        duration: 2 * 1000,
       });
     }
   } catch (error) {
