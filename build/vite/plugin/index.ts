@@ -7,6 +7,7 @@ import {
   unpluginElementPlusPlugin,
 } from "./autoImport";
 import { configMockPlugin } from "./mock";
+import { purgeIconsPlugin } from "./purgeIcons";
 
 export function createVitePlugins(
   viteEnv: ViteEnv,
@@ -24,6 +25,9 @@ export function createVitePlugins(
   vitePlugins.push(autoImportPlugin());
   vitePlugins.push(importElementPlusPlugin());
   vitePlugins.push(unpluginElementPlusPlugin());
+
+  // iconify 插件
+  vitePlugins.push(purgeIconsPlugin());
 
   return vitePlugins;
 }

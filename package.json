@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
+    "@iconify/iconify": "^2.2.1",
     "@vueuse/core": "^8.4.0",
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
@@ -17,12 +18,14 @@
     "element-plus": "^2.1.11",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
+    "path-to-regexp": "^6.2.1",
     "pinia": "^2.0.13",
     "qs": "^6.10.3",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14"
   },
   "devDependencies": {
+    "@iconify/json": "^2.1.44",
     "@types/crypto-js": "^4.1.1",
     "@types/lodash-es": "^4.17.6",
     "@types/mockjs": "^1.0.6",
@@ -39,6 +42,7 @@
     "unplugin-vue-components": "^0.19.3",
     "vite": "^2.9.7",
     "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-purge-icons": "^0.8.1",
     "vue-tsc": "^0.34.7"
   }
 }
