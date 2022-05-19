@@ -1,6 +1,9 @@
 <template>
   <div class="flex items-center justify-between h-12 bg-slate-900">
-    <div class="flex flex-row ml-4" @click.stop="toggleCollapsed">
+    <div
+      class="flex flex-row p-4 cursor-pointer hover:bg-slate-700"
+      @click.stop="toggleCollapsed"
+    >
       <el-icon v-if="getCollapsed">
         <fold v-if="getCollapsed" class="text-white rotate-180" />
       </el-icon>
@@ -8,12 +11,15 @@
         <fold class="text-white" />
       </el-icon>
     </div>
-    <!-- 右侧下拉菜单 -->
-    <div class="mr-12">
-      <el-dropdown>
+
+    <div class="flex items-center">
+      <!-- 右侧下拉菜单 -->
+      <el-dropdown
+        class="flex items-center h-12 p-4 text-center cursor-pointer hover:bg-slate-700"
+      >
         <div class="flex items-center">
-          <el-avatar :src="avatar" />
-          <span class="ml-4 text-sm text-white">wujieli</span>
+          <el-avatar :size="30" :src="avatar" />
+          <span class="ml-2 text-sm text-white">wujieli</span>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -29,12 +35,19 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
+
+      <!-- 设置 -->
+      <div class="flex items-center h-12 p-4 cursor-pointer hover:bg-slate-700">
+        <el-icon class="text-xl text-white">
+          <Setting />
+        </el-icon>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Fold } from "@element-plus/icons-vue";
+import { Fold, Setting } from "@element-plus/icons-vue";
 // TODO 头像链接暂时写死
 import avatar from "/@/assets/image/avatar.jpg";
 import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
