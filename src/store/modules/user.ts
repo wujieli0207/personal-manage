@@ -11,6 +11,7 @@ import { getAuthCache, setAuthCache } from "/@/utils/auth";
 import { router } from "/@/router";
 import { PageEnum } from "/@/enums/pageEnum";
 import { RouteRecordRaw } from "vue-router";
+import { PAGE_NOTE_FOUND_ROUTE } from "/@/router/routes/basic";
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -102,7 +103,7 @@ export const useUserStore = defineStore({
           routes.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw);
           });
-          // TODO PAGE_NOGE_FOUND_ROUTE 未处理
+          router.addRoute(PAGE_NOTE_FOUND_ROUTE as unknown as RouteRecordRaw);
           permissionStore.setDynamicAddedRoute(true);
         }
         goHome &&

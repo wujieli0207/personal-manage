@@ -1,4 +1,5 @@
 import { Router, RouteRecordRaw } from "vue-router";
+import { PAGE_NOTE_FOUND_ROUTE } from "../routes/basic";
 import { usePermissionStoreWithOut } from "/@/store/modules/permission";
 
 export function createPermissionGuard(router: Router) {
@@ -16,7 +17,7 @@ export function createPermissionGuard(router: Router) {
       router.addRoute(route as unknown as RouteRecordRaw);
     });
 
-    // TODO PAGE_NOT_FOUND_ROUTE
+    router.addRoute(PAGE_NOTE_FOUND_ROUTE as unknown as RouteRecordRaw);
     permissionStore.setDynamicAddedRoute(true);
   });
 }

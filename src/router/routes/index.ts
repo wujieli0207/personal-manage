@@ -1,4 +1,5 @@
 import { AppRouteRecordRaw } from "../types";
+import { PAGE_NOTE_FOUND_ROUTE } from "./basic";
 
 const modules = import.meta.globEager("./modules/**/*.ts");
 
@@ -10,8 +11,7 @@ Object.keys(modules).forEach((key) => {
   routeModuleList.push(...modList);
 });
 
-// TODO 404 页面暂时没有加入
-export const asyncRoutes = [...routeModuleList];
+export const asyncRoutes = [PAGE_NOTE_FOUND_ROUTE, ...routeModuleList];
 
 export const LoginRoute: AppRouteRecordRaw = {
   path: "/login",
@@ -41,4 +41,9 @@ export const HomeRoute: AppRouteRecordRaw = {
   ],
 };
 
-export const basicRoutes = [LoginRoute, HomeRoute, ...asyncRoutes];
+export const basicRoutes = [
+  LoginRoute,
+  HomeRoute,
+  ...asyncRoutes,
+  PAGE_NOTE_FOUND_ROUTE,
+];
