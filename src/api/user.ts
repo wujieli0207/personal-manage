@@ -8,6 +8,7 @@ import { defHttp } from "/@/utils/http/axios";
 
 enum Api {
   LOGIN = "/login",
+  LOGOUT = "/logout",
   GET_USER_INFO = "/getUserInfo",
   GET_PERM_CODE = "/getPermCode",
 }
@@ -43,4 +44,12 @@ export const getUserInfoApi = () => {
  */
 export const getPermCode = () => {
   return defHttp.get<string[]>({ url: Api.GET_PERM_CODE });
+};
+
+/**
+ *
+ * @description 退出登录接口
+ */
+export const logoutApi = () => {
+  return defHttp.get<string[]>({ url: Api.LOGOUT });
 };

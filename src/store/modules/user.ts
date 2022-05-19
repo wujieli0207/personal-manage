@@ -1,3 +1,4 @@
+import { logoutApi } from "./../../api/user";
 import { usePermissionStore } from "./permission";
 import { loginApi, getUserInfoApi } from "/@/api/user";
 import { defineStore } from "pinia";
@@ -50,7 +51,7 @@ export const useUserStore = defineStore({
     },
   },
   actions: {
-    setUserInfo(userInfo: UserInfo | null) {
+    setUserInfo(userInfo: Nullable<UserInfo>) {
       this.userInfo = userInfo;
       this.lastUpdateTime = new Date().getTime();
       setAuthCache(USER_INFO_KEY, userInfo);
@@ -132,7 +133,19 @@ export const useUserStore = defineStore({
 
       return userInfo;
     },
-    async logout(goLogin = false) {},
+    async logout(goLogin = false) {
+      if (this.token) {
+        try {
+          await logoutApi();
+        } catch {
+          console.log("注销 TOken 失败");
+        }
+      }
+      this.setToken(undefined);
+      this.setSessionTimeout(false);
+      this.setUserInfo(null);
+      goLogin && router.push(PageEnum.BASE_LOGIN);
+    },
   },
 });
 

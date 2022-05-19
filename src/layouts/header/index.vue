@@ -24,7 +24,7 @@
               <a href="javascript:;">个人中心</a>
             </el-dropdown-item>
             <el-dropdown-item divided>
-              <a href="javascript:;">退出登录</a>
+              <a @click="handleLogout">退出登录</a>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -38,6 +38,20 @@ import { Fold } from "@element-plus/icons-vue";
 // TODO 头像链接暂时写死
 import avatar from "/@/assets/image/avatar.jpg";
 import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
+import { useMessage } from "/@/hooks/web/useMessage";
+import { useUserStore } from "/@/store/modules/user";
+
+const userStore = useUserStore();
 
 const { getCollapsed, toggleCollapsed } = useMenuSetting();
+const { createConfirmMessage } = useMessage();
+
+/**
+ * @description 退出登录
+ */
+function handleLogout() {
+  createConfirmMessage({ message: "确认是否要退出" }, () => {
+    return userStore.logout(true);
+  });
+}
 </script>
