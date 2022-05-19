@@ -7,7 +7,12 @@ export function useRootSetting() {
     () => appStore.getProjectConfig.openKeepAlive
   );
 
+  const getShowDarkModeToggle = computed(
+    () => appStore.getProjectConfig.showDarkModelToggle
+  );
+
   return {
     getOpenKeepAlive,
+    getShowDarkModeToggle,
   };
 }
