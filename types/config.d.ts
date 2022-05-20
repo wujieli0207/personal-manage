@@ -45,6 +45,8 @@ export interface ProjectConfig {
   openKeepAlive: boolean;
   // 权限模式
   permissionMode: PermissionModeEnum;
+  // 切换暗色模式
+  showDarkModelToggle: boolean;
 }
 
 export interface TransitionSetting {

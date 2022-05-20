@@ -37,17 +37,25 @@
       </el-dropdown>
 
       <!-- 设置 -->
-      <div class="flex items-center h-12 p-4 cursor-pointer hover:bg-slate-700">
+      <div
+        class="flex items-center h-12 p-4 cursor-pointer hover:bg-slate-700"
+        @click="openSettingDrawer"
+      >
         <el-icon class="text-xl text-white">
           <Setting />
         </el-icon>
       </div>
     </div>
   </div>
+
+  <!-- 样式设计抽屉 -->
+  <setting-drawer v-model:show="isSettingShow"></setting-drawer>
 </template>
 
 <script lang="ts" setup>
 import { Fold, Setting } from "@element-plus/icons-vue";
+import { ref } from "vue";
+import SettingDrawer from "../setting/index.vue";
 // TODO 头像链接暂时写死
 import avatar from "/@/assets/image/avatar.jpg";
 import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
@@ -59,6 +67,8 @@ const userStore = useUserStore();
 const { getCollapsed, toggleCollapsed } = useMenuSetting();
 const { createConfirmMessage } = useMessage();
 
+const isSettingShow = ref(false);
+
 /**
  * @description 退出登录
  */
@@ -66,5 +76,12 @@ function handleLogout() {
   createConfirmMessage({ message: "确认是否要退出" }, () => {
     return userStore.logout(true);
   });
+}
+
+/**
+ * @description 打开后台设置侧边栏抽屉
+ */
+function openSettingDrawer() {
+  isSettingShow.value = true;
 }
 </script>

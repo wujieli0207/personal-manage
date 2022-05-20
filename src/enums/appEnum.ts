@@ -31,3 +31,9 @@ export enum PermissionModeEnum {
   BACK = "BACK",
   ROUTE_MAPPING = "ROUTE_MAPPING",
 }
+
+// 系统暗色、亮色主题
+export enum ThemeEnum {
+  DARK = "dark",
+  LIGHT = "light",
+}

@@ -1,3 +1,4 @@
+import { MenuModeEnum, MenuTypeEnum } from "/@/enums/menuEnum";
 import { RoleInfo } from "/@/api/model/userModel";
 import { ErrorTypeEnum } from "/@/enums/exceptionEnum";
 
@@ -25,4 +26,12 @@ export interface ErrorLogInfo {
   detail: string;
   url: string;
   time?: string;
+}
+
+// 尺寸变化之前需要记住的状态，在变化回来之后可以恢复
+export interface BeforeMiniState {
+  menuCollapsed?: boolean;
+  menuSplit?: boolean;
+  menuMode?: MenuModeEnum;
+  menuType?: MenuTypeEnum;
 }

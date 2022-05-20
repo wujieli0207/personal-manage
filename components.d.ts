@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AppDarkModeToggle: typeof import('./src/components/Application/src/AppDarkModeToggle.vue')['default']
     BasicForm: typeof import('./src/components/Form/src/BasicForm.vue')['default']
     BasicPagination: typeof import('./src/components/Pagination/src/BasicPagination.vue')['default']
     BasicTable: typeof import('./src/components/Table/src/BasicTable.vue')['default']
@@ -17,6 +18,7 @@ declare module '@vue/runtime-core' {
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
+    ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
