@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppDarkModeToggle: typeof import('./src/components/Application/src/AppDarkModeToggle.vue')['default']
+    AppProvider: typeof import('./src/components/Application/src/AppProvider.vue')['default']
     BasicForm: typeof import('./src/components/Form/src/BasicForm.vue')['default']
     BasicPagination: typeof import('./src/components/Pagination/src/BasicPagination.vue')['default']
     BasicTable: typeof import('./src/components/Table/src/BasicTable.vue')['default']
@@ -41,9 +42,11 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     FormItem: typeof import('./src/components/Form/src/components/FormItem.vue')['default']
+    Icon: typeof import('./src/components/Icon/src/Icon.vue')['default']
     Layer: typeof import('./src/components/Layer/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/Icon/src/SvgIcon.vue')['default']
   }
 }
 
