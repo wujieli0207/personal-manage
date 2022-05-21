@@ -8,6 +8,7 @@ import {
 } from "./autoImport";
 import { configMockPlugin } from "./mock";
 import { purgeIconsPlugin } from "./purgeIcons";
+import { configSvgIconPlugin } from "./svgSprite";
 
 export function createVitePlugins(
   viteEnv: ViteEnv,
@@ -28,6 +29,9 @@ export function createVitePlugins(
 
   // iconify 插件
   vitePlugins.push(purgeIconsPlugin());
+
+  // vite-plugin-svg-icons
+  vitePlugins.push(configSvgIconPlugin(isBuild));
 
   return vitePlugins;
 }

@@ -1,5 +1,6 @@
 import "/@/styles/index.less";
 import "@purge-icons/generated";
+import "virtual:svg-icons-register";
 import { createApp } from "vue";
 import App from "./App.vue";
 import { router, setupRouter } from "/@/router";
