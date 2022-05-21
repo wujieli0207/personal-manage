@@ -5,7 +5,7 @@ const article: AppRouteRecordRaw = {
   path: "/selfManage",
   name: "SelfManage",
   component: LAYOUT,
-  redirect: "/selfManage/weekReportView",
+  redirect: "/weekReportView",
   meta: {
     title: "个人管理",
     icon: "ion:bar-chart-outline",
