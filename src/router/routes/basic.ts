@@ -3,6 +3,7 @@ import {
   EXCEPTION_COMPONENT,
   LAYOUT,
   PAGE_NOTE_FOUND_NAME,
+  REDIRECT_NAME,
 } from "/@/router/constant";
 
 export const PAGE_NOTE_FOUND_ROUTE: AppRouteRecordRaw = {
@@ -28,4 +29,14 @@ export const PAGE_NOTE_FOUND_ROUTE: AppRouteRecordRaw = {
       },
     },
   ],
+};
+
+// ! TODO REDIRECT_ROUTE 暂时开发功能
+export const REDIRECT_ROUTE: AppRouteRecordRaw = {
+  path: "/redirect",
+  component: LAYOUT,
+  name: "redirect",
+  meta: {
+    title: REDIRECT_NAME,
+  },
 };
