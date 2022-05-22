@@ -1,5 +1,9 @@
 <template>
-  <div class="flex items-center justify-between h-12 bg-slate-900">
+  <!-- 顶部菜单栏：面包屑、用户设置、系统设置 -->
+  <div
+    v-if="getShowHeader"
+    class="flex items-center justify-between h-12 bg-slate-900"
+  >
     <div class="flex items-center">
       <!-- 右侧菜单栏折叠 -->
       <div
@@ -20,27 +24,7 @@
 
     <div class="flex items-center">
       <!-- 右侧下拉菜单 -->
-      <el-dropdown
-        class="flex items-center h-12 p-4 text-center cursor-pointer hover:bg-slate-700"
-      >
-        <div class="flex items-center">
-          <el-avatar :size="30" :src="avatar" />
-          <span class="ml-2 text-sm text-white">wujieli</span>
-        </div>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>
-              <a href="javascript:;">帮助文档</a>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <a href="javascript:;">个人中心</a>
-            </el-dropdown-item>
-            <el-dropdown-item divided>
-              <a @click="handleLogout">退出登录</a>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <user-menu />
 
       <!-- 设置 -->
       <div
@@ -54,7 +38,17 @@
     </div>
   </div>
 
-  <!-- 样式设计抽屉 -->
+  <!-- 导航 Tab、全屏设置 -->
+  <div class="h-8 bg-gray-200 flex justify-between px-4">
+    <div>tab</div>
+
+    <div>
+      <!-- 全屏 -->
+      <full-screen />
+    </div>
+  </div>
+
+  <!-- 样式设置抽屉 -->
   <setting-drawer v-model:show="isSettingShow"></setting-drawer>
 </template>
 
@@ -63,27 +57,13 @@ import { Fold, Setting } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import SettingDrawer from "../setting/index.vue";
 import Bradcrumb from "./components/Bradcrumb.vue";
-// TODO 头像链接暂时写死
-import avatar from "/@/assets/image/avatar.jpg";
+import UserMenu from "./components/UserMenu.vue";
+import FullScreen from "./components/FullScreen.vue";
 import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
-import { useMessage } from "/@/hooks/web/useMessage";
-import { useUserStore } from "/@/store/modules/user";
 
-const userStore = useUserStore();
-
-const { getCollapsed, toggleCollapsed } = useMenuSetting();
-const { createConfirmMessage } = useMessage();
+const { getCollapsed, getShowHeader, toggleCollapsed } = useMenuSetting();
 
 const isSettingShow = ref(false);
-
-/**
- * @description 退出登录
- */
-function handleLogout() {
-  createConfirmMessage({ message: "确认是否要退出" }, () => {
-    return userStore.logout(true);
-  });
-}
 
 /**
  * @description 打开后台设置侧边栏抽屉

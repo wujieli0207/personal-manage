@@ -47,6 +47,8 @@ export interface ProjectConfig {
   permissionMode: PermissionModeEnum;
   // 切换暗色模式
   showDarkModelToggle: boolean;
+  // 内容全频模式
+  fullContent: boolean;
 }
 
 export interface TransitionSetting {

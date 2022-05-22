@@ -23,6 +23,7 @@ const projectSetting: ProjectConfig = {
   openKeepAlive: true,
   permissionMode: PermissionModeEnum.ROUTE_MAPPING,
   showDarkModelToggle: true, // 展示切换暗色模式 switch
+  fullContent: false,
 };
 
 export default projectSetting;

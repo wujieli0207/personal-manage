@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FormItem: typeof import('./src/components/Form/src/components/FormItem.vue')['default']
     Icon: typeof import('./src/components/Icon/src/Icon.vue')['default']
     Layer: typeof import('./src/components/Layer/index.vue')['default']
