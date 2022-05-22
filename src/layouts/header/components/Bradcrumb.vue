@@ -2,10 +2,12 @@
   <el-breadcrumb separator="/">
     <template v-for="item in levelList" :key="item.path">
       <el-breadcrumb-item v-if="item.redirect">
-        <a @click="handleLink(item)">{{ item.meta.title }}</a>
+        <a class="text-white" @click="handleLink(item)">{{
+          item.meta.title
+        }}</a>
       </el-breadcrumb-item>
       <el-breadcrumb-item v-else>
-        {{ item.meta.title }}
+        <span class="text-white">{{ item.meta.title }}</span>
       </el-breadcrumb-item>
     </template>
   </el-breadcrumb>
