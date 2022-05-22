@@ -1,5 +1,7 @@
+import { RouteLocationNormalized, RouteRecordNormalized } from "vue-router";
 import { App, Plugin } from "vue";
 import { isObject } from "/@/utils/is";
+import { ItemProps } from "element-plus";
 
 export function setObjToUrlParams(baseUrl: string, obj: any): string {
   let params = "";
@@ -34,3 +36,22 @@ export const withInstall = <T>(component: T, alias?: string) => {
   };
   return component as T & Plugin;
 };
+
+export function getRawRoute(
+  route: RouteLocationNormalized
+): RouteLocationNormalized {
+  if (!route) return route;
+
+  const { matched, ...opt } = route;
+
+  return {
+    ...opt,
+    matched: (matched
+      ? matched.map((item) => ({
+          meta: item.meta,
+          name: item.name,
+          path: item.path,
+        }))
+      : undefined) as RouteRecordNormalized[],
+  };
+}

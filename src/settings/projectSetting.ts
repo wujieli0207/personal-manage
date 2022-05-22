@@ -24,6 +24,14 @@ const projectSetting: ProjectConfig = {
   permissionMode: PermissionModeEnum.ROUTE_MAPPING,
   showDarkModelToggle: true, // 展示切换暗色模式 switch
   fullContent: false,
+  multiTabsSetting: {
+    cache: false,
+    show: true,
+    canDrag: true,
+    showQuick: true,
+    showRedo: true,
+    showFold: true,
+  },
 };
 
 export default projectSetting;

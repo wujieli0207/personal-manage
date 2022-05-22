@@ -40,7 +40,9 @@
 
   <!-- 导航 Tab、全屏设置 -->
   <div class="h-8 bg-gray-200 flex justify-between px-4">
-    <div>tab</div>
+    <div>
+      <tabs />
+    </div>
 
     <div>
       <!-- 全屏 -->
@@ -59,6 +61,7 @@ import SettingDrawer from "../setting/index.vue";
 import Bradcrumb from "./components/Bradcrumb.vue";
 import UserMenu from "./components/UserMenu.vue";
 import FullScreen from "./components/FullScreen.vue";
+import Tabs from "../Tabs/index.vue";
 import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
 
 const { getCollapsed, getShowHeader, toggleCollapsed } = useMenuSetting();

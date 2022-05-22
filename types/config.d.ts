@@ -49,6 +49,7 @@ export interface ProjectConfig {
   showDarkModelToggle: boolean;
   // 内容全频模式
   fullContent: boolean;
+  multiTabsSetting: MultiTabsSetting;
 }
 
 export interface TransitionSetting {
@@ -56,4 +57,14 @@ export interface TransitionSetting {
   basicTransition: RouterTransitionEnum;
   openPageLoading: boolean;
   openNProgress: boolean; // 是否开启顶部进度条
+}
+
+// 标签导航栏设置
+export interface MultiTabsSetting {
+  show: boolean; // 是否展示
+  cache: boolean; // 是否缓存
+  showQuick: boolean; // 是否显示标签处理快捷按钮
+  canDrag: boolean; // 是否可以拖动标签
+  showRedo: boolean; // 是否显示刷新按钮
+  showFold: boolean; // 是否显示折叠标签按钮
 }
