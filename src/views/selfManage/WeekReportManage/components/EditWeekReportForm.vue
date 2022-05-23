@@ -1,9 +1,5 @@
 <template>
-  <Layer
-    v-model:isDialogShow="isDialogShow"
-    :title="dialogTitle"
-    @confirm="handleSubmit"
-  >
+  <Layer v-model:isDialogShow="isDialogShow" :title="dialogTitle" @confirm="handleSubmit">
     <el-form :model="formData" label-position="left" label-width="auto">
       <el-row :gutter="20">
         <el-col :span="11">
@@ -71,64 +67,64 @@
 </template>
 
 <script lang="ts" setup>
-import { omit } from "lodash-es";
-import { PropType } from "vue";
-import Layer from "/@/components/Layer/index.vue";
-import { WeekReport } from "/@/api/model/weekReportModel";
-import { editWeekReportApi, createWeekReportApi } from "/@/api/weekReport";
-import { EditType } from "/@/enums/appEnum";
-import { useMessage } from "/@/hooks/web/useMessage";
+  import { omit } from "lodash-es";
+  import { PropType } from "vue";
+  import Layer from "/@/components/Layer/index.vue";
+  import { WeekReport } from "/@/api/model/weekReportModel";
+  import { editWeekReportApi, createWeekReportApi } from "/@/api/weekReport";
+  import { EditType } from "/@/enums/appEnum";
+  import { useMessage } from "/@/hooks/web/useMessage";
 
-const { createMessage } = useMessage();
+  const { createMessage } = useMessage();
 
-const props = defineProps({
-  formData: {
-    type: Object as PropType<WeekReport>,
-    default: () => {},
-    required: true,
-  },
-  editType: {
-    type: String as PropType<EditType>,
-    default: EditType.CREATE,
-    required: true,
-  },
-  isDialogShow: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
-  dialogTitle: {
-    type: String,
-    default: "",
-  },
-});
+  const props = defineProps({
+    formData: {
+      type: Object as PropType<WeekReport>,
+      default: () => {},
+      required: true,
+    },
+    editType: {
+      type: String as PropType<EditType>,
+      default: EditType.CREATE,
+      required: true,
+    },
+    isDialogShow: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    dialogTitle: {
+      type: String,
+      default: "",
+    },
+  });
 
-const emit = defineEmits(["update:isDialogShow"]);
+  const emit = defineEmits(["update:isDialogShow"]);
 
-/**
- * @description 提交保存
- */
-async function handleSubmit() {
-  if (props.editType === EditType.CREATE) {
-    const result = await createWeekReportApi(omit(props.formData, "id"));
+  /**
+   * @description 提交保存
+   */
+  async function handleSubmit() {
+    if (props.editType === EditType.CREATE) {
+      const result = await createWeekReportApi(omit(props.formData, "id"));
 
-    if (result.id) {
-      emit("update:isDialogShow", false);
-      createMessage.success({
-        message: "新增成功！",
-      });
+      if (result.id) {
+        emit("update:isDialogShow", false);
+        createMessage.success({
+          message: "新增成功！",
+        });
+      }
+    }
+    if (props.editType === EditType.UPDATE) {
+      const id = props.formData.id;
+      const result = await editWeekReportApi(id, omit(props.formData, "id"));
+
+      if (id === result.id) {
+        emit("update:isDialogShow", false);
+        createMessage.success({
+          message: "修改成功！",
+        });
+      }
     }
   }
-  if (props.editType === EditType.UPDATE) {
-    const id = props.formData.id;
-    const result = await editWeekReportApi(id, omit(props.formData, "id"));
-
-    if (id === result.id) {
-      emit("update:isDialogShow", false);
-      createMessage.success({
-        message: "修改成功！",
-      });
-    }
-  }
-}
 </script>

@@ -1,10 +1,7 @@
 <template>
   <template v-for="item in menuList" :key="item.path">
     <!-- 处理存在 children 的情况 -->
-    <el-sub-menu
-      v-if="item.children && item.children.length > 0"
-      :index="item.path"
-    >
+    <el-sub-menu v-if="item.children && item.children.length > 0" :index="item.path">
       <template #title>
         <el-icon>
           <span class="iconify" :data-icon="item.icon" />
@@ -26,13 +23,13 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from "vue";
-import { Menu } from "/@/router/types";
+  import { PropType } from "vue";
+  import { Menu } from "/@/router/types";
 
-defineProps({
-  menuList: {
-    type: Array as PropType<Menu[]>,
-    default: () => [],
-  },
-});
+  defineProps({
+    menuList: {
+      type: Array as PropType<Menu[]>,
+      default: () => [],
+    },
+  });
 </script>

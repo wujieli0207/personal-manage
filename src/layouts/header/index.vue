@@ -1,9 +1,6 @@
 <template>
   <!-- 顶部菜单栏：面包屑、用户设置、系统设置 -->
-  <div
-    v-if="getShowHeader"
-    class="flex items-center justify-between h-12 bg-slate-900"
-  >
+  <div v-if="getShowHeader" class="flex items-center justify-between h-12 bg-slate-900">
     <div class="flex items-center">
       <!-- 右侧菜单栏折叠 -->
       <div
@@ -55,23 +52,23 @@
 </template>
 
 <script lang="ts" setup>
-import { Fold, Setting } from "@element-plus/icons-vue";
-import { ref } from "vue";
-import SettingDrawer from "../setting/index.vue";
-import Bradcrumb from "./components/Bradcrumb.vue";
-import UserMenu from "./components/UserMenu.vue";
-import FullScreen from "./components/FullScreen.vue";
-import Tabs from "../Tabs/index.vue";
-import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
+  import { Fold, Setting } from "@element-plus/icons-vue";
+  import { ref } from "vue";
+  import SettingDrawer from "../setting/index.vue";
+  import Bradcrumb from "./components/Bradcrumb.vue";
+  import UserMenu from "./components/UserMenu.vue";
+  import FullScreen from "./components/FullScreen.vue";
+  import Tabs from "../Tabs/index.vue";
+  import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
 
-const { getCollapsed, getShowHeader, toggleCollapsed } = useMenuSetting();
+  const { getCollapsed, getShowHeader, toggleCollapsed } = useMenuSetting();
 
-const isSettingShow = ref(false);
+  const isSettingShow = ref(false);
 
-/**
- * @description 打开后台设置侧边栏抽屉
- */
-function openSettingDrawer() {
-  isSettingShow.value = true;
-}
+  /**
+   * @description 打开后台设置侧边栏抽屉
+   */
+  function openSettingDrawer() {
+    isSettingShow.value = true;
+  }
 </script>

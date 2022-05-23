@@ -5,24 +5,24 @@
 </template>
 
 <script lang="ts" setup>
-import { AppDarkModeToggle } from "/@/components/Application";
-import { useRootSetting } from "/@/hooks/setting/useRootSetting";
+  import { AppDarkModeToggle } from "/@/components/Application";
+  import { useRootSetting } from "/@/hooks/setting/useRootSetting";
 
-defineProps({
-  show: {
-    type: Boolean,
-    default: false,
-  },
-});
+  defineProps({
+    show: {
+      type: Boolean,
+      default: false,
+    },
+  });
 
-const emits = defineEmits(["update:show"]);
+  const emits = defineEmits(["update:show"]);
 
-const { getShowDarkModeToggle } = useRootSetting();
+  const { getShowDarkModeToggle } = useRootSetting();
 
-/**
- * @description 处理关闭 setting drawer
- */
-function handleCloseDrawer() {
-  emits("update:show", false);
-}
+  /**
+   * @description 处理关闭 setting drawer
+   */
+  function handleCloseDrawer() {
+    emits("update:show", false);
+  }
 </script>
