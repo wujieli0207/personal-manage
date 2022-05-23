@@ -37,8 +37,6 @@ module.exports = {
     "declaration-empty-line-before": "never",
     // 不允许 linear-gradient() 存在不符合标准的方向
     "function-linear-gradient-no-nonstandard-direction": true,
-    // // 以缩进
-    // indentation: 2,
     // https://stylelint.io/user-guide/rules/list/no-descending-specificity
     "no-descending-specificity": null,
     // 允许空文件
