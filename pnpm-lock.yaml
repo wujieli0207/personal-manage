@@ -24,6 +24,7 @@ specifiers:
   postcss: ^8.4.13
   postcss-html: ^1.4.1
   postcss-less: ^6.0.0
+  prettier: ^2.6.2
   qs: ^6.10.3
   rollup: ^2.73.0
   stylelint: ^14.8.3
@@ -75,6 +76,7 @@ devDependencies:
   postcss: 8.4.13
   postcss-html: 1.4.1
   postcss-less: 6.0.0_postcss@8.4.13
+  prettier: 2.6.2
   rollup: 2.73.0
   stylelint: 14.8.3
   stylelint-config-prettier: 9.0.3_stylelint@14.8.3
@@ -2849,6 +2851,12 @@ packages:
     dependencies:
       posthtml-parser: 0.2.1
       posthtml-render: 1.4.0
+    dev: true
+
+  /prettier/2.6.2:
+    resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
     dev: true
 
   /prr/1.0.1:

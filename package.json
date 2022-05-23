@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/"
   },
   "dependencies": {
@@ -37,6 +38,7 @@
     "postcss": "^8.4.13",
     "postcss-html": "^1.4.1",
     "postcss-less": "^6.0.0",
+    "prettier": "^2.6.2",
     "rollup": "^2.73.0",
     "stylelint": "^14.8.3",
     "stylelint-config-prettier": "^9.0.3",
