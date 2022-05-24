@@ -28,15 +28,15 @@
         class="flex items-center h-12 p-4 cursor-pointer hover:bg-slate-700"
         @click="openSettingDrawer"
       >
-        <el-icon class="text-xl text-white">
-          <Setting />
+        <el-icon>
+          <Setting class="text-xl text-white" />
         </el-icon>
       </div>
     </div>
   </div>
 
   <!-- 导航 Tab、全屏设置 -->
-  <div class="h-8 bg-gray-200 flex justify-between px-4">
+  <div class="flex justify-between h-8 px-4 bg-gray-200">
     <div>
       <tabs />
     </div>
