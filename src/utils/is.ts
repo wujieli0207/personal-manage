@@ -40,7 +40,7 @@ export function isRegExp(val: unknown): val is RegExp {
   return is(val, "RegExp");
 }
 
-export function isFunction(val: unknown): val is Function {
+export function isFunction(val: unknown): val is Fn {
   return typeof val === "function";
 }
 
@@ -49,12 +49,7 @@ export function isObject(val: any): val is Record<any, any> {
 }
 
 export function isPromise<T = any>(val: unknown): val is Promise<T> {
-  return (
-    is(val, "Promise") &&
-    isObject(val) &&
-    isFunction(val.then) &&
-    isFunction(val.then)
-  );
+  return is(val, "Promise") && isObject(val) && isFunction(val.then) && isFunction(val.then);
 }
 
 export function isWindow(val: any): val is Window {

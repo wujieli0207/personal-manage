@@ -1,10 +1,4 @@
-import {
-  ColProps,
-  FormItemProp,
-  formItemProps,
-  FormProps,
-  FormRules,
-} from "element-plus";
+import { ColProps, FormItemProp, formItemProps, FormProps, FormRules } from "element-plus";
 import { VNode } from "vue";
 import { ComponentType, NamePath } from "./index";
 import { TableActionType } from "/@/components/Table/src/types/table";
@@ -23,12 +17,8 @@ export interface FormActionType {
   setFieldsValue: <T>(values: T) => Promise<void>;
   resetFields: () => Promise<void>;
   clearValidate: (name?: string | string[]) => Promise<void>;
-  updateSchema: (
-    data: Partial<FormSchema> | Partial<FormSchema>[]
-  ) => Promise<void>;
-  resetSchema: (
-    data: Partial<FormSchema> | Partial<FormSchema>[]
-  ) => Promise<void>;
+  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
+  resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
   removeSchemaByField: (field: string | string[]) => Promise<void>;
   appendSchemaByField: (
@@ -63,14 +53,9 @@ export interface FormSchema {
       }) => Recordable)
     | object;
   // 是否必填
-  required?:
-    | boolean
-    | ((renderCallbackParams: RenderCallbackParams) => boolean);
+  required?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
   // 后缀
-  suffix?:
-    | string
-    | number
-    | ((renderCallbackParams: RenderCallbackParams) => string | number);
+  suffix?: string | number | ((renderCallbackParams: RenderCallbackParams) => string | number);
   rules?: FormRules[]; // 校验规则
   rulesMessageJoinLabel?: boolean; // 检验后标签是否有提示信息
   itemProps?: Partial<FormItemProp>; // 表单项属性
@@ -82,12 +67,8 @@ export interface FormSchema {
   ifShow?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
   // 是否展示
   show?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
-  render?:
-    | string
-    | ((renderCallbackParams: RenderCallbackParams) => VNode | VNode[]);
-  renderColContent?:
-    | string
-    | ((renderCallbackParams: RenderCallbackParams) => VNode | VNode[]);
+  render?: string | ((renderCallbackParams: RenderCallbackParams) => VNode | VNode[]);
+  renderColContent?: string | ((renderCallbackParams: RenderCallbackParams) => VNode | VNode[]);
   renderComponentContent?:
     | string
     | VNode
@@ -95,9 +76,7 @@ export interface FormSchema {
     | ((renderCallbackParams: RenderCallbackParams) => unknown);
   slot?: string; // 为 formItem 定义的插槽
   colSlot?: string; // 列插槽
-  dynamicDisabled?:
-    | boolean
-    | ((renderCallbackParams: RenderCallbackParams) => boolean);
+  dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => FormRules[];
 }
 

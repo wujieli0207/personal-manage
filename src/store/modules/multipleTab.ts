@@ -44,9 +44,7 @@ export const useMultipleTabStore = defineStore({
         path === PageEnum.BASE_LOGIN ||
         path === PageEnum.ERROR_PAGE ||
         !name ||
-        [PAGE_NOTE_FOUND_ROUTE.name, REDIRECT_ROUTE.name].includes(
-          name as string
-        )
+        [PAGE_NOTE_FOUND_ROUTE.name, REDIRECT_ROUTE.name].includes(name as string)
       ) {
         return;
       }

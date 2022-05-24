@@ -1,4 +1,3 @@
-import { resolve } from "path";
 import { ElNotification, ElMessage, ElMessageBox } from "element-plus";
 
 interface alertOptions {

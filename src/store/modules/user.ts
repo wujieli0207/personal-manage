@@ -39,9 +39,7 @@ export const useUserStore = defineStore({
       return this.token || getAuthCache<string>(TOKEN_KEY);
     },
     getRoleList(): RoleEnum[] {
-      return this.roleList.length > 0
-        ? this.roleList
-        : getAuthCache<RoleEnum[]>(ROLES_KEY);
+      return this.roleList.length > 0 ? this.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
     },
     getSessionTimeout(): boolean {
       return !!this.sessionTimeout;
@@ -72,9 +70,7 @@ export const useUserStore = defineStore({
       this.token = undefined;
       this.sessionTimeout = false;
     },
-    async login(
-      params: LoginParams & { goHome?: boolean; mode?: ErrorMessageMode }
-    ) {
+    async login(params: LoginParams & { goHome?: boolean; mode?: ErrorMessageMode }) {
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
@@ -107,8 +103,7 @@ export const useUserStore = defineStore({
           router.addRoute(PAGE_NOTE_FOUND_ROUTE as unknown as RouteRecordRaw);
           permissionStore.setDynamicAddedRoute(true);
         }
-        goHome &&
-          (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
 
         return userInfo;
       }

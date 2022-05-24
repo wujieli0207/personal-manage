@@ -29,25 +29,29 @@
           pageSize: tablePagination.pageSize,
           total: tablePagination.total,
         }"
-        @pagingChange="handlePagingChange"
+        @paging-change="handlePagingChange"
       >
         <template #action="scope">
-          <el-button type="text" size="small" @click="handleClick(EditType.UPDATE, scope.data)"
+          <el-button
+            text
+            type="primary"
+            size="small"
+            @click="handleClick(EditType.UPDATE, scope.data)"
             >编辑</el-button
           >
           <el-divider direction="vertical" />
           <el-popconfirm title="是否确认删除?" @confirm="handleClick(EditType.DELETE, scope.data)">
             <template #reference>
-              <el-button type="text" size="small" class="text-red-500">删除</el-button>
+              <el-button text type="danger" size="small" class="text-red-500">删除</el-button>
             </template>
           </el-popconfirm>
         </template>
       </basic-table>
 
       <edit-week-report-form
+        v-model:is-dialog-show="isDialogShow"
         :form-data="editWeekReportData"
         :edit-type="editType"
-        v-model:is-dialog-show="isDialogShow"
         dialog-title="编辑每周统计数据"
       />
     </el-card>

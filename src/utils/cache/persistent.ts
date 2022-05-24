@@ -51,11 +51,7 @@ export class Persistent {
     return localMemory.get(key)?.value as Nullable<T>;
   }
 
-  static setLocal(
-    key: LocalKeys,
-    value: LocalStore[LocalKeys],
-    immediate = false
-  ): void {
+  static setLocal(key: LocalKeys, value: LocalStore[LocalKeys], immediate = false): void {
     localMemory.set(key, toRaw(value));
     immediate && ls.set(APP_LOCAL_CACHE_KEY, localMemory.getCache);
   }
@@ -74,11 +70,7 @@ export class Persistent {
     return sessionMemory.get(key)?.value as Nullable<T>;
   }
 
-  static setSession(
-    key: SessionKeys,
-    value: SessionStore[SessionKeys],
-    immediate = false
-  ): void {
+  static setSession(key: SessionKeys, value: SessionStore[SessionKeys], immediate = false): void {
     sessionMemory.set(key, toRaw(value));
     immediate && ss.set(APP_SESSION_CACHE_KEY, sessionMemory.getCache);
   }

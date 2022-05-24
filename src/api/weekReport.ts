@@ -1,8 +1,4 @@
-import {
-  GetWeekReportParams,
-  EditWeekReport,
-  WeekReport,
-} from "./model/weekReportModel";
+import { GetWeekReportParams, EditWeekReport, WeekReport } from "./model/weekReportModel";
 import { ResultRo } from "/#/axios";
 import { defHttp } from "/@/utils/http/axios";
 
@@ -50,10 +46,7 @@ export const createWeekReportApi = (params: EditWeekReport) => {
  *
  * @description 修改周报告数据
  */
-export const editWeekReportApi = (
-  id: number | string,
-  params: EditWeekReport
-) => {
+export const editWeekReportApi = (id: number | string, params: EditWeekReport) => {
   return defHttp.post<WeekReport>(
     { url: `${Api.UPDATE_WEEK_REPORT}/${id}`, params },
     { errorMessageMode: "none" }

@@ -1,7 +1,6 @@
 import { RouteLocationNormalized, RouteRecordNormalized } from "vue-router";
 import { App, Plugin } from "vue";
 import { isObject } from "/@/utils/is";
-import { ItemProps } from "element-plus";
 
 export function setObjToUrlParams(baseUrl: string, obj: any): string {
   let params = "";
@@ -11,17 +10,13 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   }
   params = params.replace(/&$/, "");
 
-  return /\?$/.test(baseUrl)
-    ? `${baseUrl}${params}`
-    : `${baseUrl.replace(/\/?$/, "?")}${params}`;
+  return /\?$/.test(baseUrl) ? `${baseUrl}${params}` : `${baseUrl.replace(/\/?$/, "?")}${params}`;
 }
 
 export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   let key: string;
   for (key in target) {
-    src[key] = isObject(src[key])
-      ? deepMerge(src[key], target[key])
-      : (src[key] = target[key]);
+    src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
   }
   return src;
 }
@@ -37,9 +32,7 @@ export const withInstall = <T>(component: T, alias?: string) => {
   return component as T & Plugin;
 };
 
-export function getRawRoute(
-  route: RouteLocationNormalized
-): RouteLocationNormalized {
+export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormalized {
   if (!route) return route;
 
   const { matched, ...opt } = route;

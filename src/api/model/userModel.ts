@@ -10,7 +10,7 @@ export interface LoginParams {
   password: string;
 }
 
-export interface GetUserInfoModel extends Omit<UserInfo, "homePath"> {}
+export type GetUserInfoModel = Omit<UserInfo, "homePath">;
 
 export interface LoginResultModel {
   userId: string | number;

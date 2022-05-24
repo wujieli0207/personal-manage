@@ -9,9 +9,7 @@ import { useDark } from "/@/hooks/web/useDark";
 export function initAppConfigStore() {
   const appStore = useAppStore();
   // 项目配置初始化
-  let projectConfig: ProjectConfig = Persistent.getLocal(
-    PROJ_CFG_KEY
-  ) as ProjectConfig;
+  let projectConfig: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig;
   projectConfig = deepMerge(projectSetting, projectConfig || {});
 
   appStore.setProjectConfig(projectConfig);

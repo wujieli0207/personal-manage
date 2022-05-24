@@ -9,7 +9,7 @@ export function useECharts(elRef: Ref<HTMLDivElement>) {
   let chartInstance: Nullable<echarts.ECharts> = null;
   let resizeFn: Fn = resize;
   const cacheOptions = ref({}) as Ref<EChartsOption>;
-  let removeResizeFn: Fn = () => {};
+  let removeResizeFn: Fn = () => ({});
 
   resizeFn = useDebounceFn(resize, 200);
 

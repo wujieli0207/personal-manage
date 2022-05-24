@@ -51,9 +51,7 @@ export const createStorage = ({
       const stringData = JSON.stringify({
         value,
         time: Date.now(),
-        expire: !isNullOrUnDef(expire)
-          ? new Date().getTime() + expire * 1000
-          : null,
+        expire: !isNullOrUnDef(expire) ? new Date().getTime() + expire * 1000 : null,
       });
       const stringifyValue = this.hasEncrypt
         ? this.encryption.encryptByAES(stringData)
@@ -68,9 +66,7 @@ export const createStorage = ({
       }
 
       try {
-        const decVal = this.hasEncrypt
-          ? this.encryption.decryptByAES(val)
-          : val;
+        const decVal = this.hasEncrypt ? this.encryption.decryptByAES(val) : val;
         const data = JSON.parse(decVal || "");
         const { value, expire } = data;
         if (isNullOrUnDef(expire) || expire >= new Date().getTime()) {

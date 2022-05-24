@@ -23,24 +23,21 @@ export function useEventListener({
   isDebounce = true,
   wait = 80,
 }: UseEventParams): { removeEvent: RemoveEventFn } {
-  let remove: RemoveEventFn = () => {};
+  let remove: RemoveEventFn = () => ({});
   const isAddRef = ref(false);
 
   if (!el) return { removeEvent: remove };
 
   const element = ref(el as Element);
 
-  const handler = isDebounce
-    ? useDebounceFn(listener, wait)
-    : useThrottleFn(listener, wait);
+  const handler = isDebounce ? useDebounceFn(listener, wait) : useThrottleFn(listener, wait);
 
   const realHandler = wait ? handler : listener;
   const removeEventLIstener = (e: Element) => {
     isAddRef.value = true;
     e.removeEventListener(name, realHandler, options);
   };
-  const addEventListener = (e: Element) =>
-    e.addEventListener(name, realHandler, options);
+  const addEventListener = (e: Element) => e.addEventListener(name, realHandler, options);
 
   const removeWatch = watch(
     element,

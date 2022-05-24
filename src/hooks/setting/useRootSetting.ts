@@ -4,13 +4,9 @@ import { useAppStore } from "/@/store/modules/app";
 export function useRootSetting() {
   const appStore = useAppStore();
 
-  const getOpenKeepAlive = computed(
-    () => appStore.getProjectConfig.openKeepAlive
-  );
+  const getOpenKeepAlive = computed(() => appStore.getProjectConfig.openKeepAlive);
 
-  const getShowDarkModeToggle = computed(
-    () => appStore.getProjectConfig.showDarkModelToggle
-  );
+  const getShowDarkModeToggle = computed(() => appStore.getProjectConfig.showDarkModelToggle);
 
   const getDarkMode = computed(() => appStore.getDarkMode);
 

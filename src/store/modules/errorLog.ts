@@ -46,12 +46,7 @@ export const useErrorLogStore = defineStore({
       };
       if (error.response) {
         const {
-          config: {
-            url = "",
-            data: params = "",
-            method = RequestEnum.GET,
-            headers = {},
-          } = {},
+          config: { url = "", data: params = "", method = RequestEnum.GET, headers = {} } = {},
           data = {},
         } = error.response;
         errInfo.url = url;

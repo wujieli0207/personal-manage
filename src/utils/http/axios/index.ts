@@ -25,10 +25,7 @@ const transform: AxiosTransform = {
    * @param options
    * @description 处理请求数据。如果数据不是预期格式，可直接抛出错误
    */
-  transformRequestHook: (
-    res: AxiosResponse<Result>,
-    options: RequestOptions
-  ) => {
+  transformRequestHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { isTransformResponse, isReturnNativeResponse } = options;
 
     // 需要获取响应头时使用该属性
@@ -49,8 +46,7 @@ const transform: AxiosTransform = {
     // code，result，message为 后台统一的字段，在 axios.d.ts 的 Result 定义
     const { code, result, message } = data;
 
-    const hasSuccess =
-      data && Reflect.has(data, "code") && code === ResultEnum.SUCCESS;
+    const hasSuccess = data && Reflect.has(data, "code") && code === ResultEnum.SUCCESS;
     if (hasSuccess) {
       return result;
     }
@@ -82,18 +78,8 @@ const transform: AxiosTransform = {
    * @param options
    * @description 请求前数据处理
    */
-  beforeRequestHook: (
-    config: AxiosRequestConfig,
-    options: RequestOptions
-  ): AxiosRequestConfig => {
-    const {
-      apiUrl,
-      joinPrefix,
-      urlPrefix,
-      formatDate,
-      joinTime = true,
-      joinParamsToUrl,
-    } = options;
+  beforeRequestHook: (config: AxiosRequestConfig, options: RequestOptions): AxiosRequestConfig => {
+    const { apiUrl, joinPrefix, urlPrefix, formatDate, joinTime = true, joinParamsToUrl } = options;
 
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;
@@ -109,10 +95,7 @@ const transform: AxiosTransform = {
     if (config.method?.toUpperCase() === RequestEnum.GET) {
       if (!isString(params)) {
         // 给 get 请求加上时间戳参数，避免从缓存拿数据
-        config.params = Object.assign(
-          params || {},
-          joinTimestamp(joinTime, false)
-        );
+        config.params = Object.assign(params || {}, joinTimestamp(joinTime, false));
       } else {
         // 兼容 restful 风格
         config.url = `${config.url}${params}${joinTimestamp(joinTime, true)}`;
@@ -122,11 +105,7 @@ const transform: AxiosTransform = {
       if (!isString(params)) {
         formatDate && formatRequestDate(params);
 
-        if (
-          Reflect.has(config, "data") &&
-          config.data &&
-          Object.keys(config.data).length > 0
-        ) {
+        if (Reflect.has(config, "data") && config.data && Object.keys(config.data).length > 0) {
           config.data = data;
           config.params = params;
         } else {
@@ -160,10 +139,9 @@ const transform: AxiosTransform = {
   requestInterceptors: (config, options) => {
     const token = getToken();
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
-      (config as Recordable).headers.Authorization =
-        options.authenticationScheme
-          ? `${options.authenticationScheme} ${token}`
-          : token;
+      (config as Recordable).headers.Authorization = options.authenticationScheme
+        ? `${options.authenticationScheme} ${token}`
+        : token;
     }
     return config;
   },

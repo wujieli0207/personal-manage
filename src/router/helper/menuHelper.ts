@@ -20,10 +20,7 @@ function joinParentPath(menus: Menu[], parentPath = "") {
 
     // 如果存在 children，就继续递归处理 children 路径
     if (menu?.children?.length) {
-      joinParentPath(
-        menu.children,
-        menu.meta?.hidePathForChildren ? parentPath : menu.path
-      );
+      joinParentPath(menu.children, menu.meta?.hidePathForChildren ? parentPath : menu.path);
     }
   }
 }
@@ -34,19 +31,12 @@ function joinParentPath(menus: Menu[], parentPath = "") {
  * @param routerMapping
  * @description 将动态路由转化为菜单
  */
-export function transformRouteToMenu(
-  routeModList: AppRouteRecordRaw[],
-  routerMapping = false
-) {
+export function transformRouteToMenu(routeModList: AppRouteRecordRaw[], routerMapping = false) {
   const cloneRouteModList = cloneDeep(routeModList);
   const routeList: AppRouteRecordRaw[] = [];
 
   cloneRouteModList.forEach((item) => {
-    if (
-      routerMapping &&
-      item.meta?.hideChildrenInMenu &&
-      typeof item.redirect === "string"
-    ) {
+    if (routerMapping && item.meta?.hideChildrenInMenu && typeof item.redirect === "string") {
       item.path = item.redirect;
     }
 

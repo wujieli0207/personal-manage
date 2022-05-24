@@ -1,5 +1,5 @@
 <template>
-  <el-drawer v-model="show" title="系统设置" :before-close="handleCloseDrawer">
+  <el-drawer :model-value="show" title="系统设置" :before-close="handleCloseDrawer">
     <app-dark-mode-toggle v-if="getShowDarkModeToggle" />
   </el-drawer>
 </template>

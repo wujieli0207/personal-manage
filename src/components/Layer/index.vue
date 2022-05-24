@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-dialog v-model="isDialogShow" :title="title">
+    <el-dialog :model-value="isDialogShow" :title="title">
       <slot></slot>
 
-      <template #footer v-if="showButton">
+      <template v-if="showButton" #footer>
         <div class="flex justify-evenly">
-          <el-button type="primary" @click="handleConfirm" class="w-20">确认</el-button>
-          <el-button type="primary" @click="handleCancel" class="w-20">取消</el-button>
+          <el-button type="primary" class="w-20" @click="handleConfirm">确认</el-button>
+          <el-button type="primary" class="w-20" @click="handleCancel">取消</el-button>
         </div>
       </template>
     </el-dialog>

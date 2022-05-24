@@ -19,8 +19,8 @@
   </el-table>
 
   <!-- 分页 -->
-  <div class="float-right h-full my-4" v-if="showPaging">
-    <basic-pagination :pagination="pagination" @pagingChange="handlePagingChange" />
+  <div v-if="showPaging" class="float-right h-full my-4">
+    <basic-pagination :pagination="pagination" @paging-change="handlePagingChange" />
   </div>
 </template>
 
@@ -30,7 +30,7 @@
   import { BasicPagination } from "/@/components/Pagination";
   import type { PagingChangingOption } from "/@/components/Pagination/src/types";
 
-  const props = defineProps({
+  defineProps({
     // 数据
     data: {
       type: Array,

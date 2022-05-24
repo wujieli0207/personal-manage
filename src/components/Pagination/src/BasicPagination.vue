@@ -6,8 +6,8 @@
     :total="pagination.total"
     :page-size="pagination.pageSize"
     :current-page="pagination.currentPage"
-    :onCurrentChange="handleCurrentChange"
-    :onSizeChange="handleSizeChange"
+    :on-current-change="handleCurrentChange"
+    :on-size-change="handleSizeChange"
   />
 </template>
 

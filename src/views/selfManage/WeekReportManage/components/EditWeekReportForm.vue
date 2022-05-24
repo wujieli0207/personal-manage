@@ -1,5 +1,5 @@
 <template>
-  <Layer v-model:isDialogShow="isDialogShow" :title="dialogTitle" @confirm="handleSubmit">
+  <Layer :is-dialog-show="isDialogShow" :title="dialogTitle" @confirm="handleSubmit">
     <el-form :model="formData" label-position="left" label-width="auto">
       <el-row :gutter="20">
         <el-col :span="11">
@@ -80,7 +80,7 @@
   const props = defineProps({
     formData: {
       type: Object as PropType<WeekReport>,
-      default: () => {},
+      default: () => ({}),
       required: true,
     },
     editType: {

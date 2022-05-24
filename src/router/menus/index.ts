@@ -1,4 +1,3 @@
-import { MenuModule } from "./../types";
 import { isUrl } from "/@/utils/is";
 import { RouteRecordNormalized } from "vue-router";
 import { Menu } from "../types";
@@ -47,9 +46,7 @@ export function getMenus(): Menu[] {
 function getAsyncMenus() {
   const permissionStore = usePermissionStore();
   if (isBackMode()) {
-    return permissionStore.getBackMenuList.filter(
-      (item) => !item.meta?.hideMenu && !item.hideMenu
-    );
+    return permissionStore.getBackMenuList.filter((item) => !item.meta?.hideMenu && !item.hideMenu);
   }
   if (isRouteMappingMode()) {
     return permissionStore.getFrontMenuList.filter((item) => !item.hideMenu);

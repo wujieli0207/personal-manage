@@ -1,6 +1,5 @@
 import { FunctionalComponent } from "vue";
 import { RouteLocation } from "vue-router";
-import { RouterTransitionEnum } from "/@/enums/appEnum";
 
 export interface DefaultContext {
   Component: FunctionalComponent & { type: Recordable };

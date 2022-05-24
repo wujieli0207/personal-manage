@@ -1,10 +1,5 @@
 import { MockMethod } from "vite-plugin-mock";
-import {
-  resultSuccess,
-  resultError,
-  getRequestToken,
-  requestParams,
-} from "../_util";
+import { resultSuccess, resultError, getRequestToken, requestParams } from "../_util";
 import { LoginParams } from "/@/api/model/userModel";
 
 interface PermissionList {
@@ -58,14 +53,7 @@ export default [
         return resultError("账号或密码不正确");
       }
 
-      const {
-        userId,
-        userName: _userName,
-        token,
-        realName,
-        desc,
-        roles,
-      } = checkUser;
+      const { userId, userName: _userName, token, realName, desc, roles } = checkUser;
 
       return resultSuccess({
         userId,
@@ -87,9 +75,7 @@ export default [
         return resultError("Token 不存在");
       }
 
-      const checkUser = createFakeUserList().find(
-        (item) => item.token === token
-      );
+      const checkUser = createFakeUserList().find((item) => item.token === token);
       if (!checkUser) {
         return resultError("人员信息不存在");
       }
@@ -107,9 +93,7 @@ export default [
         return resultError("Token 不存在");
       }
 
-      const checkUser = createFakeUserList().find(
-        (item) => item.token === token
-      );
+      const checkUser = createFakeUserList().find((item) => item.token === token);
       if (!checkUser) {
         return resultError("人员信息不存在");
       }
@@ -133,9 +117,7 @@ export default [
         return resultError("Token 不存在");
       }
 
-      const checkUser = createFakeUserList().find(
-        (item) => item.token === token
-      );
+      const checkUser = createFakeUserList().find((item) => item.token === token);
       if (!checkUser) {
         return resultError("人员信息不存在");
       }

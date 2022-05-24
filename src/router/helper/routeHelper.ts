@@ -1,10 +1,5 @@
 import { cloneDeep, omit } from "lodash-es";
-import {
-  Router,
-  createRouter,
-  createWebHashHistory,
-  RouteRecordNormalized,
-} from "vue-router";
+import { Router, createRouter, createWebHashHistory, RouteRecordNormalized } from "vue-router";
 import { AppRouteRecordRaw } from "/@/router/types";
 
 /**
@@ -33,11 +28,7 @@ export function flatMultiLevelRoutes(routeModules: AppRouteRecordRaw[]) {
  * @description 判断是否是多级路由
  */
 function isMultipleRoute(routeModule: AppRouteRecordRaw) {
-  if (
-    !routeModule ||
-    !Reflect.has(routeModule, "children") ||
-    !routeModule.children?.length
-  ) {
+  if (!routeModule || !Reflect.has(routeModule, "children") || !routeModule.children?.length) {
     return false;
   }
 }
@@ -58,9 +49,7 @@ function promoteRouteLevel(routeModule: AppRouteRecordRaw) {
   router = null;
 
   // 排除 3 级
-  routeModule.children = routeModule.children?.map((item) =>
-    omit(item, "children")
-  );
+  routeModule.children = routeModule.children?.map((item) => omit(item, "children"));
 }
 
 /**

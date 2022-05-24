@@ -18,7 +18,7 @@ function createRule(message: string) {
  *
  * @description 登陆表单校验
  */
-export function useFormValid<T extends Object>(formRef: Ref<unknown>) {
+export function useFormValid<T extends Record<string, unknown>>(formRef: Ref<unknown>) {
   async function validForm() {
     const form = unref(formRef);
     if (!form) return;

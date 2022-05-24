@@ -3,7 +3,7 @@
     <el-divider content-position="center">
       <span class="text-xl">系统主题</span>
     </el-divider>
-    <el-switch class="" v-model="isDark" active-text="暗色" inactive-text="亮色" />
+    <el-switch v-model="isDark" class="" active-text="暗色" inactive-text="亮色" />
   </div>
 </template>
 

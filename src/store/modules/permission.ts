@@ -2,7 +2,6 @@ import { AppRouteRecordRaw } from "./../../router/types";
 import { useAppStore } from "/@/store/modules/app";
 import { useUserStore } from "./user";
 import { defineStore } from "pinia";
-import type { RouteRecordRaw } from "vue-router";
 import { store } from "/@/store";
 import { Menu } from "/@/router/types";
 import { getPermCode } from "/@/api/user";
@@ -85,8 +84,7 @@ export const usePermissionStore = defineStore({
 
       let routes: AppRouteRecordRaw[] = [];
       const roleList = toRaw(userStore.getRoleList) || [];
-      const { permissionMode = projectSetting.permissionMode } =
-        appStore.getProjectConfig;
+      const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
 
       const routeFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route;

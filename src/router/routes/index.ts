@@ -41,9 +41,4 @@ export const HomeRoute: AppRouteRecordRaw = {
   ],
 };
 
-export const basicRoutes = [
-  LoginRoute,
-  HomeRoute,
-  ...asyncRoutes,
-  PAGE_NOTE_FOUND_ROUTE,
-];
+export const basicRoutes = [LoginRoute, HomeRoute, ...asyncRoutes, PAGE_NOTE_FOUND_ROUTE];
