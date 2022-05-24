@@ -1,8 +1,7 @@
 import { RoleEnum } from "/@/enums/roleEnum";
 
 declare module "vue-router" {
-  export declare interface RouteMeta
-    extends Record<string | number | symbol, unknown> {
+  export declare interface RouteMeta extends Record<string | number | symbol, unknown> {
     title: string; // 路由标题
     orderNo?: number; // 菜单排序，
     dynamicLevel?: number; // 动态路由可打开 Tab 页数

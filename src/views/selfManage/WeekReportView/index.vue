@@ -75,15 +75,15 @@
     });
 
     result.list
-      .sort((a, b) => a.id - b.id)
+      .sort((a, b) => Number(a.id) - Number(b.id))
       .forEach((item) => {
         // x 轴数据
         xData.value.push(item.title);
 
         // y 轴数据
-        yData.workDayPomoData.push(item.workDayPomo);
-        yData.restDayPomoData.push(item.restDayPomo);
-        yData.workoutTimesData.push(item.workoutTimes);
+        yData.workDayPomoData.push(Number(item.workDayPomo));
+        yData.restDayPomoData.push(Number(item.restDayPomo));
+        yData.workoutTimesData.push(Number(item.workoutTimes));
         yData.sleepHourData.push(parseFloat(item.averageSleepHour));
       });
   }

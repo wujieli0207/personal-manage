@@ -1,4 +1,4 @@
-import type { PropType as VuePropType } from "vue";
+import type { PropType as _VuePropType } from "vue";
 
 declare global {
   type Recordable<T = any> = Record<string, T>;
