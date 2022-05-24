@@ -11,3 +11,16 @@ export const router = createRouter({
 export function setupRouter(app: App<Element>) {
   app.use(router);
 }
+
+/**
+ * @description 重置路由
+ */
+export function resetRouter() {
+  router.getRoutes().forEach((route) => {
+    const { name } = route;
+    // TODO 白名单路由暂时未考虑
+    if (name) {
+      router.hasRoute(name) && router.removeRoute(name);
+    }
+  });
+}
