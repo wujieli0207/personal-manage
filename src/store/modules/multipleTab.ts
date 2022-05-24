@@ -36,8 +36,30 @@ export const useMultipleTabStore = defineStore({
     },
   },
   actions: {
+    /**
+     * @description 更新缓存的 tabList
+     */
+    updateCacheTab() {
+      const cacheMap: Set<string> = new Set();
+
+      for (const tab of this.tabList) {
+        const item = getRawRoute(tab);
+        const notNeedCache = item.meta?.ignoreKeepAlive;
+        if (notNeedCache) continue;
+
+        const name = item.name as string;
+        cacheMap.add(name);
+      }
+      this.cacheTabList = cacheMap;
+    },
+    /**
+     *
+     * @param route RouteLocationNormalized
+     * @returns
+     * @description 新增一个 tab
+     */
     async addTab(route: RouteLocationNormalized) {
-      const { path, name, fullPath, params, query } = getRawRoute(route);
+      const { path, name, fullPath, params, query, meta } = getRawRoute(route);
 
       // 登录、404、重定向路由不用在 tab 展示
       if (
@@ -66,8 +88,39 @@ export const useMultipleTabStore = defineStore({
         currentTab.fullPath = fullPath || currentTab.fullPath;
         this.tabList.splice(updateIndex, 1, currentTab);
       } else {
-        // TODO 待开发
+        // 添加 tab 场景
+        // 获取动态路由打开数量，如果大于 0 就需要控制打开数量
+        const dynamicLevel = meta?.dynamicLevel ?? -1;
+        if (dynamicLevel > 0) {
+          const realPath = meta?.realPath ?? "";
+
+          // 如果打开动态路由数超过特定值
+          if (
+            this.tabList.filter((item) => item.meta.realPath ?? "" === realPath).length >=
+            dynamicLevel
+          ) {
+            // 关闭第一个路由
+            const index = this.tabList.findIndex((item) => item.meta.realPath === realPath);
+            index !== -1 && this.tabList.splice(index, 1);
+          }
+        }
+        this.tabList.push(route);
       }
+      this.updateCacheTab();
+      cacheTab && Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList);
+    },
+    /**
+     * @description 清空已缓存的 tab
+     */
+    clearCacheTabs(): void {
+      this.cacheTabList = new Set();
+    },
+    /**
+     * @description 重置所有状态
+     */
+    resetState(): void {
+      this.tabList = [];
+      this.clearCacheTabs();
     },
   },
 });
