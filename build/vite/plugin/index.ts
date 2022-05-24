@@ -1,11 +1,8 @@
 import vue from "@vitejs/plugin-vue";
 
 import { PluginOption } from "vite";
-import {
-  autoImportPlugin,
-  importElementPlusPlugin,
-  unpluginElementPlusPlugin,
-} from "./autoImport";
+import { autoImportPlugin, importElementPlusPlugin, unpluginElementPlusPlugin } from "./autoImport";
+import windiCSS from "vite-plugin-windicss";
 import { configMockPlugin } from "./mock";
 import { purgeIconsPlugin } from "./purgeIcons";
 import { configSvgIconPlugin } from "./svgSprite";
@@ -32,6 +29,9 @@ export function createVitePlugins(
 
   // vite-plugin-svg-icons
   vitePlugins.push(configSvgIconPlugin(isBuild));
+
+  // vite-plugin-windicss
+  vitePlugins.push(windiCSS());
 
   return vitePlugins;
 }
