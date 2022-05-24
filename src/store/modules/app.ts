@@ -8,6 +8,7 @@ import { store } from "/@/store";
 import { ThemeEnum } from "/@/enums/appEnum";
 import { BeforeMiniState } from "/#/store";
 import { darkMode } from "/@/settings/designSetting";
+import { resetRouter } from "/@/router";
 
 interface AppStore {
   darkMode?: ThemeEnum;
@@ -58,6 +59,10 @@ export const useAppStore = defineStore({
     setProjectConfig(config: DeepPartial<ProjectConfig>): void {
       this.projectConfig = deepMerge(this.projectConfig || {}, config);
       Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
+    },
+    async resetAllState() {
+      resetRouter();
+      Persistent.clearAll();
     },
   },
 });
