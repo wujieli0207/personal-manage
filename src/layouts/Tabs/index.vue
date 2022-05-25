@@ -1,8 +1,9 @@
 <template>
-  <el-tabs v-model="activeKeyRef">
+  <el-tabs v-model="activeKeyRef" @tab-change="handleTabClick">
     <el-tab-pane
       v-for="item in getTabsState"
       :key="item.query ? item.fullPath : item.path"
+      :name="item.query ? item.fullPath : item.path"
       :label="item.meta.title"
     >
     </el-tab-pane>
@@ -11,14 +12,18 @@
 
 <script lang="ts" setup>
   import { ref, computed, unref } from "vue";
+  import { RouteLocationNormalized, useRouter } from "vue-router";
   import { initAffixTabs } from "./useMultipleTabs";
   import { useMultipleTabStore } from "/@/store/modules/multipleTab";
   import { useUserStore } from "/@/store/modules/user";
   import { listenerRouteChange } from "/@/logics/mitt/routeChange";
-  import { RouteLocationNormalized, useRouter } from "vue-router";
   import { REDIRECT_NAME } from "/@/router/constant";
+  import { useGo } from "/@/hooks/web/usePage";
+  import { TabPanelName } from "element-plus";
 
   const router = useRouter();
+
+  const go = useGo();
 
   const tabStore = useMultipleTabStore();
   const userStore = useUserStore();
@@ -30,8 +35,8 @@
     return tabStore.getTabList.filter((item) => !item.meta.hideTab);
   });
 
+  // 监听路由改变，增加 tab
   listenerRouteChange((route: RouteLocationNormalized) => {
-    console.log("route， listenerRouteChange: ", route);
     const { name } = route;
     if (name === REDIRECT_NAME || !route || !userStore.getToken) return;
 
@@ -55,4 +60,12 @@
       tabStore.addTab(unref(route));
     }
   });
+
+  /**
+   * @description tab 点击跳转对应路由
+   */
+  function handleTabClick(name: TabPanelName) {
+    activeKeyRef.value = name.toString();
+    go(activeKeyRef.value, false);
+  }
 </script>

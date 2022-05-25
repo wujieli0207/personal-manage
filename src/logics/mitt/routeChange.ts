@@ -1,4 +1,4 @@
-import mitt from "mitt";
+import mitt, { Handler } from "mitt";
 import { RouteLocationNormalized } from "vue-router";
 import { getRawRoute } from "/@/utils";
 
@@ -14,7 +14,8 @@ export function listenerRouteChange(
   callback: (route: RouteLocationNormalized) => void,
   immediate = true
 ) {
-  emitter.on(key, () => callback);
+  // TODO callback 声明 Handler<unknown> 可能存在不合理的地方
+  emitter.on(key, callback as Handler<unknown>);
   immediate && lastChangeTab && callback(lastChangeTab);
 }
 
