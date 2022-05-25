@@ -1,6 +1,17 @@
 import { App } from "vue";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import { basicRoutes } from "./routes/";
+import { AppRouteRecordRaw } from "./types";
+
+// 路由白名单：包含基本静态路由
+const WHITE_NAME_LIST: string[] = [];
+const getRouteNames = (array: AppRouteRecordRaw[]) => {
+  array.forEach((item) => {
+    WHITE_NAME_LIST.push(item.name);
+    getRouteNames(item.children || []);
+  });
+};
+getRouteNames(basicRoutes);
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -18,8 +29,7 @@ export function setupRouter(app: App<Element>) {
 export function resetRouter() {
   router.getRoutes().forEach((route) => {
     const { name } = route;
-    // TODO 白名单路由暂时未考虑
-    if (name) {
+    if (name && !WHITE_NAME_LIST.includes(name as string)) {
       router.hasRoute(name) && router.removeRoute(name);
     }
   });

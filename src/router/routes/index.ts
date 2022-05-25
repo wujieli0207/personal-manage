@@ -1,3 +1,4 @@
+import { PageEnum } from "./../../enums/pageEnum";
 import { AppRouteRecordRaw } from "../types";
 import { PAGE_NOTE_FOUND_ROUTE } from "./basic";
 
@@ -22,23 +23,13 @@ export const LoginRoute: AppRouteRecordRaw = {
   },
 };
 
-export const HomeRoute: AppRouteRecordRaw = {
-  path: "/layout",
-  name: "layout",
-  component: () => import("/@/layouts/index.vue"),
+export const RootRoute: AppRouteRecordRaw = {
+  path: "/",
+  name: "Root",
+  redirect: PageEnum.BASE_HOME,
   meta: {
-    title: "主页",
+    title: "Root",
   },
-  children: [
-    {
-      path: "/home",
-      name: "home",
-      component: () => import("/@/views/home/index.vue"),
-      meta: {
-        title: "home",
-      },
-    },
-  ],
 };
 
-export const basicRoutes = [LoginRoute, HomeRoute, ...asyncRoutes, PAGE_NOTE_FOUND_ROUTE];
+export const basicRoutes = [LoginRoute, RootRoute, PAGE_NOTE_FOUND_ROUTE];
