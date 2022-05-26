@@ -1,5 +1,11 @@
 <template>
-  <el-tabs v-model="activeKeyRef" @tab-change="handleTabClick">
+  <el-tabs
+    v-model="activeKeyRef"
+    closable
+    type="card"
+    @tab-change="handleTabClick"
+    @tab-remove="handleTabClose"
+  >
     <el-tab-pane
       v-for="item in getTabsState"
       :key="item.query ? item.fullPath : item.path"
@@ -35,6 +41,8 @@
     return tabStore.getTabList.filter((item) => !item.meta.hideTab);
   });
 
+  const unClose = computed(() => unref(getTabsState).length === 1);
+
   // 监听路由改变，增加 tab
   listenerRouteChange((route: RouteLocationNormalized) => {
     const { name } = route;
@@ -67,5 +75,15 @@
   function handleTabClick(name: TabPanelName) {
     activeKeyRef.value = name.toString();
     go(activeKeyRef.value, false);
+  }
+
+  /**
+   * @description 关闭 tab
+   */
+  function handleTabClose(name: TabPanelName) {
+    // 只有一个 tab 时不关闭
+    if (unref(unClose)) return;
+
+    tabStore.closeTabByKey(name.toString(), router);
   }
 </script>

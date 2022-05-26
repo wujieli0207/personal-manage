@@ -36,14 +36,11 @@
   </div>
 
   <!-- 导航 Tab、全屏设置 -->
-  <div class="flex justify-between h-8 px-4 bg-gray-200">
-    <div>
-      <tabs />
-    </div>
+  <div class="flex justify-between h-10 w-full">
+    <tabs />
 
-    <div>
-      <!-- 全屏 -->
-      <full-screen />
+    <div class="flex items-center">
+      <full-screen class="p-4 hover:bg-gray-200" />
     </div>
   </div>
 
