@@ -6,13 +6,12 @@
     :total="pagination.total"
     :page-size="pagination.pageSize"
     :current-page="pagination.currentPage"
-    :on-current-change="handleCurrentChange"
-    :on-size-change="handleSizeChange"
+    @current-change="handleCurrentChange"
+    @size-change="handleSizeChange"
   />
 </template>
 
 <script lang="ts" setup>
-  import type { PagingChangingOption } from "./types";
   import { PropType } from "vue";
 
   defineProps({
@@ -39,9 +38,7 @@
     },
   });
 
-  const emits = defineEmits<{
-    (e: "pagingChange", arg1: PagingChangingOption);
-  }>();
+  const emits = defineEmits(["pagingChange"]);
 
   function handleCurrentChange(currentPage: number): void {
     emits("pagingChange", { type: "currentPage", val: currentPage });
