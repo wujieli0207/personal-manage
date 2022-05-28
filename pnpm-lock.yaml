@@ -46,6 +46,7 @@ specifiers:
   stylelint-config-recommended-vue: ^1.4.0
   stylelint-config-standard: ^25.0.0
   stylelint-order: ^5.0.0
+  tinymce: ^6.0.3
   typescript: ^4.5.4
   unplugin-auto-import: ^0.7.1
   unplugin-element-plus: ^0.4.0
@@ -77,6 +78,7 @@ dependencies:
   path-to-regexp: 6.2.1
   pinia: 2.0.13_ytvqwwdyss532bvoq2clv4ed5m
   qs: 6.10.3
+  tinymce: 6.0.3
   vditor: 3.8.15
   vue: 3.2.33
   vue-router: 4.0.14_vue@3.2.33
@@ -4998,6 +5000,10 @@ packages:
   /tinycolor2/1.4.2:
     resolution: {integrity: sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==}
     dev: true
+
+  /tinymce/6.0.3:
+    resolution: {integrity: sha512-4cu80kWF7nRGhviE10poZtjTkl3jNL+lycilCMfdm3KU5V7FtiQQrKbEo6GInXT05RY78Ha/NFP0gOBELcSpfg==}
+    dev: false
 
   /tmp/0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}

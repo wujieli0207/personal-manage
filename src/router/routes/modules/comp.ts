@@ -19,6 +19,14 @@ const comp: AppRouteRecordRaw = {
         title: "Markdown 编辑器",
       },
     },
+    {
+      path: "/tinymce",
+      name: "Tinymce",
+      component: () => import("/@/views/comp/editor/tinymce/index.vue"),
+      meta: {
+        title: "富文本编辑器",
+      },
+    },
   ],
 };
 
