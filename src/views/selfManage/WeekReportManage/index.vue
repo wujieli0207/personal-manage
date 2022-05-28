@@ -15,6 +15,9 @@
         <el-form-item class="mb-0">
           <el-button type="primary" @click="handleClick(EditType.CREATE)">新增</el-button>
         </el-form-item>
+        <el-form-item class="mb-0" @click="handleExport">
+          <el-button type="primary">导出</el-button>
+        </el-form-item>
       </el-form>
     </el-card>
 
@@ -72,6 +75,7 @@
   import { PagingChangingOption } from "/@/components/Pagination/src/types";
   import { EditType } from "/@/enums/appEnum";
   import { useMessage } from "/@/hooks/web/useMessage";
+  import { jsonToSheetXlsx } from "/@/components/Excel/src/export2Excel";
 
   const { createMessage } = useMessage();
 
@@ -215,5 +219,29 @@
       tablePagination.currentPage = option.val;
     }
     loadWeekReport();
+  }
+
+  /**
+   * @description 处理到处当前年份全量数据
+   */
+  async function handleExport() {
+    const result = await getWeekReportByYearApi({
+      year: currentYear.value,
+      currentPage: 1,
+      pageSize: tablePagination.total,
+    });
+
+    const tableHeader = {};
+    columns.forEach((column) => {
+      if (column.prop) {
+        (tableHeader as any)[column.prop] = column.label;
+      }
+    });
+
+    jsonToSheetXlsx<WeekReport>({
+      data: result.list,
+      header: tableHeader as WeekReport,
+      filename: "每周统计数据",
+    });
   }
 </script>
