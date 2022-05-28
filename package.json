@@ -10,7 +10,7 @@
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "lint:lint-staged": "lint-staged",
-    "commit": "cz",
+    "commit": "./node_modules/cz-customizable/standalone.js",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "@vitejs/plugin-vue": "^2.3.1",
     "autoprefixer": "^10.4.7",
     "commitizen": "^4.2.4",
+    "cz-customizable": "^6.3.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -75,6 +76,11 @@
     "vite-plugin-windicss": "^1.8.4",
     "vue-eslint-parser": "^9.0.2",
     "vue-tsc": "^0.34.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
