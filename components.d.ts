@@ -51,6 +51,7 @@ declare module '@vue/runtime-core' {
     FormItem: typeof import('./src/components/Form/src/components/FormItem.vue')['default']
     Icon: typeof import('./src/components/Icon/src/Icon.vue')['default']
     Layer: typeof import('./src/components/Layer/index.vue')['default']
+    Markdown: typeof import('./src/components/Markdown/src/Markdown.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/Icon/src/SvgIcon.vue')['default']
