@@ -50,6 +50,8 @@ export interface ProjectConfig {
   // 内容全频模式
   fullContent: boolean;
   multiTabsSetting: MultiTabsSetting;
+  // 系统主题色
+  themeColor: string;
 }
 
 export interface TransitionSetting {

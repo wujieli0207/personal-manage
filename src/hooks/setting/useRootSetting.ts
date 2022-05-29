@@ -6,6 +6,8 @@ export function useRootSetting() {
 
   const getOpenKeepAlive = computed(() => appStore.getProjectConfig.openKeepAlive);
 
+  const getThemeColor = computed(() => appStore.getProjectConfig.themeColor);
+
   const getShowDarkModeToggle = computed(() => appStore.getProjectConfig.showDarkModelToggle);
 
   const getDarkMode = computed(() => appStore.getDarkMode);
@@ -16,6 +18,7 @@ export function useRootSetting() {
 
   return {
     getOpenKeepAlive,
+    getThemeColor,
     getShowDarkModeToggle,
     getDarkMode,
     setDarkMode,

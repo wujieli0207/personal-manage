@@ -37,3 +37,9 @@ export enum ThemeEnum {
   DARK = "dark",
   LIGHT = "light",
 }
+
+// 系统设置枚举
+export enum HandlerEnum {
+  CHANGE_THEME = "CHANGE_THEME", // 更改系统主题：亮色 / 暗色
+  CHANGE_THEME_COLOR = "CHANGE_THEME_COLOR", // 更新系统主题颜色
+}

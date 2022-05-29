@@ -32,6 +32,7 @@ const projectSetting: ProjectConfig = {
     showRedo: true,
     showFold: true,
   },
+  themeColor: "#409eff",
 };
 
 export default projectSetting;
