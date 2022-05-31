@@ -34,7 +34,6 @@
   const { prefixCls } = useDesign("svg-icon");
 
   const symbolId = computed(() => `#${props.prefix}-${props.name}`);
-  console.log("symbolId: ", symbolId.value);
 
   const getStyle = computed((): CSSProperties => {
     const { size } = props;

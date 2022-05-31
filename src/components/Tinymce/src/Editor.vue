@@ -157,7 +157,6 @@
     if (el) {
       el.style.visibility = "";
     }
-    console.log("el: ", el);
     tinymce
       .init(unref(initOptions))
       .then((editor) => {
