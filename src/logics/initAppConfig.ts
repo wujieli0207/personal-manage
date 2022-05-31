@@ -5,6 +5,7 @@ import { deepMerge } from "/@/utils";
 import { PROJ_CFG_KEY } from "/@/enums/cacheEnum";
 import projectSetting from "/@/settings/projectSetting";
 import { useDark } from "/@/hooks/web/useDark";
+import { useRootSetting } from "/@/hooks/setting/useRootSetting";
 
 export function initAppConfigStore() {
   const appStore = useAppStore();
@@ -16,4 +17,11 @@ export function initAppConfigStore() {
 
   // 设置暗黑模式
   useDark();
+
+  const { getThemeColor } = useRootSetting();
+
+  // 初始化主题色
+  const el = document.documentElement;
+  getComputedStyle(el).getPropertyValue(`--el-color-primary`);
+  el.style.setProperty("--el-color-primary", getThemeColor.value);
 }

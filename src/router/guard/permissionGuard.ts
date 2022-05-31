@@ -19,7 +19,6 @@ export function createPermissionGuard(router: Router) {
       userStore.getUserInfo.homePath &&
       userStore.getUserInfo.homePath !== PageEnum.BASE_HOME
     ) {
-      console.log("next");
       next(userStore.getUserInfo.homePath);
       return;
     }

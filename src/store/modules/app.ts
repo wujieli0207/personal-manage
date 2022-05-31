@@ -58,7 +58,7 @@ export const useAppStore = defineStore({
     },
     setProjectConfig(config: DeepPartial<ProjectConfig>): void {
       this.projectConfig = deepMerge(this.projectConfig || {}, config);
-      Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
+      Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig, true);
     },
     async resetAllState() {
       resetRouter();
