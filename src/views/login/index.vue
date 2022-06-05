@@ -2,14 +2,13 @@
   <div class="flex items-center justify-center w-screen h-screen login-page">
     <div class="flex flex-col items-center p-10 rounded-lg bg-white/20">
       <h2 class="pb-4 text-2xl text-white">{{ title }}</h2>
-      <el-form ref="formRef" :model="loginInfo" :rules="getFormRules">
+      <el-form ref="formRef" class="w-60" :model="loginInfo" :rules="getFormRules">
         <el-form-item prop="userName">
-          <el-input v-model="loginInfo.userName" class="w-60" placeholder="请输入用户名" />
+          <el-input v-model="loginInfo.userName" placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             v-model="loginInfo.password"
-            class="w-60"
             placeholder="请输入密码"
             type="password"
             show-password
