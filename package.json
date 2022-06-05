@@ -16,6 +16,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
     "@iconify/iconify": "^2.2.1",
+    "@tinymce/tinymce-vue": "^5.0.0",
     "@vueuse/core": "^8.4.0",
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",

@@ -1,25 +1,22 @@
 <template>
-  <textarea v-if="!initOptions.inline" ref="elRef" :style="{ visibility: 'hidden' }"></textarea>
+  <!-- <textarea
+  ></textarea> -->
+  <tinymce-editor
+    :id="tinymceId"
+    ref="elRef"
+    :style="{ visibility: 'hidden' }"
+    :init="initOptions"
+  />
 </template>
 
 <script lang="ts" setup>
-  import {
-    computed,
-    nextTick,
-    onBeforeUnmount,
-    onUnmounted,
-    PropType,
-    ref,
-    unref,
-    useAttrs,
-    watch,
-  } from "vue";
+  import TinymceEditor from "@tinymce/tinymce-vue";
+  import { computed, PropType, ref, unref, useAttrs, watch } from "vue";
   import type { RawEditorOptions, Editor } from "tinymce";
-  import tinymce from "tinymce/tinymce";
   import { useAppStore } from "/@/store/modules/app";
   import { ThemeEnum } from "/@/enums/appEnum";
   import { bindHandlers } from "./help";
-  import { onMountedOrActivated } from "/@/hooks/core/onMountedOrActivated";
+  import { plugins, toolbar } from "./tinymce";
   import { buildShortUUID } from "/@/utils/uuid";
 
   const props = defineProps({
@@ -39,11 +36,11 @@
     },
     toolbar: {
       type: Array as PropType<string[]>,
-      default: () => [],
+      default: toolbar,
     },
     plugins: {
-      type: Array as PropType<string[]>,
-      default: () => [],
+      type: String,
+      default: plugins,
     },
     modelValue: {
       type: String,
@@ -74,32 +71,17 @@
       selector: `#${unref(tinymceId)}`,
       height,
       toolbar,
+      menubar: "file edit insert view format table",
       plugins,
       ...options,
       skin_url: `${publicPath}resource/tinymce/skins/ui/${skinName.value}`,
       content_css: `${publicPath}resource/tinymce/skins/ui/${skinName.value}/content.min.css`,
+      model: "dom",
       setup: (editor: Editor) => {
         editorRef.value = editor;
         editor.on("init", (e: any) => initSetup(e));
       },
     };
-  });
-
-  onMountedOrActivated(() => {
-    if (!initOptions.value.inline) {
-      tinymceId.value = buildShortUUID("tiny-vue");
-    }
-    nextTick(() => {
-      initEditor();
-    });
-  });
-
-  onBeforeUnmount(() => {
-    destory();
-  });
-
-  onUnmounted(() => {
-    destory();
   });
 
   function setValue(editor: Recordable, newVal: string, oldVal?: string) {
@@ -147,32 +129,5 @@
     editor.setContent(value);
     bindModelhandlers(editor);
     bindHandlers(e, attrs, unref(editorRef));
-  }
-
-  /**
-   * @description 初始化 tinymce 编辑器
-   */
-  function initEditor() {
-    const el = unref(elRef);
-    if (el) {
-      el.style.visibility = "";
-    }
-    tinymce
-      .init(unref(initOptions))
-      .then((editor) => {
-        emits("inited", editor);
-      })
-      .catch((error) => {
-        emits("initError", error);
-      });
-  }
-
-  /**
-   * @description 销毁 tinymce 编辑器
-   */
-  function destory() {
-    if (tinymce !== null) {
-      tinymce?.remove?.(unref(initOptions).selector!);
-    }
   }
 </script>

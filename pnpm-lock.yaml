@@ -6,6 +6,7 @@ specifiers:
   '@element-plus/icons-vue': ^1.1.4
   '@iconify/iconify': ^2.2.1
   '@iconify/json': ^2.1.44
+  '@tinymce/tinymce-vue': ^5.0.0
   '@types/crypto-js': ^4.1.1
   '@types/lodash-es': ^4.17.6
   '@types/mockjs': ^1.0.6
@@ -67,6 +68,7 @@ specifiers:
 dependencies:
   '@element-plus/icons-vue': 1.1.4_vue@3.2.33
   '@iconify/iconify': 2.2.1
+  '@tinymce/tinymce-vue': 5.0.0_vue@3.2.33
   '@vueuse/core': 8.4.0_vue@3.2.33
   axios: 0.27.2
   crypto-js: 4.1.1
@@ -508,6 +510,15 @@ packages:
 
   /@sxzz/popperjs-es/2.11.7:
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
+    dev: false
+
+  /@tinymce/tinymce-vue/5.0.0_vue@3.2.33:
+    resolution: {integrity: sha512-1HRCNa2eGdztOKShYAiHIry50LTU6YJG//qSP9AJElrXhb3BIBN0Bef6E56nZObVgwCgSmI4cnX35VU9D49aow==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      tinymce: 6.0.3
+      vue: 3.2.33
     dev: false
 
   /@trysound/sax/0.2.0:
@@ -2997,7 +3008,7 @@ packages:
     dev: true
 
   /image-size/0.5.5:
-    resolution: {integrity: sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=}
+    resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
     requiresBuild: true
