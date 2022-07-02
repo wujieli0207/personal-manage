@@ -1,11 +1,12 @@
 <script lang="tsx">
-  import { FormProps } from "element-plus";
   import { computed, defineComponent, PropType, unref } from "vue";
   import { FormActionType, FormSchema, RenderCallbackParams } from "../types/form";
   import { TableActionType } from "/@/components/Table/src/types/table";
   import { componentMap } from "../componentMap";
   import { isFunction } from "/@/utils/is";
   import { getSlot } from "/@/utils/helper/tsxHelper";
+  import type { PersonFormProps } from "../types/form";
+  import { createPlaceholderMessage } from "../helper";
 
   export default defineComponent({
     name: "BasicFormItem",
@@ -15,7 +16,7 @@
         default: () => ({}),
       },
       formProps: {
-        type: Object as PropType<FormProps>,
+        type: Object as PropType<PersonFormProps>,
         default: () => ({}),
       },
       allDefaultValues: {
@@ -63,7 +64,7 @@
           componentProps = Object.assign({ direction: "horizontal" }, componentProps);
         }
 
-        return componentProps;
+        return componentProps as Recordable;
       });
 
       /**
@@ -91,8 +92,35 @@
 
         const Comp = componentMap.get(component) as ReturnType<typeof defineComponent>;
 
+        const { autoSetPlaceHolder } = props.formProps;
+
+        const propsData: Recordable = {
+          ...unref(getComponentProps),
+        };
+
+        const isCreatePlaceholder = autoSetPlaceHolder;
+
+        if (isCreatePlaceholder && component) {
+          propsData.placeholder =
+            unref(getComponentProps)?.placeholder || createPlaceholderMessage(component);
+        }
+
+        const compAttr: Recordable = {
+          ...propsData,
+        };
+
         if (!renderComponentContent) {
-          return <Comp />;
+          if (component === "Select") {
+            return (
+              <Comp {...compAttr}>
+                {compAttr.options.map((item: Record<string, unknown>) => {
+                  return <el-option label={item.label} value={item.value} key={item.key} />;
+                })}
+              </Comp>
+            );
+          } else {
+            return <Comp {...compAttr} />;
+          }
         }
       }
 

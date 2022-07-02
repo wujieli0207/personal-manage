@@ -23,5 +23,56 @@
         span: 8,
       },
     },
+    {
+      field: "Input",
+      component: "Input",
+      label: "输入框",
+      componentProps: () => {
+        return {
+          placeholder: "自定义 Input placeholder",
+        };
+      },
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: "Select",
+      component: "Select",
+      label: "选择框",
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        options: [
+          {
+            label: "选项1",
+            value: "1",
+            key: "1",
+          },
+          {
+            label: "选项2",
+            value: "2",
+            key: "2",
+          },
+        ],
+      },
+    },
+    {
+      field: "Switch",
+      component: "Switch",
+      label: "开关",
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: "Checkbox",
+      component: "Checkbox",
+      label: "复选框",
+      colProps: {
+        span: 8,
+      },
+    },
   ];
 </script>

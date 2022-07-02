@@ -1,8 +1,7 @@
-import { FormProps } from "element-plus";
 import { computed, Ref, unref } from "vue";
-import { FormSchema } from "../types/form";
+import { FormSchema, PersonFormProps } from "../types/form";
 
-export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<FormProps>) {
+export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<PersonFormProps>) {
   return computed(() => {
     const schemaItem = unref(schemaItemRef);
 

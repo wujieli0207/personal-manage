@@ -6,4 +6,8 @@ export const basicProps = {
     type: Array as PropType<FormSchema[]>,
     default: () => [],
   },
+  autoSetPlaceHolder: {
+    type: Boolean,
+    default: true,
+  },
 };

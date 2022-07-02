@@ -1,4 +1,4 @@
-import { ColProps, FormItemProp, formItemProps, FormProps, FormRules } from "element-plus";
+import { ColProps, FormItemProp, FormProps, FormRules } from "element-plus";
 import { VNode } from "vue";
 import { ComponentType, NamePath } from "./index";
 import { TableActionType } from "/@/components/Table/src/types/table";
@@ -19,7 +19,7 @@ export interface FormActionType {
   clearValidate: (name?: string | string[]) => Promise<void>;
   updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
   resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
-  setProps: (formProps: Partial<FormProps>) => Promise<void>;
+  setProps: (PersonFormProps: Partial<PersonFormProps>) => Promise<void>;
   removeSchemaByField: (field: string | string[]) => Promise<void>;
   appendSchemaByField: (
     schema: FormSchema,
@@ -30,7 +30,12 @@ export interface FormActionType {
   validate: (nameList?: NamePath[]) => Promise<unknown>;
   scrollToField: (name: NamePath, options?: ScrollOptions) => Promise<unknown>;
 }
-formItemProps;
+
+export interface PersonFormProps extends FormProps {
+  schemas?: FormSchema[];
+  autoSetPlaceHolder?: boolean;
+}
+
 export interface FormSchema {
   field: string; // 字段名
   label: string | VNode; // 字段标签
