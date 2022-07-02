@@ -11,7 +11,7 @@
 <script lang="ts" setup>
   import { cloneDeep } from "lodash-es";
   import { computed } from "vue";
-  import { basicProps } from "../props";
+  import { basicProps } from "./props";
   import FormItem from "./components/FormItem.vue";
   import { FormSchema } from "./types/form";
 

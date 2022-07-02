@@ -1,5 +1,5 @@
 import { PropType } from "vue";
-import { FormSchema } from "./src/types/form";
+import { FormSchema } from "./types/form";
 
 export const basicProps = {
   schemas: {
