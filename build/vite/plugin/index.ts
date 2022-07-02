@@ -1,4 +1,5 @@
 import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 
 import { PluginOption } from "vite";
 import { autoImportPlugin, importElementPlusPlugin, unpluginElementPlusPlugin } from "./autoImport";
@@ -15,6 +16,7 @@ export function createVitePlugins(
 
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     vue(), // 必须
+    vueJsx(), // 必须
   ];
 
   VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild));
