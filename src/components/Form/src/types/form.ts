@@ -32,7 +32,7 @@ export interface FormActionType {
 }
 formItemProps;
 export interface FormSchema {
-  filed: string; // 字段名
+  field: string; // 字段名
   label: string | VNode; // 字段标签
   subLabel?: string; // 字段辅助标签
   // 文字右侧的提示内容
@@ -67,13 +67,14 @@ export interface FormSchema {
   ifShow?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
   // 是否展示
   show?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
-  render?: string | ((renderCallbackParams: RenderCallbackParams) => VNode | VNode[]);
-  renderColContent?: string | ((renderCallbackParams: RenderCallbackParams) => VNode | VNode[]);
+
+  render?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
+  renderColContent?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
   renderComponentContent?:
-    | string
+    | ((renderCallbackParams: RenderCallbackParams) => unknown)
     | VNode
     | VNode[]
-    | ((renderCallbackParams: RenderCallbackParams) => unknown);
+    | string;
   slot?: string; // 为 formItem 定义的插槽
   colSlot?: string; // 列插槽
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);

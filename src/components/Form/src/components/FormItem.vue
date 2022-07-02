@@ -1,35 +1,135 @@
 <script lang="tsx">
   import { FormProps } from "element-plus";
-  import { PropType } from "vue";
-  import { FormActionType, FormSchema } from "../types/form";
+  import { computed, defineComponent, PropType, unref } from "vue";
+  import { FormActionType, FormSchema, RenderCallbackParams } from "../types/form";
   import { TableActionType } from "/@/components/Table/src/types/table";
+  import { componentMap } from "../componentMap";
+  import { isFunction } from "/@/utils/is";
+  import { getSlot } from "/@/utils/helper/tsxHelper";
 
-  defineProps({
-    schema: {
-      type: Object as PropType<FormSchema>,
-      default: () => ({}),
+  export default defineComponent({
+    name: "BasicFormItem",
+    props: {
+      schema: {
+        type: Object as PropType<FormSchema>,
+        default: () => ({}),
+      },
+      formProps: {
+        type: Object as PropType<FormProps>,
+        default: () => ({}),
+      },
+      allDefaultValues: {
+        type: Object as PropType<Recordable>,
+        default: () => ({}),
+      },
+      formModel: {
+        type: Object as PropType<Recordable>,
+        default: () => ({}),
+      },
+      setFormModel: {
+        type: Function as PropType<(key: string, value: any) => void>,
+        default: null,
+      },
+      tableAction: {
+        type: Object as PropType<TableActionType>,
+        default: () => ({}),
+      },
+      formActionType: {
+        type: Object as PropType<FormActionType>,
+        default: () => ({}),
+      },
     },
-    formProps: {
-      type: Object as PropType<FormProps>,
-      default: () => ({}),
-    },
-    allDefaultValues: {
-      type: Object as PropType<Recordable>,
-      default: () => ({}),
-    },
-    formModel: {
-      type: Object as PropType<Recordable>,
-      default: () => ({}),
-    },
-    setFormModel: {
-      type: Function as PropType<(key: string, value: any) => void>,
-      default: null,
-    },
-    tableAction: {
-      type: Object as PropType<TableActionType>,
-    },
-    formActionType: {
-      type: Object as PropType<FormActionType>,
+    setup: (props, { slots }) => {
+      const getValues = computed((): RenderCallbackParams => {
+        const { schema, formModel } = props;
+
+        return {
+          schema,
+          values: {} as Recordable,
+          model: formModel,
+          field: schema.field,
+        };
+      });
+
+      const getComponentProps = computed(() => {
+        const { schema } = props;
+        let { componentProps = {} } = schema;
+
+        if (isFunction(componentProps)) {
+          componentProps = componentProps({ schema }) ?? {};
+        }
+
+        if (schema.component === "Divider") {
+          componentProps = Object.assign({ direction: "horizontal" }, componentProps);
+        }
+
+        return componentProps;
+      });
+
+      /**
+       * @description 渲染 label 和提示语
+       */
+      function renderLabelhelpMessage() {
+        const { label, subLabel } = props.schema;
+
+        const renderLabel = subLabel ? (
+          <span>
+            {label} <span>{subLabel}</span>
+          </span>
+        ) : (
+          label
+        );
+
+        return <span>{renderLabel}</span>;
+      }
+
+      /**
+       * @description 渲染组件
+       */
+      function renderComponent() {
+        const { component, renderComponentContent } = props.schema;
+
+        const Comp = componentMap.get(component) as ReturnType<typeof defineComponent>;
+
+        if (!renderComponentContent) {
+          return <Comp />;
+        }
+      }
+
+      /**
+       * @description 渲染表单项
+       */
+      function renderItem() {
+        const { component, slot, render } = props.schema;
+
+        if (component === "Divider") {
+          return <el-divider {...unref(getComponentProps)}>{renderLabelhelpMessage()}</el-divider>;
+        } else {
+          const getContent = () => {
+            return slot
+              ? getSlot(slots, slot, unref(getValues))
+              : render
+              ? render(unref(getValues))
+              : renderComponent();
+          };
+
+          return (
+            <el-form-item>
+              <div class="flex">
+                <label class="el-form-item__label">{renderLabelhelpMessage()}</label>
+                <div class="flex-1">{getContent()}</div>
+              </div>
+            </el-form-item>
+          );
+        }
+      }
+
+      return () => {
+        const getContent = () => {
+          return renderItem();
+        };
+        return <el-col>{getContent()}</el-col>;
+      };
     },
   });
 </script>
