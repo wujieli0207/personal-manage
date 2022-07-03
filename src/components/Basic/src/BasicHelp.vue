@@ -61,7 +61,6 @@
 
       // content={renderTitle()}
       return () => {
-        console.log(renderTitle());
         return (
           <el-tooltip
             v-slots={{
