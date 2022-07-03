@@ -1,5 +1,5 @@
 import { ColProps } from "element-plus";
-import { VNodeChild } from "vue";
+import { VNode, VNodeChild } from "vue";
 import { NamePath } from "./index";
 
 export interface FormItem {
@@ -19,4 +19,28 @@ export interface FormItem {
   autoLink?: boolean;
   validateFirst?: boolean;
   validateTrigger?: string | string[] | false;
+}
+
+// 表单项校验规则
+export interface ValidationRule {
+  message?: VNode | VNode[] | JSX.Element | string;
+  type?: string;
+  required?: boolean;
+  // 将只包含空格的必需字段视为错误
+  whitespace?: boolean;
+  // 字段具体长度校验
+  len?: number;
+  // 最小长度校验
+  min?: number;
+  // 最大长度校验
+  max?: number;
+  // 枚举值校验
+  enum?: string | string[];
+  // 正则模式校验
+  pattern?: RegExp;
+  // 校验前转换内容
+  transform?: (value: any) => any;
+  // 校验函数
+  validator?: (rule: any, value: any, callback: any, source?: any, options?: any) => any;
+  trigger?: string;
 }

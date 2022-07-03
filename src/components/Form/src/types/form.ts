@@ -34,6 +34,8 @@ export interface FormActionType {
 export interface PersonFormProps extends FormProps {
   schemas?: FormSchema[];
   autoSetPlaceHolder?: boolean;
+  // 规则提示是否要携带 label 内容
+  rulesMessageJoinLabel: boolean;
 }
 
 export interface FormSchema {

@@ -27,6 +27,7 @@
       field: "Input",
       component: "Input",
       label: "输入框",
+      required: true,
       helpMessage: ["Input组件", "Input组件换行示例"],
       componentProps: () => {
         return {
@@ -41,6 +42,7 @@
       field: "Select",
       component: "Select",
       label: "选择框",
+      required: true,
       colProps: {
         span: 8,
       },
