@@ -45,11 +45,13 @@
     },
     setup: (props, { slots }) => {
       const getValues = computed((): RenderCallbackParams => {
-        const { schema, formModel } = props;
+        const { schema, formModel, allDefaultValues } = props;
 
         return {
           schema,
-          values: {} as Recordable,
+          values: {
+            ...allDefaultValues,
+          } as Recordable,
           model: formModel,
           field: schema.field,
         };
@@ -153,7 +155,6 @@
             rules[characterIndex].message ?? `字符数应该小于${rules[characterIndex].max}位`;
         }
 
-        console.log("rules: ", rules);
         return rules;
       }
 
@@ -208,6 +209,8 @@
             unref(getComponentProps)?.placeholder || createPlaceholderMessage(component);
         }
 
+        propsData.formValues = unref(getValues);
+
         const compAttr: Recordable = {
           ...propsData,
         };
@@ -231,7 +234,7 @@
        * @description 渲染表单项
        */
       function renderItem() {
-        const { component, field, itemProps, slot, render } = props.schema;
+        const { component, field, itemProps, slot, render, suffix } = props.schema;
 
         if (component === "Divider") {
           return <el-divider {...unref(getComponentProps)}>{renderLabelhelpMessage()}</el-divider>;
@@ -244,7 +247,9 @@
               : renderComponent();
           };
 
-          // rules={handleRules()}
+          const showSuffix = !!suffix;
+          const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
+
           return (
             <div>
               <el-form-item
@@ -259,6 +264,7 @@
               >
                 <div class="flex">
                   <div class="flex-1">{getContent()}</div>
+                  {showSuffix && <span class="pl-2">{getSuffix}</span>}
                 </div>
               </el-form-item>
             </div>
@@ -267,6 +273,10 @@
       }
 
       return () => {
+        const { component } = props.schema;
+
+        if (!componentMap.has(component)) return null;
+
         const getContent = () => {
           return renderItem();
         };

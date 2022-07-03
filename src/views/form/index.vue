@@ -39,6 +39,16 @@
       },
     },
     {
+      field: "InputSuffix",
+      component: "Input",
+      label: "带后缀输入框",
+      defaultValue: "100", // TODO defaultValue 暂时未渲染出来
+      suffix: "天",
+      colProps: {
+        span: 8,
+      },
+    },
+    {
       field: "Select",
       component: "Select",
       label: "选择框",
