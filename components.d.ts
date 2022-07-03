@@ -8,6 +8,7 @@ declare module "@vue/runtime-core" {
     AppDarkModeToggle: typeof import("./src/components/Application/src/AppDarkModeToggle.vue")["default"];
     AppProvider: typeof import("./src/components/Application/src/AppProvider.vue")["default"];
     BasicForm: typeof import("./src/components/Form/src/BasicForm.vue")["default"];
+    BasicHelp: typeof import("./src/components/Basic/src/BasicHelp.vue")["default"];
     BasicPagination: typeof import("./src/components/Pagination/src/BasicPagination.vue")["default"];
     BasicTable: typeof import("./src/components/Table/src/BasicTable.vue")["default"];
     Editor: typeof import("./src/components/Tinymce/src/Editor.vue")["default"];

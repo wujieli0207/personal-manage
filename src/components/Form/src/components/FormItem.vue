@@ -1,9 +1,10 @@
 <script lang="tsx">
   import { computed, defineComponent, PropType, unref } from "vue";
+  import { BasicHelp } from "/@/components/Basic";
   import { FormActionType, FormSchema, RenderCallbackParams } from "../types/form";
   import { TableActionType } from "/@/components/Table/src/types/table";
   import { componentMap } from "../componentMap";
-  import { isFunction } from "/@/utils/is";
+  import { isFunction, isArray } from "/@/utils/is";
   import { getSlot } from "/@/utils/helper/tsxHelper";
   import type { PersonFormProps } from "../types/form";
   import { createPlaceholderMessage } from "../helper";
@@ -71,7 +72,7 @@
        * @description 渲染 label 和提示语
        */
       function renderLabelhelpMessage() {
-        const { label, subLabel } = props.schema;
+        const { label, subLabel, helpMessage, helpComponentProps } = props.schema;
 
         const renderLabel = subLabel ? (
           <span>
@@ -81,7 +82,20 @@
           label
         );
 
-        return <span>{renderLabel}</span>;
+        const getHelpMessage = isFunction(helpMessage)
+          ? helpMessage(unref(getValues))
+          : helpMessage;
+
+        if (!getHelpMessage || (isArray(getHelpMessage) && getHelpMessage.length === 0)) {
+          return renderLabel;
+        }
+
+        return (
+          <span>
+            {renderLabel}
+            <BasicHelp content={getHelpMessage} placement="top" {...helpComponentProps} />
+          </span>
+        );
       }
 
       /**

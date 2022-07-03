@@ -27,6 +27,7 @@
       field: "Input",
       component: "Input",
       label: "输入框",
+      helpMessage: ["Input组件", "Input组件换行示例"],
       componentProps: () => {
         return {
           placeholder: "自定义 Input placeholder",
