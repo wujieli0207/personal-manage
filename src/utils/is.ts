@@ -36,6 +36,10 @@ export function isString(val: unknown): val is string {
   return is(val, "String");
 }
 
+export function isArray(val: unknown): val is Array<unknown> {
+  return !!val && Array.isArray(val);
+}
+
 export function isRegExp(val: unknown): val is RegExp {
   return is(val, "RegExp");
 }
