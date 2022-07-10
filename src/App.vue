@@ -6,4 +6,5 @@
 
 <script lang="ts" setup>
   import { AppProvider } from "/@/components/Application";
+  console.log("hello");
 </script>
