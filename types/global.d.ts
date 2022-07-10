@@ -9,6 +9,11 @@ declare global {
     [P in keyof T]?: DeepPartial<T[P]>;
   };
 
+  // 去掉 readonly
+  type Mutable<T> = {
+    -readonly [P in keyof T]: T[P];
+  };
+
   interface ViteEnv {
     VITE_PORT: number; // 项目端口号
     VITE_USE_MOCK: boolean; // 是否使用 mock 数据

@@ -24,14 +24,9 @@
     <!-- 基础表格 -->
     <el-card>
       <basic-table
-        :data="tableData"
+        :data-source="tableData"
         :columns="columns"
-        :show-paging="true"
-        :pagination="{
-          currentPage: tablePagination.currentPage,
-          pageSize: tablePagination.pageSize,
-          total: tablePagination.total,
-        }"
+        :pagination="tablePagination"
         @paging-change="handlePagingChange"
       >
         <template #action="scope">
@@ -62,20 +57,21 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, reactive, Ref, ref, watch } from "vue";
+  import { computed, onMounted, Ref, ref, watch } from "vue";
   import { BasicTable } from "/@/components/Table";
   import EditWeekReportForm from "./components/EditWeekReportForm.vue";
   import { WeekReport } from "/@/api/model/weekReportModel";
-  import { ColumnProps } from "/@/components/Table/src/types/columns";
+  import { BasicColumn } from "/@/components/Table/src/types/columns";
   import {
     getWeekReportByIdApi,
     getWeekReportByYearApi,
     removeWeekReportApi,
   } from "/@/api/weekReport";
-  import { PagingChangingOption } from "/@/components/Pagination/src/types";
+  import { BasicPaginationProps, PagingChangingOption } from "/@/components/Pagination/src/types";
   import { EditType } from "/@/enums/appEnum";
   import { useMessage } from "/@/hooks/web/useMessage";
   import { jsonToSheetXlsx } from "/@/components/Excel/src/export2Excel";
+  import { FixedDir } from "element-plus/es/components/table-v2/src/constants";
 
   const { createMessage } = useMessage();
 
@@ -99,13 +95,13 @@
   });
 
   const tableData: Ref<Array<WeekReport>> = ref([]);
-  const tablePagination = reactive({
+  const tablePagination = ref<BasicPaginationProps>({
     currentPage: 1,
     pageSize: 10,
     total: 0,
   });
 
-  const columns: Array<ColumnProps> = [
+  const columns: Array<BasicColumn> = [
     {
       prop: "id",
       label: "ID",
@@ -148,7 +144,7 @@
       prop: "",
       label: "操作",
       slots: { body: "action" },
-      fixed: "right",
+      fixed: FixedDir.RIGHT,
     },
   ];
 
@@ -167,11 +163,12 @@
   async function loadWeekReport() {
     const result = await getWeekReportByYearApi({
       year: currentYear.value,
-      currentPage: tablePagination.currentPage,
-      pageSize: tablePagination.pageSize,
+      currentPage: tablePagination.value?.currentPage ?? 1,
+      pageSize: tablePagination.value?.pageSize ?? 10,
     });
+
     tableData.value = result.list;
-    tablePagination.total = result.count;
+    tablePagination.value.total = result.count;
   }
   /**
    *
@@ -213,10 +210,10 @@
    */
   function handlePagingChange(option: PagingChangingOption) {
     if (option.type === "pageSize") {
-      tablePagination.pageSize = option.val;
+      tablePagination.value.pageSize = option.val;
     }
     if (option.type === "currentPage") {
-      tablePagination.currentPage = option.val;
+      tablePagination.value.currentPage = option.val;
     }
     loadWeekReport();
   }
@@ -228,7 +225,7 @@
     const result = await getWeekReportByYearApi({
       year: currentYear.value,
       currentPage: 1,
-      pageSize: tablePagination.total,
+      pageSize: tablePagination.value.total!,
     });
 
     const tableHeader = {};

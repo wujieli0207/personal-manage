@@ -7,10 +7,13 @@ declare module "@vue/runtime-core" {
   export interface GlobalComponents {
     AppDarkModeToggle: typeof import("./src/components/Application/src/AppDarkModeToggle.vue")["default"];
     AppProvider: typeof import("./src/components/Application/src/AppProvider.vue")["default"];
+    BaseTable: typeof import("./src/components/Table/src/BaseTable.vue")["default"];
     BasicForm: typeof import("./src/components/Form/src/BasicForm.vue")["default"];
     BasicHelp: typeof import("./src/components/Basic/src/BasicHelp.vue")["default"];
     BasicPagination: typeof import("./src/components/Pagination/src/BasicPagination.vue")["default"];
     BasicTable: typeof import("./src/components/Table/src/BasicTable.vue")["default"];
+    BasicTitle: typeof import("./src/components/Basic/src/BasicTitle.vue")["default"];
+    BasiTable: typeof import("./src/components/Table/src/BasiTable.vue")["default"];
     Editor: typeof import("./src/components/Tinymce/src/Editor.vue")["default"];
     ElAside: typeof import("element-plus/es")["ElAside"];
     ElAvatar: typeof import("element-plus/es")["ElAvatar"];
@@ -52,12 +55,15 @@ declare module "@vue/runtime-core" {
     ElTabs: typeof import("element-plus/es")["ElTabs"];
     ElTooltip: typeof import("element-plus/es")["ElTooltip"];
     FormItem: typeof import("./src/components/Form/src/components/FormItem.vue")["default"];
+    HeaderCell: typeof import("./src/components/Table/src/components/HeaderCell.vue")["default"];
     Icon: typeof import("./src/components/Icon/src/Icon.vue")["default"];
     Layer: typeof import("./src/components/Layer/index.vue")["default"];
     Markdown: typeof import("./src/components/Markdown/src/Markdown.vue")["default"];
     RouterLink: typeof import("vue-router")["RouterLink"];
     RouterView: typeof import("vue-router")["RouterView"];
     SvgIcon: typeof import("./src/components/Icon/src/SvgIcon.vue")["default"];
+    TableHeader: typeof import("./src/components/Table/src/components/TableHeader.vue")["default"];
+    TableTitle: typeof import("./src/components/Table/src/components/TableTitle.vue")["default"];
   }
 }
 

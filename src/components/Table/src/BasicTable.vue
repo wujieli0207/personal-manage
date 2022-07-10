@@ -1,76 +1,76 @@
 <template>
-  <el-table ref="tableElRef" :data="data" v-bind="$attrs" stripe table-layout="auto">
-    <el-table-column v-if="allowSelect" type="selection" width="55" />
-    <template v-for="item in columns" :key="item.prop">
-      <!-- 自定义插槽 -->
-      <el-table-column v-if="item.slots" v-bind="item">
+  <table-title :title="title" :help-message="titleHelpMessage"></table-title>
+  <el-table ref="tableElRef" v-bind="getBindValues" stripe table-layout="auto">
+    <template v-for="column in getViewColumns" :key="column.prop">
+      <el-table-column v-if="column.slots" v-bind="column">
         <template #header>
-          <slot :name="item.slots?.header">{{ item.label || "自定义 Header" }}</slot>
+          <slot :name="column.slots?.header">{{ column.label || "自定义 Header" }}</slot>
+          <basic-help v-if="column.helpMessage" :content="column.helpMessage" />
         </template>
-        <template #default="scope">
-          <slot :name="item.slots?.body" :data="scope.row">{{
-            scope.row[item.prop] || "需要自定义"
-          }}</slot>
+        <template #default="{ row }">
+          <slot :name="column.slots?.body" :data="row">{{ row[column.prop] || "需要自定义" }}</slot>
         </template>
       </el-table-column>
-      <!-- 默认展示数据 -->
-      <el-table-column v-else v-bind="item"></el-table-column>
+
+      <el-table-column v-else v-bind="column">
+        <template #header>
+          {{ column.label }}
+          <basic-help v-if="column.helpMessage" :content="column.helpMessage" />
+        </template>
+      </el-table-column>
     </template>
   </el-table>
 
   <!-- 分页 -->
-  <div v-if="showPaging" class="float-right h-full my-4">
-    <basic-pagination :pagination="pagination" @paging-change="handlePagingChange" />
+  <div v-if="isShowPaging" class="float-right h-full my-4">
+    <basic-pagination :pagination="getPaginationInfo" @paging-change="handlePagingChange" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from "vue";
-  import { ColumnProps } from "./types/columns";
+  import { computed, ref, toRaw, unref, useAttrs } from "vue";
+  import TableTitle from "./components/TableTitle.vue";
+  import { BasicHelp } from "/@/components/Basic";
   import { BasicPagination } from "/@/components/Pagination";
+  import { basicProps } from "./props";
+  import { BasicTableProps } from "./types/table";
+  import { useColumns } from "./hooks/useColumns";
+  import { useTableHeader } from "./hooks/useTableHeader";
+  import { useDataSource } from "./hooks/useDataSource";
+  import { usePagination } from "./hooks/usePagination";
   import type { PagingChangingOption } from "/@/components/Pagination/src/types";
 
-  defineProps({
-    // 数据
-    data: {
-      type: Array,
-      default: () => [],
-    },
-    // 表格列
-    columns: {
-      type: Array as PropType<Array<ColumnProps>>,
-      default: () => [],
-    },
-    rowKey: {
-      type: String,
-      default: "id",
-    },
-    // 是否可选
-    allowSelect: {
-      type: Boolean,
-      default: false,
-    },
-    // 是否分页
-    showPaging: {
-      type: Boolean,
-      default: true,
-    },
-    // 分页信息
-    pagination: {
-      type: Object,
-      default: () => {
-        return {
-          page: 1,
-          pageSize: 10,
-          total: 100,
-        };
-      },
-    },
-  });
-
+  const props = defineProps(basicProps);
   const emits = defineEmits(["pagingChange"]);
+  const attrs = useAttrs();
 
   const tableElRef = ref(null);
+
+  const getProps = computed(() => {
+    return { ...props } as BasicTableProps;
+  });
+
+  const { getViewColumns } = useColumns(getProps);
+
+  const { getHeaderProps } = useTableHeader(getProps);
+
+  const { getDataSourceRef } = useDataSource(getProps);
+
+  const { getPaginationInfo, getShowPagination } = usePagination(getProps);
+
+  const isShowPaging = getShowPagination();
+
+  const getBindValues = computed(() => {
+    let propsData: Recordable = {
+      ...attrs,
+      ...unref(getProps),
+      ...unref(getHeaderProps),
+      columns: toRaw(unref(getViewColumns)),
+      data: unref(getDataSourceRef),
+    };
+
+    return propsData;
+  });
 
   /**
    * @description 分页数据改变监听函数
