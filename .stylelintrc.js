@@ -27,7 +27,7 @@ module.exports = {
       },
     ],
     // 颜色表示方式以逗号分隔：rgb(0, 0, 0)
-    "color-function-notation": "modern",
+    "color-function-notation": "legacy",
     // 不允许非法的 hex 颜色表示方式：#fff
     "color-no-invalid-hex": true,
     "comment-empty-line-before": "never",
@@ -323,7 +323,12 @@ module.exports = {
       "-webkit-tap-highlight-color",
     ],
     // 允许存在空行
-    "rule-empty-line-before": "never",
+    "rule-empty-line-before": [
+      "always",
+      {
+        ignore: ["after-comment", "first-nested"],
+      },
+    ],
   },
   extends: ["stylelint-config-standard", "stylelint-config-prettier"],
   ignoreFiles: ["**/*.js", "**/*.jsx", "**/*.tsx", "**/*.ts"],
@@ -335,10 +340,7 @@ module.exports = {
     {
       files: ["*.less", "**/*.less"],
       customSyntax: "postcss-less",
-      extends: [
-        "stylelint-config-standard",
-        "stylelint-config-recommended-vue",
-      ],
+      extends: ["stylelint-config-standard", "stylelint-config-recommended-vue"],
     },
   ],
 };

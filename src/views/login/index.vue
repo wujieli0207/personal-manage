@@ -106,6 +106,7 @@
     inherits: false;
     initial-value: 0deg;
   }
+
   .login-page {
     @keyframes move {
       100% {
@@ -119,24 +120,24 @@
     }
     background-image: radial-gradient(
         circle at var(--perE) 7%,
-        rgb(40 40 40 / 0.04) 0%,
-        rgb(40 40 40 / 0.04) 50%,
-        rgb(200 200 200 / 0.04) 50%,
-        rgb(200 200 200 / 0.04) 100%
+        rgb(40, 40, 40 / 0.04) 0%,
+        rgb(40, 40, 40 / 0.04) 50%,
+        rgb(200, 200, 200 / 0.04) 50%,
+        rgb(200, 200, 200 / 0.04) 100%
       ),
       radial-gradient(
         circle at var(--perC) var(--perD),
-        rgb(99 99 99 / 0.04) 0%,
-        rgb(99 99 99 / 0.04) 50%,
-        rgb(45 45 45 / 0.04) 50%,
-        rgb(45 45 45 / 0.04) 100%
+        rgb(99, 99, 99 / 0.04) 0%,
+        rgb(99, 99, 99 / 0.04) 50%,
+        rgb(45, 45, 45 / 0.04) 50%,
+        rgb(45, 45, 45 / 0.04) 100%
       ),
       radial-gradient(
         circle at var(--perA) var(--perB),
-        rgb(243 243 243 / 0.04) 0%,
-        rgb(243 243 243 / 0.04) 50%,
-        rgb(37 37 37 / 0.04) 50%,
-        rgb(37 37 37 / 0.04) 100%
+        rgb(243, 243, 243 / 0.04) 0%,
+        rgb(243, 243, 243 / 0.04) 50%,
+        rgb(37, 37, 37 / 0.04) 50%,
+        rgb(37, 37, 37 / 0.04) 100%
       ),
       linear-gradient(var(--angle), #22deed, #8759d7);
     animation: move 30s infinite alternate linear;
