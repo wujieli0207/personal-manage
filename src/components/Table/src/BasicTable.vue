@@ -1,5 +1,6 @@
 <template>
-  <table-title :title="title" :help-message="titleHelpMessage"></table-title>
+  <table-title :title="title" :help-message="titleHelpMessage" class=""></table-title>
+
   <el-table ref="tableElRef" v-bind="getBindValues" stripe table-layout="auto">
     <template v-for="column in getViewColumns" :key="column.prop">
       <el-table-column v-if="column.slots" v-bind="column">

@@ -24,6 +24,8 @@
     <!-- 基础表格 -->
     <el-card>
       <basic-table
+        :title="`${currentYear}年统计数据`"
+        title-help-message="按照每周维度统计"
         :data-source="tableData"
         :columns="columns"
         :pagination="tablePagination"
@@ -144,6 +146,7 @@
       prop: "",
       label: "操作",
       slots: { body: "action" },
+      align: "center",
       fixed: FixedDir.RIGHT,
     },
   ];

@@ -2,8 +2,8 @@ import { AppRouteRecordRaw } from "/@/router/types";
 import { LAYOUT } from "/@/router/constant";
 
 const table: AppRouteRecordRaw = {
-  path: "/basicTable",
-  name: "BasicTable",
+  path: "/table",
+  name: "table",
   component: LAYOUT,
   redirect: "/basicTable",
   meta: {
