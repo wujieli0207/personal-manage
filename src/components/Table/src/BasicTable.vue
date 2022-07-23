@@ -1,30 +1,34 @@
 <template>
-  <table-title :title="title" :help-message="titleHelpMessage" class=""></table-title>
+  <div>
+    <table-title :title="title" :help-message="titleHelpMessage" class=""></table-title>
 
-  <el-table ref="tableElRef" v-bind="getBindValues" stripe table-layout="auto">
-    <template v-for="column in getViewColumns" :key="column.prop">
-      <el-table-column v-if="column.slots" v-bind="column">
-        <template #header>
-          <slot :name="column.slots?.header">{{ column.label || "自定义 Header" }}</slot>
-          <basic-help v-if="column.helpMessage" :content="column.helpMessage" />
-        </template>
-        <template #default="{ row }">
-          <slot :name="column.slots?.body" :data="row">{{ row[column.prop] || "需要自定义" }}</slot>
-        </template>
-      </el-table-column>
+    <el-table ref="tableElRef" v-bind="getBindValues" stripe table-layout="auto">
+      <template v-for="column in getViewColumns" :key="column.prop">
+        <el-table-column v-if="column.slots" v-bind="column">
+          <template #header>
+            <slot :name="column.slots?.header">{{ column.label || "自定义 Header" }}</slot>
+            <basic-help v-if="column.helpMessage" :content="column.helpMessage" />
+          </template>
+          <template #default="{ row }">
+            <slot :name="column.slots?.body" :data="row">{{
+              row[column.prop] || "需要自定义"
+            }}</slot>
+          </template>
+        </el-table-column>
 
-      <el-table-column v-else v-bind="column">
-        <template #header>
-          {{ column.label }}
-          <basic-help v-if="column.helpMessage" :content="column.helpMessage" />
-        </template>
-      </el-table-column>
-    </template>
-  </el-table>
+        <el-table-column v-else v-bind="column">
+          <template #header>
+            {{ column.label }}
+            <basic-help v-if="column.helpMessage" :content="column.helpMessage" />
+          </template>
+        </el-table-column>
+      </template>
+    </el-table>
 
-  <!-- 分页 -->
-  <div v-if="isShowPaging" class="float-right h-full my-4">
-    <basic-pagination :pagination="getPaginationInfo" @paging-change="handlePagingChange" />
+    <!-- 分页 -->
+    <div v-if="isShowPaging" class="float-right h-full my-4">
+      <basic-pagination :pagination="getPaginationInfo" @paging-change="handlePagingChange" />
+    </div>
   </div>
 </template>
 

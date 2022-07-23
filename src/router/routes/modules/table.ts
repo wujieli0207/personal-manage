@@ -19,6 +19,14 @@ const table: AppRouteRecordRaw = {
         title: "基础表格",
       },
     },
+    {
+      path: "/editTable",
+      name: "EditTable",
+      component: () => import("/@/views/table/EditTable.vue"),
+      meta: {
+        title: "可编辑表格",
+      },
+    },
   ],
 };
 

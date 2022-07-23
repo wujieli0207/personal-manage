@@ -64,3 +64,34 @@ export function getBasicData() {
     return arr;
   })();
 }
+
+export function getEditTableColumn(): BasicColumn[] {
+  return [
+    {
+      label: "ID",
+      prop: "id",
+      fixed: FixedDir.LEFT,
+    },
+    {
+      label: "姓名",
+      prop: "name",
+      width: 150,
+      filters: [
+        { text: "Male", value: "male" },
+        { text: "Female", value: "female" },
+      ],
+    },
+    {
+      label: "地址",
+      prop: "address",
+    },
+    {
+      label: "操作",
+      prop: "action",
+      align: "center",
+      slots: {
+        body: "action",
+      },
+    },
+  ];
+}
