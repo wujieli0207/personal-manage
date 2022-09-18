@@ -59,33 +59,33 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, Ref, ref, watch } from "vue";
-  import { BasicTable } from "/@/components/Table";
-  import EditWeekReportForm from "./components/EditWeekReportForm.vue";
-  import { WeekReport } from "/@/api/model/weekReportModel";
-  import { BasicColumn } from "/@/components/Table/src/types/columns";
+  import { computed, onMounted, Ref, ref, watch } from 'vue'
+  import { BasicTable } from '/@/components/Table'
+  import EditWeekReportForm from './components/EditWeekReportForm.vue'
+  import { WeekReport } from '/@/api/model/weekReportModel'
+  import { BasicColumn } from '/@/components/Table/src/types/columns'
   import {
     getWeekReportByIdApi,
     getWeekReportByYearApi,
     removeWeekReportApi,
-  } from "/@/api/weekReport";
-  import { BasicPaginationProps, PagingChangingOption } from "/@/components/Pagination/src/types";
-  import { EditType } from "/@/enums/appEnum";
-  import { useMessage } from "/@/hooks/web/useMessage";
-  import { jsonToSheetXlsx } from "/@/components/Excel/src/export2Excel";
-  import { FixedDir } from "element-plus/es/components/table-v2/src/constants";
+  } from '/@/api/weekReport'
+  import { BasicPaginationProps, PagingChangingOption } from '/@/components/Pagination/src/types'
+  import { EditType } from '/@/enums/appEnum'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { jsonToSheetXlsx } from '/@/components/Excel/src/export2Excel'
+  import { FixedDir } from 'element-plus/es/components/table-v2/src/constants'
 
-  const { createMessage } = useMessage();
+  const { createMessage } = useMessage()
 
   onMounted(() => {
-    loadWeekReport();
-  });
+    loadWeekReport()
+  })
 
-  const isDialogShow = ref(false);
-  const editWeekReportData = ref({}) as Ref<WeekReport>;
-  const editType = ref() as Ref<EditType>;
+  const isDialogShow = ref(false)
+  const editWeekReportData = ref({}) as Ref<WeekReport>
+  const editType = ref() as Ref<EditType>
 
-  const currentYear = ref(new Date().getFullYear());
+  const currentYear = ref(new Date().getFullYear())
   const yearRange = computed(() => {
     return [
       currentYear.value + 2,
@@ -93,71 +93,82 @@
       currentYear.value,
       currentYear.value - 1,
       currentYear.value - 2,
-    ];
-  });
+    ]
+  })
 
-  const tableData: Ref<Array<WeekReport>> = ref([]);
+  const tableData: Ref<Array<WeekReport>> = ref([])
   const tablePagination = ref<BasicPaginationProps>({
     currentPage: 1,
     pageSize: 10,
     total: 0,
-  });
+  })
 
   const columns: Array<BasicColumn> = [
     {
-      prop: "id",
-      label: "ID",
+      prop: 'id',
+      label: 'ID',
+      minWidth: 60,
+      align: 'center',
     },
     {
-      prop: "title",
-      label: "周总结标题",
+      prop: 'title',
+      minWidth: 120,
+      label: '周总结标题',
+      align: 'center',
     },
     {
-      prop: "workDayPomo",
-      label: "工作日番茄钟学习数",
-      align: "center",
+      prop: 'workDayPomo',
+      label: '工作日番茄钟学习数',
+      minWidth: 120,
+      align: 'center',
     },
     {
-      prop: "restDayPomo",
-      label: "休息日番茄钟学习数",
-      align: "center",
+      prop: 'restDayPomo',
+      label: '休息日番茄钟学习数',
+      minWidth: 120,
+      align: 'center',
     },
     {
-      prop: "workoutTimes",
-      label: "本周健身次数",
-      align: "center",
+      prop: 'workoutTimes',
+      label: '本周健身次数',
+      minWidth: 120,
+      align: 'center',
     },
     {
-      prop: "averageSleepHour",
-      label: "平均睡眠时长(小时)",
-      align: "center",
+      prop: 'averageSleepHour',
+      label: '平均睡眠时长(小时)',
+      minWidth: 120,
+      align: 'center',
     },
     {
-      prop: "startDate",
-      label: "开始时间",
-      align: "center",
+      prop: 'startDate',
+      label: '开始时间',
+      minWidth: 120,
+      align: 'center',
     },
     {
-      prop: "endDate",
-      label: "结束时间",
-      align: "center",
+      prop: 'endDate',
+      label: '结束时间',
+      minWidth: 120,
+      align: 'center',
     },
     {
-      prop: "",
-      label: "操作",
-      slots: { body: "action" },
-      align: "center",
+      prop: '',
+      label: '操作',
+      slots: { body: 'action' },
+      minWidth: 150,
+      align: 'center',
       fixed: FixedDir.RIGHT,
     },
-  ];
+  ]
 
   // TODO 对于提交数据后刷新表格，目前还没有特别好的的处理方案，
   // 暂时使用监听 isDialogShow 实现，但是在没有修改数据时会多一次请求数据
   watch(isDialogShow, (newValue, oldValue) => {
     if (newValue !== oldValue && newValue === false) {
-      loadWeekReport();
+      loadWeekReport()
     }
-  });
+  })
 
   /**
    *
@@ -168,10 +179,10 @@
       year: currentYear.value,
       currentPage: tablePagination.value?.currentPage ?? 1,
       pageSize: tablePagination.value?.pageSize ?? 10,
-    });
+    })
 
-    tableData.value = result.list;
-    tablePagination.value.total = result.count;
+    tableData.value = result.list
+    tablePagination.value.total = result.count
   }
   /**
    *
@@ -179,31 +190,31 @@
    */
   async function handleClick(type: EditType, scopeData?: WeekReport) {
     if (type === EditType.CREATE) {
-      isDialogShow.value = true;
-      editType.value = EditType.CREATE;
+      isDialogShow.value = true
+      editType.value = EditType.CREATE
       editWeekReportData.value = {
-        id: "",
-        title: "",
-        workDayPomo: "",
-        restDayPomo: "",
-        workoutTimes: "",
-        averageSleepHour: "",
-        startDate: "",
-        endDate: "",
-      };
+        id: '',
+        title: '',
+        workDayPomo: '',
+        restDayPomo: '',
+        workoutTimes: '',
+        averageSleepHour: '',
+        startDate: '',
+        endDate: '',
+      }
     }
     if (type === EditType.UPDATE && !!scopeData) {
-      isDialogShow.value = true;
-      editType.value = EditType.UPDATE;
-      editWeekReportData.value = await getWeekReportByIdApi(scopeData.id);
+      isDialogShow.value = true
+      editType.value = EditType.UPDATE
+      editWeekReportData.value = await getWeekReportByIdApi(scopeData.id)
     }
     if (type === EditType.DELETE && !!scopeData) {
-      const result = await removeWeekReportApi(scopeData.id);
+      const result = await removeWeekReportApi(scopeData.id)
       if (result.id === scopeData.id) {
         createMessage.success({
-          message: "删除成功！",
-        });
-        loadWeekReport();
+          message: '删除成功！',
+        })
+        loadWeekReport()
       }
     }
   }
@@ -212,13 +223,13 @@
    * @description 处理翻页操作
    */
   function handlePagingChange(option: PagingChangingOption) {
-    if (option.type === "pageSize") {
-      tablePagination.value.pageSize = option.val;
+    if (option.type === 'pageSize') {
+      tablePagination.value.pageSize = option.val
     }
-    if (option.type === "currentPage") {
-      tablePagination.value.currentPage = option.val;
+    if (option.type === 'currentPage') {
+      tablePagination.value.currentPage = option.val
     }
-    loadWeekReport();
+    loadWeekReport()
   }
 
   /**
@@ -229,19 +240,19 @@
       year: currentYear.value,
       currentPage: 1,
       pageSize: tablePagination.value.total!,
-    });
+    })
 
-    const tableHeader = {};
+    const tableHeader = {}
     columns.forEach((column) => {
       if (column.prop) {
-        (tableHeader as any)[column.prop] = column.label;
+        ;(tableHeader as any)[column.prop] = column.label
       }
-    });
+    })
 
     jsonToSheetXlsx<WeekReport>({
       data: result.list,
       header: tableHeader as WeekReport,
-      filename: "每周统计数据",
-    });
+      filename: '每周统计数据',
+    })
   }
 </script>
