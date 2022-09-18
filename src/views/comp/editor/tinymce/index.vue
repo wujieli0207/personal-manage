@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from "vue";
-  import { Tinymce } from "/@/components/Tinymce";
+  import { ref } from 'vue'
+  import { Tinymce } from '/@/components/Tinymce'
 
-  const value = ref("");
+  const value = ref('')
 </script>

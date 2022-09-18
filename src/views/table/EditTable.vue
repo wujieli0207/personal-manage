@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { BasicTable } from "/@/components/Table";
-  import { getEditTableColumn, getBasicData } from "./hooks/tableData";
+  import { BasicTable } from '/@/components/Table'
+  import { getEditTableColumn, getBasicData } from './hooks/tableData'
 
-  const columns = getEditTableColumn();
+  const columns = getEditTableColumn()
 
-  const data = getBasicData();
+  const data = getBasicData()
 
   function handleEdit(scopeData: unknown) {
-    console.log("scopeData: ", scopeData);
+    console.log('scopeData: ', scopeData)
   }
 </script>

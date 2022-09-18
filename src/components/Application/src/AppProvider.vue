@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { defineComponent, ref, toRefs } from "vue";
-  import { prefixCls as defaultPrefixCls } from "/@/settings/designSetting";
-  import { createAppProviderContext } from "/@/components/Application/src/useAppContext";
+  import { defineComponent, ref, toRefs } from 'vue'
+  import { prefixCls as defaultPrefixCls } from '/@/settings/designSetting'
+  import { createAppProviderContext } from '/@/components/Application/src/useAppContext'
 
   export default defineComponent({
-    name: "AppProvider",
+    name: 'AppProvider',
     inheritAttrs: false,
     props: {
       prefixCls: {
@@ -13,13 +13,13 @@
       },
     },
     setup(props, { slots }) {
-      const { prefixCls } = toRefs(props);
-      const isMobile = ref(false);
+      const { prefixCls } = toRefs(props)
+      const isMobile = ref(false)
 
       // 注入全局变量
-      createAppProviderContext({ prefixCls, isMobile });
+      createAppProviderContext({ prefixCls, isMobile })
 
-      return () => slots.default?.();
+      return () => slots.default?.()
     },
-  });
+  })
 </script>

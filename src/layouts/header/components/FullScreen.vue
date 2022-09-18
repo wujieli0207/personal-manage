@@ -7,20 +7,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { FullScreen } from "@element-plus/icons-vue";
-  import { computed, unref } from "vue";
-  import { useFullContent } from "/@/hooks/web/useFullContent";
-  import { useAppStore } from "/@/store/modules/app";
+  import { FullScreen } from '@element-plus/icons-vue'
+  import { computed, unref } from 'vue'
+  import { useFullContent } from '/@/hooks/web/useFullContent'
+  import { useAppStore } from '/@/store/modules/app'
 
-  const appStore = useAppStore();
+  const appStore = useAppStore()
 
-  const { getFullContent } = useFullContent();
+  const { getFullContent } = useFullContent()
 
   const getTitle = computed(() => {
-    return unref(getFullContent) ? "退出全屏" : "全屏";
-  });
+    return unref(getFullContent) ? '退出全屏' : '全屏'
+  })
 
   function toggle() {
-    appStore.setProjectConfig({ fullContent: !unref(getFullContent) });
+    appStore.setProjectConfig({ fullContent: !unref(getFullContent) })
   }
 </script>

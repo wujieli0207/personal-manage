@@ -23,13 +23,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from "vue";
-  import { Menu } from "/@/router/types";
+  import { PropType } from 'vue'
+  import { Menu } from '/@/router/types'
 
   defineProps({
     menuList: {
       type: Array as PropType<Menu[]>,
       default: () => [],
     },
-  });
+  })
 </script>

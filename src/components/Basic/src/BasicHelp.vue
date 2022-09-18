@@ -1,29 +1,29 @@
 <script lang="tsx">
-  import { computed, CSSProperties, defineComponent, unref } from "vue";
-  import type { PropType } from "vue";
-  import type { Placement } from "element-plus";
-  import { InfoFilled } from "@element-plus/icons-vue";
-  import { isArray, isString } from "/@/utils/is";
-  import { getSlot } from "/@/utils/helper/tsxHelper";
+  import { computed, CSSProperties, defineComponent, unref } from 'vue'
+  import type { PropType } from 'vue'
+  import type { Placement } from 'element-plus'
+  import { InfoFilled } from '@element-plus/icons-vue'
+  import { isArray, isString } from '/@/utils/is'
+  import { getSlot } from '/@/utils/helper/tsxHelper'
 
   export default defineComponent({
-    name: "BasicHelp",
+    name: 'BasicHelp',
     props: {
       content: {
         type: [Array, String] as PropType<string[] | string>,
-        default: "",
+        default: '',
       },
       placement: {
         type: String as PropType<Placement>,
-        default: "right",
+        default: 'right',
       },
       color: {
         type: String,
-        default: "#fff",
+        default: '#fff',
       },
       fontSize: {
         type: String,
-        default: "14px",
+        default: '14px',
       },
       showIndex: {
         type: Boolean,
@@ -35,28 +35,28 @@
         return {
           color: props.color,
           fontSize: props.fontSize,
-        };
-      });
+        }
+      })
 
       function renderTitle() {
-        const contentList = props.content;
+        const contentList = props.content
 
         if (isString(contentList)) {
-          return <p>{contentList}</p>;
+          return <p>{contentList}</p>
         }
 
         if (isArray(contentList)) {
           return contentList.map((content, index) => {
             return (
               <p key={content}>
-                <span>{props.showIndex ? `${index + 1}. ` : ""}</span>
+                <span>{props.showIndex ? `${index + 1}. ` : ''}</span>
                 <span>{content}</span>
               </p>
-            );
-          });
+            )
+          })
         }
 
-        return null;
+        return null
       }
 
       // content={renderTitle()}
@@ -65,7 +65,7 @@
           <el-tooltip
             v-slots={{
               content: () => {
-                return <div style={unref(getTooltipStyle)}>{renderTitle()}</div>;
+                return <div style={unref(getTooltipStyle)}>{renderTitle()}</div>
               },
             }}
             placement={unref(props.placement)}
@@ -74,8 +74,8 @@
               <span class="pl-2 cursor-pointer">{getSlot(slots) || <InfoFilled />}</span>
             </el-icon>
           </el-tooltip>
-        );
-      };
+        )
+      }
     },
-  });
+  })
 </script>

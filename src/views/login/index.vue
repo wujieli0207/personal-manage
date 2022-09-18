@@ -24,85 +24,85 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref } from "vue";
-  import { useFormValid, useFormRules } from "./hooks/useLogin";
-  import { useMessage } from "/@/hooks/web/useMessage";
-  import { useUserStore } from "/@/store/modules/user";
+  import { reactive, ref } from 'vue'
+  import { useFormValid, useFormRules } from './hooks/useLogin'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { useUserStore } from '/@/store/modules/user'
 
-  const userStore = useUserStore();
-  const { notification, createErrorAlert } = useMessage();
+  const userStore = useUserStore()
+  const { notification, createErrorAlert } = useMessage()
 
-  const title = import.meta.env.VITE_GLOB_APP_TITLE;
+  const title = import.meta.env.VITE_GLOB_APP_TITLE
 
-  const formRef = ref();
-  const loading = ref(false);
+  const formRef = ref()
+  const loading = ref(false)
 
   const loginInfo = reactive({
-    userName: "wujieli",
-    password: "123456",
-  });
+    userName: 'wujieli',
+    password: '123456',
+  })
 
-  const { validForm } = useFormValid(formRef);
-  const { getFormRules } = useFormRules();
+  const { validForm } = useFormValid(formRef)
+  const { getFormRules } = useFormRules()
 
   async function handleLogin() {
-    const data = await validForm();
-    if (!data) return;
+    const data = await validForm()
+    if (!data) return
 
     try {
-      loading.value = true;
+      loading.value = true
 
       const userInfo = await userStore.login({
         userName: loginInfo.userName,
         password: loginInfo.password,
-        mode: "none",
-      });
+        mode: 'none',
+      })
       if (userInfo) {
         notification.success({
-          title: "登录成功",
+          title: '登录成功',
           message: `欢迎回来：${userInfo.realName}`,
           duration: 2 * 1000,
-        });
+        })
       }
     } catch (error) {
       createErrorAlert({
-        message: (error as unknown as Error).message || "网络异常，请检查您的网络连接是否正确",
-      });
+        message: (error as unknown as Error).message || '网络异常，请检查您的网络连接是否正确',
+      })
     } finally {
-      loading.value = false;
+      loading.value = false
     }
   }
 </script>
 
 <style scoped lang="less">
-  @import "/@/styles/color.less";
+  @import '/@/styles/color.less';
   @property --perA {
-    syntax: "<percentage>";
+    syntax: '<percentage>';
     inherits: false;
     initial-value: 75%;
   }
   @property --perB {
-    syntax: "<percentage>";
+    syntax: '<percentage>';
     inherits: false;
     initial-value: 99%;
   }
   @property --perC {
-    syntax: "<percentage>";
+    syntax: '<percentage>';
     inherits: false;
     initial-value: 15%;
   }
   @property --perD {
-    syntax: "<percentage>";
+    syntax: '<percentage>';
     inherits: false;
     initial-value: 16%;
   }
   @property --perE {
-    syntax: "<percentage>";
+    syntax: '<percentage>';
     inherits: false;
     initial-value: 86%;
   }
   @property --angle {
-    syntax: "<angle>";
+    syntax: '<angle>';
     inherits: false;
     initial-value: 0deg;
   }

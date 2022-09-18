@@ -5,17 +5,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from "vue";
-  import TableTitle from "./TableTitle.vue";
+  import { PropType } from 'vue'
+  import TableTitle from './TableTitle.vue'
 
   defineProps({
     title: {
       type: String,
-      default: "",
+      default: '',
     },
     titleHelpMessage: {
       type: [String, Array] as PropType<string | string[]>,
       default: null,
     },
-  });
+  })
 </script>

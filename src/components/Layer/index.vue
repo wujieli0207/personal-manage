@@ -22,7 +22,7 @@
     },
     title: {
       type: String,
-      default: "",
+      default: '',
     },
     showButton: {
       type: Boolean,
@@ -30,22 +30,22 @@
     },
     width: {
       type: String,
-      default: "",
+      default: '',
     },
-  });
+  })
 
-  const emits = defineEmits(["update:isDialogShow", "confirm"]);
+  const emits = defineEmits(['update:isDialogShow', 'confirm'])
 
   /**
    * @description 处理确认事件
    */
   function handleConfirm() {
-    emits("confirm");
+    emits('confirm')
   }
   /**
    * @description 处理取消事件
    */
   function handleCancel() {
-    emits("update:isDialogShow", false);
+    emits('update:isDialogShow', false)
   }
 </script>

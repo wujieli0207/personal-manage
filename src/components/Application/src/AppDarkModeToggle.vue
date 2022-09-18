@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { useRootSetting } from "/@/hooks/setting/useRootSetting";
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting'
 
-  import { useDark } from "/@/hooks/web/useDark";
+  import { useDark } from '/@/hooks/web/useDark'
 
-  const { getShowDarkModeToggle } = useRootSetting();
+  const { getShowDarkModeToggle } = useRootSetting()
 
-  const isDark = useDark();
+  const isDark = useDark()
 </script>
