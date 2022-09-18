@@ -1,15 +1,16 @@
-import { Column } from "element-plus";
-import { VueNode } from "/@/utils/propTypes";
+import { Column } from 'element-plus'
+import { VueNode } from '/@/utils/propTypes'
 
-export interface BasicColumn extends Omit<Column<Recordable>, "width"> {
-  slots?: Recordable;
+export interface BasicColumn extends Omit<Column<Recordable>, 'width'> {
+  slots?: Recordable
   // 字段名称
-  prop: string;
+  prop: string
   // 字典展示标签
-  label: string;
-  customLabel?: VueNode;
-  helpMessage?: string | string[];
-  dataIndex?: string;
-  // 列宽
-  width?: number;
+  label: string
+  minWidth: number | string
+  align: string
+  customLabel?: VueNode
+  helpMessage?: string | string[]
+  dataIndex?: string
+  width?: number
 }

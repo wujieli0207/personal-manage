@@ -1,6 +1,6 @@
-import type { PropType } from "vue";
-import { BasicPaginationProps } from "/@/components/Pagination/src/types";
-import type { BasicColumn } from "./types/columns";
+import type { PropType } from 'vue'
+import { BasicPaginationProps } from '/@/components/Pagination/src/types'
+import type { BasicColumn } from './types/columns'
 
 export const basicProps = {
   // 表格列
@@ -11,12 +11,12 @@ export const basicProps = {
   // 表格标题
   title: {
     type: String,
-    default: "",
+    default: '',
   },
   // 表格标题提示
   titleHelpMessage: {
     type: [String, Array] as PropType<string | string[]>,
-    default: "",
+    default: '',
   },
   // 表格数据
   dataSource: {
@@ -32,4 +32,4 @@ export const basicProps = {
     type: Object as PropType<BasicPaginationProps>,
     default: () => ({}),
   },
-};
+}
