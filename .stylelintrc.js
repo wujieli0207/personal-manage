@@ -1,12 +1,13 @@
 module.exports = {
   root: true,
   plugins: ['stylelint-order'],
+  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   customSyntax: 'postcss-html',
   rules: {
-    // 百分比声明为数字 rgb(0 0 0 / 0.1)
-    'alpha-value-notation': 'number',
-    // 空规则保持空行间隔
-    'at-rule-empty-line-before': 'never',
+    // 项目使用 bem 模式，暂时没有好的解决方案，暂时先关闭
+    'selector-class-pattern': null,
+    // 关闭 font-family 需要默认类型兜底
+    'font-family-no-missing-generic-family-keyword': null,
     'at-rule-no-unknown': [
       true,
       {
@@ -26,25 +27,9 @@ module.exports = {
         ],
       },
     ],
-    // 颜色表示方式以逗号分隔：rgb(0, 0, 0)
-    'color-function-notation': 'legacy',
-    // 不允许非法的 hex 颜色表示方式：#fff
-    'color-no-invalid-hex': true,
     'comment-empty-line-before': 'never',
-    // 不允许多行声明
-    'declaration-colon-newline-after': null,
     // 每个属性之间没有空行
     'declaration-empty-line-before': 'never',
-    // 不允许 linear-gradient() 存在不符合标准的方向
-    'function-linear-gradient-no-nonstandard-direction': true,
-    // https://stylelint.io/user-guide/rules/list/no-descending-specificity
-    'no-descending-specificity': null,
-    // 允许空文件
-    'no-empty-source': null,
-    // 结尾允许存在空行
-    'no-missing-end-of-source-newline': null,
-    // 小数必须以 0 开头
-    'number-leading-zero': 'always',
     'order/order': [
       [
         'dollar-variables',
@@ -63,20 +48,33 @@ module.exports = {
       ],
       { severity: 'warning' },
     ],
-    // 允许存在空行
+    // 不允许存在空行
     'rule-empty-line-before': [
       'always',
       {
         ignore: ['after-comment', 'first-nested'],
       },
     ],
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['export', 'global'],
+      },
+    ],
   },
-  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
   overrides: [
     {
       files: ['*.vue', '**/*.vue', '*.html', '**/*.html'],
       extends: ['stylelint-config-recommended', 'css-properties-sorting'],
+      rules: {
+        'selector-pseudo-element-no-unknown': [
+          true,
+          {
+            ignorePseudoElements: ['v-deep'],
+          },
+        ],
+      },
     },
     {
       files: ['*.less', '**/*.less'],
