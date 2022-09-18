@@ -1,12 +1,12 @@
-import { GetWeekReportParams, EditWeekReport, WeekReport } from "./model/weekReportModel";
-import { ResultRo } from "/#/axios";
-import { defHttp } from "/@/utils/http/axios";
+import { GetWeekReportParams, EditWeekReport, WeekReport } from './model/weekReportModel'
+import { ResultRo } from '/#/axios'
+import { defHttp } from '/@/utils/http/axios'
 
 enum Api {
-  GET_WEEK_REPORT = "/api/week-report/getWeekReport",
-  CREATE_WEEK_REPORT = "/api/week-report/create",
-  UPDATE_WEEK_REPORT = "/api/week-report/update",
-  REMOVE_WEEK_REPORT = "/api/week-report/remove",
+  GET_WEEK_REPORT = '/api/week-report/getWeekReport',
+  CREATE_WEEK_REPORT = '/api/week-report/create',
+  UPDATE_WEEK_REPORT = '/api/week-report/update',
+  REMOVE_WEEK_REPORT = '/api/week-report/remove',
 }
 
 /**
@@ -16,9 +16,9 @@ enum Api {
 export const getWeekReportByYearApi = (params: GetWeekReportParams) => {
   return defHttp.post<ResultRo<WeekReport>>(
     { url: Api.GET_WEEK_REPORT, params },
-    { errorMessageMode: "none" }
-  );
-};
+    { errorMessageMode: 'none' }
+  )
+}
 
 /**
  *
@@ -27,9 +27,9 @@ export const getWeekReportByYearApi = (params: GetWeekReportParams) => {
 export const getWeekReportByIdApi = (id: number | string) => {
   return defHttp.get<WeekReport>(
     { url: `${Api.GET_WEEK_REPORT}/${id}` },
-    { errorMessageMode: "none" }
-  );
-};
+    { errorMessageMode: 'none' }
+  )
+}
 
 /**
  *
@@ -38,9 +38,9 @@ export const getWeekReportByIdApi = (id: number | string) => {
 export const createWeekReportApi = (params: EditWeekReport) => {
   return defHttp.post<WeekReport>(
     { url: Api.CREATE_WEEK_REPORT, params },
-    { errorMessageMode: "none" }
-  );
-};
+    { errorMessageMode: 'none' }
+  )
+}
 
 /**
  *
@@ -49,9 +49,9 @@ export const createWeekReportApi = (params: EditWeekReport) => {
 export const editWeekReportApi = (id: number | string, params: EditWeekReport) => {
   return defHttp.post<WeekReport>(
     { url: `${Api.UPDATE_WEEK_REPORT}/${id}`, params },
-    { errorMessageMode: "none" }
-  );
-};
+    { errorMessageMode: 'none' }
+  )
+}
 
 /**
  *
@@ -60,6 +60,6 @@ export const editWeekReportApi = (id: number | string, params: EditWeekReport) =
 export const removeWeekReportApi = (id: number | string) => {
   return defHttp.post<WeekReport>(
     { url: `${Api.REMOVE_WEEK_REPORT}/${id}` },
-    { errorMessageMode: "none" }
-  );
-};
+    { errorMessageMode: 'none' }
+  )
+}

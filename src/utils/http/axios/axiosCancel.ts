@@ -1,9 +1,9 @@
-import axios, { AxiosRequestConfig, Canceler } from "axios";
-import { isFunction } from "/@/utils/is";
+import axios, { AxiosRequestConfig, Canceler } from 'axios'
+import { isFunction } from '/@/utils/is'
 
-let pendingMap = new Map<string, Canceler>();
+let pendingMap = new Map<string, Canceler>()
 
-export const getPendingUrl = (config: AxiosRequestConfig) => [config.method, config.url].join("&");
+export const getPendingUrl = (config: AxiosRequestConfig) => [config.method, config.url].join('&')
 
 export class AxiosCanceler {
   /**
@@ -12,16 +12,16 @@ export class AxiosCanceler {
    * @description 新增 pending 状态请求
    */
   addPending(config: AxiosRequestConfig) {
-    this.removePending(config);
+    this.removePending(config)
 
-    const url = getPendingUrl(config);
+    const url = getPendingUrl(config)
     config.cancelToken =
       config.cancelToken ||
       new axios.CancelToken((cancel) => {
         if (!pendingMap.has(url)) {
-          pendingMap.set(url, cancel);
+          pendingMap.set(url, cancel)
         }
-      });
+      })
   }
 
   /**
@@ -31,9 +31,9 @@ export class AxiosCanceler {
    */
   removeAllPending() {
     pendingMap.forEach((cancel) => {
-      cancel && isFunction(cancel) && cancel();
-    });
-    pendingMap.clear();
+      cancel && isFunction(cancel) && cancel()
+    })
+    pendingMap.clear()
   }
 
   /**
@@ -42,16 +42,16 @@ export class AxiosCanceler {
    * @description 撤销一个状态 pending 状态请求
    */
   removePending(config: AxiosRequestConfig) {
-    const url = getPendingUrl(config);
+    const url = getPendingUrl(config)
 
     if (pendingMap.has(url)) {
-      const cancel = pendingMap.get(url);
-      cancel && isFunction(cancel) && cancel(url);
-      pendingMap.delete(url);
+      const cancel = pendingMap.get(url)
+      cancel && isFunction(cancel) && cancel(url)
+      pendingMap.delete(url)
     }
   }
 
   reset(): void {
-    pendingMap = new Map<string, Canceler>();
+    pendingMap = new Map<string, Canceler>()
   }
 }

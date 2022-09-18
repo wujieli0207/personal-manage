@@ -1,11 +1,11 @@
-import { RouteLocationRaw, Router, useRouter } from "vue-router";
-import { PageEnum } from "/@/enums/pageEnum";
-import { isString } from "/@/utils/is";
-import { logError } from "/@/utils/log";
+import { RouteLocationRaw, Router, useRouter } from 'vue-router'
+import { PageEnum } from '/@/enums/pageEnum'
+import { isString } from '/@/utils/is'
+import { logError } from '/@/utils/log'
 
-export type RouteLocationRawEx = Omit<RouteLocationRaw, "path"> & {
-  path: PageEnum;
-};
+export type RouteLocationRawEx = Omit<RouteLocationRaw, 'path'> & {
+  path: PageEnum
+}
 
 /**
  *
@@ -13,20 +13,20 @@ export type RouteLocationRawEx = Omit<RouteLocationRaw, "path"> & {
  */
 export function useGo(router?: Router) {
   if (!router) {
-    router = useRouter();
+    router = useRouter()
   }
-  const { push, replace } = router;
+  const { push, replace } = router
 
   function go(opt: PageEnum | RouteLocationRawEx | string = PageEnum.BASE_HOME, isReplace = false) {
-    if (!opt) return;
+    if (!opt) return
 
     if (isString(opt)) {
-      isReplace ? replace(opt).catch(logError) : push(opt).catch(logError);
+      isReplace ? replace(opt).catch(logError) : push(opt).catch(logError)
     } else {
-      const o = opt as RouteLocationRaw;
-      isReplace ? replace(o).catch(logError) : push(o).catch(logError);
+      const o = opt as RouteLocationRaw
+      isReplace ? replace(o).catch(logError) : push(o).catch(logError)
     }
   }
 
-  return go;
+  return go
 }

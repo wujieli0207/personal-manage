@@ -1,17 +1,17 @@
-import { Router } from "vue-router";
-import { setRouteChange } from "/@/logics/mitt/routeChange";
+import { Router } from 'vue-router'
+import { setRouteChange } from '/@/logics/mitt/routeChange'
 
 export function createPageGuard(router: Router) {
-  const loadedPageMap = new Map<string, boolean>();
+  const loadedPageMap = new Map<string, boolean>()
 
   router.beforeEach(async (to) => {
-    to.meta.loaded = !!loadedPageMap.get(to.path);
+    to.meta.loaded = !!loadedPageMap.get(to.path)
     // Notfying routing 改变
-    setRouteChange(to);
-    return true;
-  });
+    setRouteChange(to)
+    return true
+  })
 
   router.afterEach((to) => {
-    loadedPageMap.set(to.path, true);
-  });
+    loadedPageMap.set(to.path, true)
+  })
 }

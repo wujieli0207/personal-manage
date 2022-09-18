@@ -1,17 +1,17 @@
-import { computed, Ref, ref, unref } from "vue";
-import { LoginTypeEnum } from "/@/enums/appEnum";
-import { FormRules } from "element-plus";
+import { computed, Ref, ref, unref } from 'vue'
+import { LoginTypeEnum } from '/@/enums/appEnum'
+import { FormRules } from 'element-plus'
 
-const currentLoginType = ref(LoginTypeEnum.LOGIN);
+const currentLoginType = ref(LoginTypeEnum.LOGIN)
 
 function createRule(message: string) {
   return [
     {
       required: true,
       message,
-      trigger: "change",
+      trigger: 'change',
     },
-  ];
+  ]
 }
 
 /**
@@ -20,15 +20,15 @@ function createRule(message: string) {
  */
 export function useFormValid<T extends Record<string, unknown>>(formRef: Ref<unknown>) {
   async function validForm() {
-    const form = unref(formRef);
-    if (!form) return;
+    const form = unref(formRef)
+    if (!form) return
 
-    const data = await (form as any).validate();
+    const data = await (form as any).validate()
 
-    return data as T;
+    return data as T
   }
 
-  return { validForm };
+  return { validForm }
 }
 
 /**
@@ -37,15 +37,15 @@ export function useFormValid<T extends Record<string, unknown>>(formRef: Ref<unk
  */
 export function useFormRules(_loginInfo?: Recordable) {
   const getAccountFormRule = computed(() => {
-    return createRule("请输入账号");
-  });
+    return createRule('请输入账号')
+  })
   const getPasswordFormRule = computed(() => {
-    return createRule("请输入密码");
-  });
+    return createRule('请输入密码')
+  })
 
   const getFormRules = computed((): FormRules => {
-    const accountFormRule = unref(getAccountFormRule);
-    const passwordFormRule = unref(getPasswordFormRule);
+    const accountFormRule = unref(getAccountFormRule)
+    const passwordFormRule = unref(getPasswordFormRule)
 
     switch (unref(currentLoginType)) {
       // 默认普通登陆校验规则
@@ -53,9 +53,9 @@ export function useFormRules(_loginInfo?: Recordable) {
         return {
           userName: accountFormRule,
           password: passwordFormRule,
-        };
+        }
     }
-  });
+  })
 
-  return { getFormRules };
+  return { getFormRules }
 }

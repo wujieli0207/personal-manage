@@ -2,9 +2,9 @@ import {
   PermissionModeEnum,
   RouterTransitionEnum,
   SessionTimeoutProcessingEnum,
-} from "/@/enums/appEnum";
-import { ProjectConfig } from "/#/config";
-import { CacheTypeEnum } from "/@/enums/cacheEnum";
+} from '/@/enums/appEnum'
+import { ProjectConfig } from '/#/config'
+import { CacheTypeEnum } from '/@/enums/cacheEnum'
 
 // ! 注意改变配置时要清空浏览器缓存
 const projectSetting: ProjectConfig = {
@@ -32,7 +32,7 @@ const projectSetting: ProjectConfig = {
     showRedo: true,
     showFold: true,
   },
-  themeColor: "#409eff",
-};
+  themeColor: '#409eff',
+}
 
-export default projectSetting;
+export default projectSetting

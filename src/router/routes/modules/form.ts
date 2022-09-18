@@ -1,25 +1,25 @@
-import { AppRouteRecordRaw } from "/@/router/types";
-import { LAYOUT } from "/@/router/constant";
+import { AppRouteRecordRaw } from '/@/router/types'
+import { LAYOUT } from '/@/router/constant'
 
 const form: AppRouteRecordRaw = {
-  path: "/form",
-  name: "Form",
+  path: '/form',
+  name: 'Form',
   component: LAYOUT,
-  redirect: "/basicForm",
+  redirect: '/basicForm',
   meta: {
-    title: "表单",
-    icon: "radix-icons:component-1",
+    title: '表单',
+    icon: 'radix-icons:component-1',
   },
   children: [
     {
-      path: "/basicForm",
-      name: "BasicForm",
-      component: () => import("/@/views/form/index.vue"),
+      path: '/basicForm',
+      name: 'BasicForm',
+      component: () => import('/@/views/form/index.vue'),
       meta: {
-        title: "基础表单",
+        title: '基础表单',
       },
     },
   ],
-};
+}
 
-export default form;
+export default form

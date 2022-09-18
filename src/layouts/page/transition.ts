@@ -1,9 +1,9 @@
-import { FunctionalComponent } from "vue";
-import { RouteLocation } from "vue-router";
+import { FunctionalComponent } from 'vue'
+import { RouteLocation } from 'vue-router'
 
 export interface DefaultContext {
-  Component: FunctionalComponent & { type: Recordable };
-  route: RouteLocation;
+  Component: FunctionalComponent & { type: Recordable }
+  route: RouteLocation
 }
 
 export function getTransitionName({
@@ -12,20 +12,20 @@ export function getTransitionName({
   cacheTabs,
   enableTransition,
   def,
-}: Pick<DefaultContext, "route"> & {
-  openCache: boolean;
-  cacheTabs: string[];
-  enableTransition: boolean;
-  def: string;
+}: Pick<DefaultContext, 'route'> & {
+  openCache: boolean
+  cacheTabs: string[]
+  enableTransition: boolean
+  def: string
 }): string | undefined {
-  if (!enableTransition) return undefined;
+  if (!enableTransition) return undefined
 
-  let name: string | undefined = def;
+  let name: string | undefined = def
 
-  const isInCache = cacheTabs.includes(route.name as string);
+  const isInCache = cacheTabs.includes(route.name as string)
   if (openCache) {
-    name = isInCache && route.meta.loaded ? name : undefined;
+    name = isInCache && route.meta.loaded ? name : undefined
   }
 
-  return name || (route.meta.transitionName as string) || def;
+  return name || (route.meta.transitionName as string) || def
 }

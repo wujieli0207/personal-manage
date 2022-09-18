@@ -1,33 +1,33 @@
-import { AppRouteRecordRaw } from "/@/router/types";
-import { LAYOUT } from "/@/router/constant";
+import { AppRouteRecordRaw } from '/@/router/types'
+import { LAYOUT } from '/@/router/constant'
 
 const table: AppRouteRecordRaw = {
-  path: "/table",
-  name: "table",
+  path: '/table',
+  name: 'table',
   component: LAYOUT,
-  redirect: "/basicTable",
+  redirect: '/basicTable',
   meta: {
-    title: "表格",
-    icon: "radix-icons:component-1",
+    title: '表格',
+    icon: 'radix-icons:component-1',
   },
   children: [
     {
-      path: "/basicTable",
-      name: "BasicTable",
-      component: () => import("/@/views/table/index.vue"),
+      path: '/basicTable',
+      name: 'BasicTable',
+      component: () => import('/@/views/table/index.vue'),
       meta: {
-        title: "基础表格",
+        title: '基础表格',
       },
     },
     {
-      path: "/editTable",
-      name: "EditTable",
-      component: () => import("/@/views/table/EditTable.vue"),
+      path: '/editTable',
+      name: 'EditTable',
+      component: () => import('/@/views/table/EditTable.vue'),
       meta: {
-        title: "可编辑表格",
+        title: '可编辑表格',
       },
     },
   ],
-};
+}
 
-export default table;
+export default table

@@ -1,3 +1,3 @@
-import { VNodeChild } from "vue";
+import { VNodeChild } from 'vue'
 
-export type VueNode = VNodeChild | JSX.Element;
+export type VueNode = VNodeChild | JSX.Element

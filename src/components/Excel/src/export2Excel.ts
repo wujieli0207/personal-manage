@@ -1,10 +1,10 @@
-import * as xlsx from "xlsx";
-import type { WorkBook } from "xlsx";
-import { JsonToSheet } from "./types";
+import * as xlsx from 'xlsx'
+import type { WorkBook } from 'xlsx'
+import { JsonToSheet } from './types'
 
-const { utils, writeFile } = xlsx;
+const { utils, writeFile } = xlsx
 
-const DEFAULT_FILE_NAME = "excel-list";
+const DEFAULT_FILE_NAME = 'excel-list'
 
 /**
  *
@@ -15,23 +15,23 @@ export function jsonToSheetXlsx<T = any>({
   header,
   filename = DEFAULT_FILE_NAME,
   json2sheetOpts = {},
-  write2excelOpts = { bookType: "xlsx" },
+  write2excelOpts = { bookType: 'xlsx' },
 }: JsonToSheet<T>) {
-  const arrayData = [...data];
+  const arrayData = [...data]
 
   if (header) {
-    arrayData.unshift(header);
-    json2sheetOpts.skipHeader = true;
+    arrayData.unshift(header)
+    json2sheetOpts.skipHeader = true
   }
 
-  const worksheet = utils.json_to_sheet(arrayData, json2sheetOpts);
+  const worksheet = utils.json_to_sheet(arrayData, json2sheetOpts)
 
   const workbook: WorkBook = {
     SheetNames: [filename],
     Sheets: {
       [filename]: worksheet,
     },
-  };
+  }
 
-  writeFile(workbook, `${filename}.xlsx`, write2excelOpts);
+  writeFile(workbook, `${filename}.xlsx`, write2excelOpts)
 }

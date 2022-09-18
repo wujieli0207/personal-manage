@@ -1,18 +1,18 @@
-import { computed, ComputedRef, ref, unref } from "vue";
-import { useEventListener } from "/@/hooks/event/useEventListaner";
-import { sizeEnum, screenEnum, screenMap } from "/@/enums/breakpointEnum";
+import { computed, ComputedRef, ref, unref } from 'vue'
+import { useEventListener } from '/@/hooks/event/useEventListaner'
+import { sizeEnum, screenEnum, screenMap } from '/@/enums/breakpointEnum'
 
-let globalScreenRef: ComputedRef<sizeEnum | undefined>;
-let globalWidthRef: ComputedRef<number>;
-let globalRealWidthRef: ComputedRef<number>;
+let globalScreenRef: ComputedRef<sizeEnum | undefined>
+let globalWidthRef: ComputedRef<number>
+let globalRealWidthRef: ComputedRef<number>
 
 export interface CreateCallbackParams {
-  screen: ComputedRef<sizeEnum | undefined>;
-  width: ComputedRef<number>;
-  realWidth: ComputedRef<number>;
-  screenEnum: typeof screenEnum;
-  screenMap: Map<sizeEnum, number>;
-  sizeEnum: typeof sizeEnum;
+  screen: ComputedRef<sizeEnum | undefined>
+  width: ComputedRef<number>
+  realWidth: ComputedRef<number>
+  screenEnum: typeof screenEnum
+  screenMap: Map<sizeEnum, number>
+  sizeEnum: typeof sizeEnum
 }
 
 export function useBreakpoint() {
@@ -21,36 +21,36 @@ export function useBreakpoint() {
     widthRef: globalWidthRef,
     screenEnum,
     realWidthRef: globalRealWidthRef,
-  };
+  }
 }
 
 export function createBreakpointListen(fn?: (opt: CreateCallbackParams) => void) {
-  const screenRef = ref<sizeEnum>(sizeEnum.XL);
-  const realWidthRef = ref(window.innerWidth);
+  const screenRef = ref<sizeEnum>(sizeEnum.XL)
+  const realWidthRef = ref(window.innerWidth)
 
   function getWindowWidth() {
-    const width = document.body.clientWidth;
-    const xs = screenMap.get(sizeEnum.XS)!;
-    const sm = screenMap.get(sizeEnum.SM)!;
-    const md = screenMap.get(sizeEnum.MD)!;
-    const lg = screenMap.get(sizeEnum.LG)!;
-    const xl = screenMap.get(sizeEnum.XL)!;
+    const width = document.body.clientWidth
+    const xs = screenMap.get(sizeEnum.XS)!
+    const sm = screenMap.get(sizeEnum.SM)!
+    const md = screenMap.get(sizeEnum.MD)!
+    const lg = screenMap.get(sizeEnum.LG)!
+    const xl = screenMap.get(sizeEnum.XL)!
 
     if (width < xs) {
-      screenRef.value = sizeEnum.XS;
+      screenRef.value = sizeEnum.XS
     } else if (width < sm) {
-      screenRef.value = sizeEnum.SM;
+      screenRef.value = sizeEnum.SM
     } else if (width < md) {
-      screenRef.value = sizeEnum.MD;
+      screenRef.value = sizeEnum.MD
     } else if (width < lg) {
-      screenRef.value = sizeEnum.LG;
+      screenRef.value = sizeEnum.LG
     } else if (width < xl) {
-      screenRef.value = sizeEnum.XL;
+      screenRef.value = sizeEnum.XL
     } else {
-      screenRef.value = sizeEnum.XXL;
+      screenRef.value = sizeEnum.XXL
     }
 
-    realWidthRef.value = width;
+    realWidthRef.value = width
   }
 
   function resizeFn() {
@@ -61,30 +61,30 @@ export function createBreakpointListen(fn?: (opt: CreateCallbackParams) => void)
       screenEnum,
       screenMap,
       sizeEnum,
-    });
+    })
   }
 
   useEventListener({
     el: window,
-    name: "resize",
+    name: 'resize',
     listener: () => {
-      getWindowWidth();
-      resizeFn();
+      getWindowWidth()
+      resizeFn()
     },
-  });
+  })
 
-  getWindowWidth(); // 获取 window 宽度
+  getWindowWidth() // 获取 window 宽度
 
-  globalScreenRef = computed(() => unref(screenRef));
-  globalWidthRef = computed((): number => screenMap.get(unref(screenRef)!)!);
-  globalRealWidthRef = computed((): number => unref(realWidthRef));
+  globalScreenRef = computed(() => unref(screenRef))
+  globalWidthRef = computed((): number => screenMap.get(unref(screenRef)!)!)
+  globalRealWidthRef = computed((): number => unref(realWidthRef))
 
-  resizeFn(); // 更新 window 宽度
+  resizeFn() // 更新 window 宽度
 
   return {
     screenRef: globalScreenRef,
     screenEnum,
     widthRef: globalWidthRef,
     realWidthRef: globalRealWidthRef,
-  };
+  }
 }

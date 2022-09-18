@@ -1,48 +1,48 @@
-import { tryOnUnmounted, useDebounceFn, useTimeoutFn } from "@vueuse/core";
-import { EChartsOption } from "echarts";
-import { computed, nextTick, ref, Ref, unref } from "vue";
-import { useBreakpoint } from "/@/hooks/event/useBreakpoint";
-import { useEventListener } from "/@/hooks/event/useEventListaner";
-import echarts from "/@/utils/lib/echarts";
+import { tryOnUnmounted, useDebounceFn, useTimeoutFn } from '@vueuse/core'
+import { EChartsOption } from 'echarts'
+import { computed, nextTick, ref, Ref, unref } from 'vue'
+import { useBreakpoint } from '/@/hooks/event/useBreakpoint'
+import { useEventListener } from '/@/hooks/event/useEventListaner'
+import echarts from '/@/utils/lib/echarts'
 
 export function useECharts(elRef: Ref<HTMLDivElement>) {
-  let chartInstance: Nullable<echarts.ECharts> = null;
-  let resizeFn: Fn = resize;
-  const cacheOptions = ref({}) as Ref<EChartsOption>;
-  let removeResizeFn: Fn = () => ({});
+  let chartInstance: Nullable<echarts.ECharts> = null
+  let resizeFn: Fn = resize
+  const cacheOptions = ref({}) as Ref<EChartsOption>
+  let removeResizeFn: Fn = () => ({})
 
-  resizeFn = useDebounceFn(resize, 200);
+  resizeFn = useDebounceFn(resize, 200)
 
   const getOptions = computed(() => {
     return {
-      backgroundColor: "transparent",
+      backgroundColor: 'transparent',
       ...cacheOptions.value,
-    } as EChartsOption;
-  });
+    } as EChartsOption
+  })
 
   /**
    *
    * @description 初始化图表
    */
   function initCharts() {
-    const el = unref(elRef);
-    if (!el || !unref(el)) return;
+    const el = unref(elRef)
+    if (!el || !unref(el)) return
 
-    chartInstance = echarts.init(el);
+    chartInstance = echarts.init(el)
 
     // 解决屏幕宽度变化导致图表宽度不会自动更新问题
     const { removeEvent } = useEventListener({
       el: window,
-      name: "resize",
+      name: 'resize',
       listener: resizeFn,
-    });
-    removeResizeFn = removeEvent;
+    })
+    removeResizeFn = removeEvent
 
-    const { widthRef, screenEnum } = useBreakpoint();
+    const { widthRef, screenEnum } = useBreakpoint()
     if (unref(widthRef) <= screenEnum.MD || el.offsetHeight === 0) {
       useTimeoutFn(() => {
-        resizeFn();
-      }, 30);
+        resizeFn()
+      }, 30)
     }
   }
 
@@ -52,9 +52,9 @@ export function useECharts(elRef: Ref<HTMLDivElement>) {
    */
   function getInstance(): Nullable<echarts.ECharts> {
     if (!chartInstance) {
-      initCharts();
+      initCharts()
     }
-    return chartInstance;
+    return chartInstance
   }
 
   /**
@@ -62,27 +62,27 @@ export function useECharts(elRef: Ref<HTMLDivElement>) {
    * @description 设置 chart 配置参数
    */
   function setOptions(options: EChartsOption, clear = true) {
-    cacheOptions.value = options;
+    cacheOptions.value = options
 
     if (unref(elRef)?.offsetHeight === 0) {
       useTimeoutFn(() => {
-        setOptions(unref(getOptions));
-      }, 30);
-      return;
+        setOptions(unref(getOptions))
+      }, 30)
+      return
     }
 
     nextTick(() => {
       useTimeoutFn(() => {
         if (!chartInstance) {
-          initCharts();
+          initCharts()
 
-          if (!chartInstance) return;
+          if (!chartInstance) return
         }
-        clear && chartInstance.clear();
+        clear && chartInstance.clear()
 
-        chartInstance?.setOption(unref(getOptions), true);
-      }, 1000);
-    });
+        chartInstance?.setOption(unref(getOptions), true)
+      }, 1000)
+    })
   }
 
   /**
@@ -90,21 +90,21 @@ export function useECharts(elRef: Ref<HTMLDivElement>) {
    * @description chart 更新尺寸
    */
   function resize() {
-    chartInstance?.resize();
+    chartInstance?.resize()
   }
 
   tryOnUnmounted(() => {
-    if (!chartInstance) return;
+    if (!chartInstance) return
 
-    removeResizeFn();
-    chartInstance.dispose();
-    chartInstance = null;
-  });
+    removeResizeFn()
+    chartInstance.dispose()
+    chartInstance = null
+  })
 
   return {
     echarts,
     getInstance,
     setOptions,
     resize,
-  };
+  }
 }

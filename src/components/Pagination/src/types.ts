@@ -1,8 +1,8 @@
-import { PaginationProps } from "element-plus";
+import { PaginationProps } from 'element-plus'
 
 export interface PagingChangingOption {
-  type: "currentPage" | "pageSize";
-  val: number;
+  type: 'currentPage' | 'pageSize'
+  val: number
 }
 
-export type BasicPaginationProps = Partial<Mutable<PaginationProps>>;
+export type BasicPaginationProps = Partial<Mutable<PaginationProps>>

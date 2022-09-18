@@ -1,22 +1,22 @@
-import { clone } from "lodash-es";
-import { deepMerge, setObjToUrlParams } from "/@/utils";
-import { ChocoAxios } from "./Axios";
-import { AxiosTransform, CreateAxiosOptions } from "./axiosTransform";
-import { ContentTypeEnum, RequestEnum, ResultEnum } from "/@/enums/httpEnum";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { RequestOptions, Result } from "/#/axios";
-import { useGlobSetting } from "/@/settings";
-import { isString } from "/@/utils/is";
-import { formatRequestDate, joinTimestamp } from "./helper";
-import { getToken } from "/@/utils/auth";
-import { useErrorLogStoreWithOut } from "/@/store/modules/errorLog";
-import { checkStatus } from "./checkStatus";
-import { useMessage } from "/@/hooks/web/useMessage";
+import { clone } from 'lodash-es'
+import { deepMerge, setObjToUrlParams } from '/@/utils'
+import { ChocoAxios } from './Axios'
+import { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
+import { ContentTypeEnum, RequestEnum, ResultEnum } from '/@/enums/httpEnum'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { RequestOptions, Result } from '/#/axios'
+import { useGlobSetting } from '/@/settings'
+import { isString } from '/@/utils/is'
+import { formatRequestDate, joinTimestamp } from './helper'
+import { getToken } from '/@/utils/auth'
+import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog'
+import { checkStatus } from './checkStatus'
+import { useMessage } from '/@/hooks/web/useMessage'
 
-const globSetting = useGlobSetting();
-const urlPrefix = globSetting.urlPrefix;
+const globSetting = useGlobSetting()
+const urlPrefix = globSetting.urlPrefix
 
-const { createMessage, createErrorAlert } = useMessage();
+const { createMessage, createErrorAlert } = useMessage()
 
 const transform: AxiosTransform = {
   /**
@@ -26,50 +26,50 @@ const transform: AxiosTransform = {
    * @description 处理请求数据。如果数据不是预期格式，可直接抛出错误
    */
   transformRequestHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
-    const { isTransformResponse, isReturnNativeResponse } = options;
+    const { isTransformResponse, isReturnNativeResponse } = options
 
     // 需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
-      return res;
+      return res
     }
 
     // 不进行数据处理，直接返回数据，用于可能需要直接获取 code，data，message 的场景
     if (!isTransformResponse) {
-      return res.data;
+      return res.data
     }
 
-    const { data } = res;
+    const { data } = res
     if (!data) {
-      throw new Error("请求出错，请稍后重试");
+      throw new Error('请求出错，请稍后重试')
     }
 
     // code，result，message为 后台统一的字段，在 axios.d.ts 的 Result 定义
-    const { code, result, message } = data;
+    const { code, result, message } = data
 
-    const hasSuccess = data && Reflect.has(data, "code") && code === ResultEnum.SUCCESS;
+    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS
     if (hasSuccess) {
-      return result;
+      return result
     }
 
     // 可以增加更多定义，在 httpEnum 的 ResultEnum 中增加
-    let timeoutMsg = "";
+    let timeoutMsg = ''
     switch (code) {
       default:
         if (message) {
-          timeoutMsg = message;
+          timeoutMsg = message
         }
     }
 
     // alert 用于重要消息提示，需要点击确认关闭，message 是不普通消息提示
     // none 用于调用时不希望自动弹出错误提示
-    if (options.errorMessageMode === "alert") {
-      createErrorAlert({ title: "错误提示", message: timeoutMsg });
+    if (options.errorMessageMode === 'alert') {
+      createErrorAlert({ title: '错误提示', message: timeoutMsg })
     }
-    if (options.errorMessageMode === "message") {
-      createMessage.error(timeoutMsg);
+    if (options.errorMessageMode === 'message') {
+      createMessage.error(timeoutMsg)
     }
 
-    throw new Error(timeoutMsg || "请求出错，请稍后重试");
+    throw new Error(timeoutMsg || '请求出错，请稍后重试')
   },
 
   /**
@@ -79,55 +79,55 @@ const transform: AxiosTransform = {
    * @description 请求前数据处理
    */
   beforeRequestHook: (config: AxiosRequestConfig, options: RequestOptions): AxiosRequestConfig => {
-    const { apiUrl, joinPrefix, urlPrefix, formatDate, joinTime = true, joinParamsToUrl } = options;
+    const { apiUrl, joinPrefix, urlPrefix, formatDate, joinTime = true, joinParamsToUrl } = options
 
     if (joinPrefix) {
-      config.url = `${urlPrefix}${config.url}`;
+      config.url = `${urlPrefix}${config.url}`
     }
 
     if (apiUrl && isString(apiUrl)) {
-      config.url = `${apiUrl}${config.url}`;
+      config.url = `${apiUrl}${config.url}`
     }
 
-    const params = config.params || {};
-    const data = config.data || false;
-    formatDate && data && !isString(data) && formatRequestDate(data);
+    const params = config.params || {}
+    const data = config.data || false
+    formatDate && data && !isString(data) && formatRequestDate(data)
     if (config.method?.toUpperCase() === RequestEnum.GET) {
       if (!isString(params)) {
         // 给 get 请求加上时间戳参数，避免从缓存拿数据
-        config.params = Object.assign(params || {}, joinTimestamp(joinTime, false));
+        config.params = Object.assign(params || {}, joinTimestamp(joinTime, false))
       } else {
         // 兼容 restful 风格
-        config.url = `${config.url}${params}${joinTimestamp(joinTime, true)}`;
-        config.params = undefined;
+        config.url = `${config.url}${params}${joinTimestamp(joinTime, true)}`
+        config.params = undefined
       }
     } else {
       if (!isString(params)) {
-        formatDate && formatRequestDate(params);
+        formatDate && formatRequestDate(params)
 
-        if (Reflect.has(config, "data") && config.data && Object.keys(config.data).length > 0) {
-          config.data = data;
-          config.params = params;
+        if (Reflect.has(config, 'data') && config.data && Object.keys(config.data).length > 0) {
+          config.data = data
+          config.params = params
         } else {
           // 非GET请求如果没有提供data，则将params视为data
-          config.data = params;
-          config.params = undefined;
+          config.data = params
+          config.params = undefined
         }
 
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(
             config.url as string,
             Object.assign({}, config.params, config.data)
-          );
+          )
         }
       } else {
         // 兼容 restful 风格
-        config.url = `${config.url}${params}`;
-        config.params = undefined;
+        config.url = `${config.url}${params}`
+        config.params = undefined
       }
     }
 
-    return config;
+    return config
   },
 
   /**
@@ -137,13 +137,13 @@ const transform: AxiosTransform = {
    * @description 请求拦截器处理
    */
   requestInterceptors: (config, options) => {
-    const token = getToken();
+    const token = getToken()
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
-      (config as Recordable).headers.Authorization = options.authenticationScheme
+      ;(config as Recordable).headers.Authorization = options.authenticationScheme
         ? `${options.authenticationScheme} ${token}`
-        : token;
+        : token
     }
-    return config;
+    return config
   },
 
   /**
@@ -151,7 +151,7 @@ const transform: AxiosTransform = {
    * @returns 响应拦截器
    */
   responseInterceptors: (res: AxiosResponse<any>) => {
-    return res;
+    return res
   },
 
   /**
@@ -159,39 +159,39 @@ const transform: AxiosTransform = {
    * @description 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
-    const errorLogStore = useErrorLogStoreWithOut();
-    errorLogStore.addAjaxErrorInfo(error);
-    const { response, code, message, config } = error || {};
-    const errorMessageMode = config?.requestOptions?.errorMessageMode || "none";
-    const msg: string = response?.data?.error?.message ?? "";
-    const err: string = error?.toString?.() ?? "";
-    let errMessage = "";
+    const errorLogStore = useErrorLogStoreWithOut()
+    errorLogStore.addAjaxErrorInfo(error)
+    const { response, code, message, config } = error || {}
+    const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none'
+    const msg: string = response?.data?.error?.message ?? ''
+    const err: string = error?.toString?.() ?? ''
+    let errMessage = ''
 
     try {
-      if (code === "ECONNABORTED" && message.indexOf("timeout") !== -1) {
-        errMessage = "接口请求超时，请刷新页面重试！";
+      if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
+        errMessage = '接口请求超时，请刷新页面重试！'
       }
-      if (err?.includes("Network Error")) {
-        errMessage = "网络异常，请检查您的网络连接是否正常！";
+      if (err?.includes('Network Error')) {
+        errMessage = '网络异常，请检查您的网络连接是否正常！'
       }
 
       if (errMessage) {
-        if (errorMessageMode === "alert") {
-          createErrorAlert({ title: "错误提示", message: errMessage });
+        if (errorMessageMode === 'alert') {
+          createErrorAlert({ title: '错误提示', message: errMessage })
         }
-        if (errorMessageMode === "message") {
-          createMessage.error(errMessage);
+        if (errorMessageMode === 'message') {
+          createMessage.error(errMessage)
         }
-        return Promise.reject(error);
+        return Promise.reject(error)
       }
     } catch (error) {
-      throw new Error(error as unknown as string);
+      throw new Error(error as unknown as string)
     }
 
-    checkStatus(error?.response?.status, msg, errorMessageMode);
-    return Promise.reject(error);
+    checkStatus(error?.response?.status, msg, errorMessageMode)
+    return Promise.reject(error)
   },
-};
+}
 
 function createAxios(opt?: Partial<CreateAxiosOptions>) {
   return new ChocoAxios(
@@ -199,11 +199,11 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
       {
         timeout: 10 * 1000,
         headers: {
-          "Content-Type": ContentTypeEnum.JSON,
+          'Content-Type': ContentTypeEnum.JSON,
         },
         transform: clone(transform),
         // 参考文档：https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
-        authenticationScheme: "",
+        authenticationScheme: '',
         // 以下配置项都可以在独立请求覆盖
         requestOptions: {
           apiUrl: globSetting.apiUrl,
@@ -221,7 +221,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 默认格式化提交参数时间
           formatDate: true,
           // 消息提示类型
-          errorMessageMode: "message",
+          errorMessageMode: 'message',
           // 默认加入时间戳
           joinTime: true,
           // 默认请求携带 Token
@@ -230,7 +230,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
       },
       opt || {}
     )
-  );
+  )
 }
 
-export const defHttp = createAxios();
+export const defHttp = createAxios()

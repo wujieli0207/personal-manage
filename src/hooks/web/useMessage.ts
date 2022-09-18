@@ -1,8 +1,8 @@
-import { ElNotification, ElMessage, ElMessageBox } from "element-plus";
+import { ElNotification, ElMessage, ElMessageBox } from 'element-plus'
 
 interface alertOptions {
-  message: string;
-  title?: string;
+  message: string
+  title?: string
 }
 
 /**
@@ -10,11 +10,11 @@ interface alertOptions {
  * @description success消息提示
  */
 function createSuccessAlert(options: alertOptions) {
-  const { message, title = "成功提示" } = options;
+  const { message, title = '成功提示' } = options
   return ElMessageBox.alert(message, title, {
-    type: "success",
-    confirmButtonText: "确定",
-  });
+    type: 'success',
+    confirmButtonText: '确定',
+  })
 }
 
 /**
@@ -22,11 +22,11 @@ function createSuccessAlert(options: alertOptions) {
  * @description info消息提示
  */
 function createInfoAlert(options: alertOptions) {
-  const { message, title = "信息提示" } = options;
+  const { message, title = '信息提示' } = options
   return ElMessageBox.alert(message, title, {
-    type: "info",
-    confirmButtonText: "确定",
-  });
+    type: 'info',
+    confirmButtonText: '确定',
+  })
 }
 
 /**
@@ -34,11 +34,11 @@ function createInfoAlert(options: alertOptions) {
  * @description warn消息提示
  */
 function createWarnAlert(options: alertOptions) {
-  const { message, title = "警告提示" } = options;
+  const { message, title = '警告提示' } = options
   return ElMessageBox.alert(message, title, {
-    type: "warning",
-    confirmButtonText: "确定",
-  });
+    type: 'warning',
+    confirmButtonText: '确定',
+  })
 }
 
 /**
@@ -46,11 +46,11 @@ function createWarnAlert(options: alertOptions) {
  * @description error消息提示
  */
 function createErrorAlert(options: alertOptions) {
-  const { message, title = "错误提示" } = options;
+  const { message, title = '错误提示' } = options
   return ElMessageBox.alert(message, title, {
-    type: "error",
-    confirmButtonText: "确定",
-  });
+    type: 'error',
+    confirmButtonText: '确定',
+  })
 }
 
 /**
@@ -58,18 +58,18 @@ function createErrorAlert(options: alertOptions) {
  * @description 确认消息处理
  */
 async function createConfirmMessage(options: alertOptions, confirm: Fn) {
-  const { message, title = "确认消息" } = options;
+  const { message, title = '确认消息' } = options
   return ElMessageBox.confirm(message, title, {
-    type: "warning",
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
+    type: 'warning',
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
   })
     .then(() => {
-      confirm();
+      confirm()
     })
     .catch(() => {
       // 点击取消时没有操作
-    });
+    })
 }
 
 export function useMessage() {
@@ -81,5 +81,5 @@ export function useMessage() {
     createInfoAlert,
     createWarnAlert,
     createErrorAlert,
-  };
+  }
 }
