@@ -14,38 +14,38 @@
 </template>
 
 <script lang="ts" setup>
-  defineProps({
-    isDialogShow: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    showButton: {
-      type: Boolean,
-      default: true,
-    },
-    width: {
-      type: String,
-      default: '',
-    },
-  })
+defineProps({
+  isDialogShow: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  title: {
+    type: String,
+    default: '',
+  },
+  showButton: {
+    type: Boolean,
+    default: true,
+  },
+  width: {
+    type: String,
+    default: '',
+  },
+})
 
-  const emits = defineEmits(['update:isDialogShow', 'confirm'])
+const emits = defineEmits(['update:isDialogShow', 'confirm'])
 
-  /**
-   * @description 处理确认事件
-   */
-  function handleConfirm() {
-    emits('confirm')
-  }
-  /**
-   * @description 处理取消事件
-   */
-  function handleCancel() {
-    emits('update:isDialogShow', false)
-  }
+/**
+ * @description 处理确认事件
+ */
+function handleConfirm() {
+  emits('confirm')
+}
+/**
+ * @description 处理取消事件
+ */
+function handleCancel() {
+  emits('update:isDialogShow', false)
+}
 </script>

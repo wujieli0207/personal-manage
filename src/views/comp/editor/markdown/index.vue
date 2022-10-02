@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
-  import { Markdown } from '/@/components/Markdown'
+import { ref } from 'vue'
+import { Markdown } from '/@/components/Markdown'
 
-  const markdownValue = ref('')
+const markdownValue = ref('')
 
-  /**
-   * @description markdown 数据改变
-   */
-  function handleChange(v: string) {
-    markdownValue.value = v
-  }
+/**
+ * @description markdown 数据改变
+ */
+function handleChange(v: string) {
+  markdownValue.value = v
+}
 </script>

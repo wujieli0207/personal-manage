@@ -5,6 +5,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { AppProvider } from '/@/components/Application'
-  console.log('hello')
+import { AppProvider } from '/@/components/Application'
+console.log('hello')
 </script>

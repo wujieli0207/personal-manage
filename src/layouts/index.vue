@@ -15,16 +15,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, unref } from 'vue'
-  import WujiePage from './page/index.vue'
-  import WujieHeader from './header/index.vue'
-  import WujieSiderbar from './siderbar/index.vue'
+import { computed, unref } from 'vue'
+import WujiePage from './page/index.vue'
+import WujieHeader from './header/index.vue'
+import WujieSiderbar from './siderbar/index.vue'
 
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 
-  const { getCollapsed, getShowSidebar, getShowHeader } = useMenuSetting()
+const { getCollapsed, getShowSidebar, getShowHeader } = useMenuSetting()
 
-  const getElHeaderClass = computed(() => {
-    return unref(getShowHeader) ? 'h-16' : 'h-4'
-  })
+const getElHeaderClass = computed(() => {
+  return unref(getShowHeader) ? 'h-16' : 'h-4'
+})
 </script>

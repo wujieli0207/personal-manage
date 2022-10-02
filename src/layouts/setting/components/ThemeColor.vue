@@ -20,38 +20,38 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue'
-  import { AppPresentColor } from '/@/settings/designSetting'
-  import { SvgIcon } from '/@/components/Icon'
-  import { HandlerEnum } from '/@/enums/appEnum'
-  import { baseHandler } from '../handler'
+import { PropType } from 'vue'
+import { AppPresentColor } from '/@/settings/designSetting'
+import { SvgIcon } from '/@/components/Icon'
+import { HandlerEnum } from '/@/enums/appEnum'
+import { baseHandler } from '../handler'
 
-  const props = defineProps({
-    colorList: {
-      type: Array as PropType<AppPresentColor[]>,
-      default: () => [],
-    },
-    def: {
-      type: String,
-      default: '',
-    },
-    event: {
-      type: String as PropType<HandlerEnum>,
-      default: '',
-    },
-  })
+const props = defineProps({
+  colorList: {
+    type: Array as PropType<AppPresentColor[]>,
+    default: () => [],
+  },
+  def: {
+    type: String,
+    default: '',
+  },
+  event: {
+    type: String as PropType<HandlerEnum>,
+    default: '',
+  },
+})
 
-  function handleChangeThemeColor(color: string) {
-    // // document.documentElement 是全局变量时
-    const el = document.documentElement
+function handleChangeThemeColor(color: string) {
+  // // document.documentElement 是全局变量时
+  const el = document.documentElement
 
-    // 获取 css 变量
-    getComputedStyle(el).getPropertyValue(`--el-color-primary`)
+  // 获取 css 变量
+  getComputedStyle(el).getPropertyValue(`--el-color-primary`)
 
-    // 设置 css 变量
-    el.style.setProperty('--el-color-primary', color)
+  // 设置 css 变量
+  el.style.setProperty('--el-color-primary', color)
 
-    // 修改已选择的系统配色
-    props.event && baseHandler(props.event, color)
-  }
+  // 修改已选择的系统配色
+  props.event && baseHandler(props.event, color)
+}
 </script>

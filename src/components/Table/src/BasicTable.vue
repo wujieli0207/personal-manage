@@ -33,54 +33,54 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, toRaw, unref, useAttrs } from 'vue'
-  import TableTitle from './components/TableTitle.vue'
-  import { BasicHelp } from '/@/components/Basic'
-  import { BasicPagination } from '/@/components/Pagination'
-  import { basicProps } from './props'
-  import { BasicTableProps } from './types/table'
-  import { useColumns } from './hooks/useColumns'
-  import { useTableHeader } from './hooks/useTableHeader'
-  import { useDataSource } from './hooks/useDataSource'
-  import { usePagination } from './hooks/usePagination'
-  import type { PagingChangingOption } from '/@/components/Pagination/src/types'
+import { computed, ref, toRaw, unref, useAttrs } from 'vue'
+import TableTitle from './components/TableTitle.vue'
+import { BasicHelp } from '/@/components/Basic'
+import { BasicPagination } from '/@/components/Pagination'
+import { basicProps } from './props'
+import { BasicTableProps } from './types/table'
+import { useColumns } from './hooks/useColumns'
+import { useTableHeader } from './hooks/useTableHeader'
+import { useDataSource } from './hooks/useDataSource'
+import { usePagination } from './hooks/usePagination'
+import type { PagingChangingOption } from '/@/components/Pagination/src/types'
 
-  const props = defineProps(basicProps)
-  const emits = defineEmits(['pagingChange'])
-  const attrs = useAttrs()
+const props = defineProps(basicProps)
+const emits = defineEmits(['pagingChange'])
+const attrs = useAttrs()
 
-  const tableElRef = ref(null)
+const tableElRef = ref(null)
 
-  const getProps = computed(() => {
-    return { ...props } as BasicTableProps
-  })
+const getProps = computed(() => {
+  return { ...props } as BasicTableProps
+})
 
-  const { getViewColumns } = useColumns(getProps)
+const { getViewColumns } = useColumns(getProps)
 
-  const { getHeaderProps } = useTableHeader(getProps)
+const { getHeaderProps } = useTableHeader(getProps)
 
-  const { getDataSourceRef } = useDataSource(getProps)
+const { getDataSourceRef } = useDataSource(getProps)
 
-  const { getPaginationInfo, getShowPagination } = usePagination(getProps)
+const { getPaginationInfo, getShowPagination } = usePagination(getProps)
 
-  const isShowPaging = getShowPagination()
+const isShowPaging = getShowPagination()
 
-  const getBindValues = computed(() => {
-    let propsData: Recordable = {
-      ...attrs,
-      ...unref(getProps),
-      ...unref(getHeaderProps),
-      columns: toRaw(unref(getViewColumns)),
-      data: unref(getDataSourceRef),
-    }
-
-    return propsData
-  })
-
-  /**
-   * @description 分页数据改变监听函数
-   */
-  function handlePagingChange(option: PagingChangingOption) {
-    emits('pagingChange', option)
+const getBindValues = computed(() => {
+  let propsData: Recordable = {
+    ...attrs,
+    ...unref(getProps),
+    ...unref(getHeaderProps),
+    columns: toRaw(unref(getViewColumns)),
+    data: unref(getDataSourceRef),
   }
+
+  return propsData
+})
+
+/**
+ * @description 分页数据改变监听函数
+ */
+function handlePagingChange(option: PagingChangingOption) {
+  emits('pagingChange', option)
+}
 </script>

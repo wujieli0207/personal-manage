@@ -8,19 +8,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
-  import { useRoute } from 'vue-router'
-  import SubItem from './components/SubItem.vue'
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-  import { Menu } from '/@/router/types'
-  import { getMenus } from '/@/router/menus'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import SubItem from './components/SubItem.vue'
+import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+import { Menu } from '/@/router/types'
+import { getMenus } from '/@/router/menus'
 
-  const route = useRoute()
+const route = useRoute()
 
-  const { getCollapsed } = useMenuSetting()
+const { getCollapsed } = useMenuSetting()
 
-  const title = import.meta.env.VITE_GLOB_APP_TITLE
+const title = import.meta.env.VITE_GLOB_APP_TITLE
 
-  const activeMenu = computed(() => route.path)
-  const menuList: Menu[] = getMenus()
+const activeMenu = computed(() => route.path)
+const menuList: Menu[] = getMenus()
 </script>

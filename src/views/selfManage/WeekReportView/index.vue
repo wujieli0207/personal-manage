@@ -29,66 +29,66 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, reactive, Ref, ref } from 'vue'
-  import { getWeekReportByYearApi } from '/@/api/weekReport'
-  import WorkDayPomo from './components/WorkDayPomo.vue'
-  import RestDayPomo from './components/RestDayPomo.vue'
-  import WorkoutTimes from './components/Workout.vue'
-  import SleepHour from './components/SleepHour.vue'
-  import { WeekReportYData } from './types'
+import { computed, onMounted, reactive, Ref, ref } from 'vue'
+import { getWeekReportByYearApi } from '/@/api/weekReport'
+import WorkDayPomo from './components/WorkDayPomo.vue'
+import RestDayPomo from './components/RestDayPomo.vue'
+import WorkoutTimes from './components/Workout.vue'
+import SleepHour from './components/SleepHour.vue'
+import { WeekReportYData } from './types'
 
-  // 周总结数据查询年份，默当前年份
-  const reportYear = ref(new Date().getFullYear())
-  const yearRange = computed(() => {
-    return [
-      reportYear.value + 2,
-      reportYear.value + 1,
-      reportYear.value,
-      reportYear.value - 1,
-      reportYear.value - 2,
-    ]
-  })
+// 周总结数据查询年份，默当前年份
+const reportYear = ref(new Date().getFullYear())
+const yearRange = computed(() => {
+  return [
+    reportYear.value + 2,
+    reportYear.value + 1,
+    reportYear.value,
+    reportYear.value - 1,
+    reportYear.value - 2,
+  ]
+})
 
-  const xData: Ref<Array<string>> = ref([])
+const xData: Ref<Array<string>> = ref([])
 
-  const yData: WeekReportYData = reactive({
-    workDayPomoData: [],
-    restDayPomoData: [],
-    workoutTimesData: [],
-    sleepHourData: [],
-  })
+const yData: WeekReportYData = reactive({
+  workDayPomoData: [],
+  restDayPomoData: [],
+  workoutTimesData: [],
+  sleepHourData: [],
+})
 
-  async function loadWeekReport() {
-    // 重新加载前数据清空
-    if (xData.value.length !== 0) {
-      xData.value = []
-      yData.workDayPomoData = []
-      yData.restDayPomoData = []
-      yData.workoutTimesData = []
-      yData.sleepHourData = []
-    }
-
-    const result = await getWeekReportByYearApi({
-      year: reportYear.value,
-      pageSize: 1000,
-      currentPage: 1,
-    })
-
-    result.list
-      .sort((a, b) => Number(a.id) - Number(b.id))
-      .forEach((item) => {
-        // x 轴数据
-        xData.value.push(item.title)
-
-        // y 轴数据
-        yData.workDayPomoData.push(Number(item.workDayPomo))
-        yData.restDayPomoData.push(Number(item.restDayPomo))
-        yData.workoutTimesData.push(Number(item.workoutTimes))
-        yData.sleepHourData.push(parseFloat(item.averageSleepHour))
-      })
+async function loadWeekReport() {
+  // 重新加载前数据清空
+  if (xData.value.length !== 0) {
+    xData.value = []
+    yData.workDayPomoData = []
+    yData.restDayPomoData = []
+    yData.workoutTimesData = []
+    yData.sleepHourData = []
   }
 
-  onMounted(() => {
-    loadWeekReport()
+  const result = await getWeekReportByYearApi({
+    year: reportYear.value,
+    pageSize: 1000,
+    currentPage: 1,
   })
+
+  result.list
+    .sort((a, b) => Number(a.id) - Number(b.id))
+    .forEach((item) => {
+      // x 轴数据
+      xData.value.push(item.title)
+
+      // y 轴数据
+      yData.workDayPomoData.push(Number(item.workDayPomo))
+      yData.restDayPomoData.push(Number(item.restDayPomo))
+      yData.workoutTimesData.push(Number(item.workoutTimes))
+      yData.sleepHourData.push(parseFloat(item.averageSleepHour))
+    })
+}
+
+onMounted(() => {
+  loadWeekReport()
+})
 </script>

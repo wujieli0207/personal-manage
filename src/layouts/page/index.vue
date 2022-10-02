@@ -24,8 +24,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
-  import { getTransitionName } from './transition'
+import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
+import { getTransitionName } from './transition'
 
-  const { getBasicTransition, getEnableTransition } = useTransitionSetting()
+const { getBasicTransition, getEnableTransition } = useTransitionSetting()
 </script>

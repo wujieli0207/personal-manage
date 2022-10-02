@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { BasicTable } from '/@/components/Table'
-  import { getBasicColumns, getBasicData } from './hooks/tableData'
+import { BasicTable } from '/@/components/Table'
+import { getBasicColumns, getBasicData } from './hooks/tableData'
 
-  const columns = getBasicColumns()
+const columns = getBasicColumns()
 
-  const data = getBasicData()
+const data = getBasicData()
 </script>
